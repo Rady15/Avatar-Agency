@@ -1,191 +1,360 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import { Eye, ExternalLink } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Eye, ExternalLink, X, ArrowUpRight, Layers, Zap, Target } from "lucide-react";
 
-const portfolioItems = [
-  { id: 1, title: "هوية بصرية - شركة تقنية", category: "Branding", color: "#D4AF37", year: "2024" },
-  { id: 2, title: "موقع إلكتروني - متجر فاخر", category: "Web Design", color: "#1E88E5", year: "2024" },
-  { id: 3, title: "ستاند معرض - قمة الأعمال", category: "Exhibition", color: "#6A1B9A", year: "2023" },
-  { id: 4, title: "حملة سوشيال - مطعم", category: "Social Media", color: "#C62828", year: "2023" },
-  { id: 5, title: "فيديو إعلاني - منتجعات", category: "Video Production", color: "#E65100", year: "2023" },
-  { id: 6, title: "لافتات - مركز تجاري", category: "Signage", color: "#1B5E20", year: "2023" },
-  { id: 7, title: "هدايا دعائية - بنك", category: "Promotional Gifts", color: "#00695C", year: "2022" },
-  { id: 8, title: "حملة إعلانية - شركة ناشئة", category: "Paid Ads", color: "#D4AF37", year: "2022" },
+interface PortfolioItem {
+  id: number;
+  title: string;
+  titleEn: string;
+  category: string;
+  categoryEn: string;
+  description: string;
+  year: string;
+  image: string;
+  tags: string[];
+  color: string;
+}
+
+const portfolioItems: PortfolioItem[] = [
+  {
+    id: 1,
+    title: "هوية بصرية - شركة التقنية",
+    titleEn: "Tech Company Branding",
+    category: "الهوية البصرية",
+    categoryEn: "Branding",
+    description: "تصميم هوية بصرية متكاملة لشركة تقنية سعودية رائدة في مجال الحلول الرقمية.",
+    year: "2024",
+    image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&h=600&fit=crop",
+    tags: ["شعار", "هوية متكاملة", "تصميم جرافيك"],
+    color: "#6366f1",
+  },
+  {
+    id: 2,
+    title: "متجر إلكتروني فاخر",
+    titleEn: "Luxury E-Commerce",
+    category: "تصميم المواقع",
+    categoryEn: "Web Design",
+    description: "متجر إلكتروني متكامل مع نظام دفع وأvernment وإدارة مخزون متقدم.",
+    year: "2024",
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop",
+    tags: ["تجارة إلكترونية", "UI/UX", "تطوير"],
+    color: "#8b5cf6",
+  },
+  {
+    id: 3,
+    title: "ستاند معرض قمة الأعمال",
+    titleEn: "Business Summit Booth",
+    category: "المعارض",
+    categoryEn: "Exhibitions",
+    description: "تصميم وتنفيذ ستاند احترافي لمعرض قمة الأعمال الدولي.",
+    year: "2024",
+    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop",
+    tags: ["ستاند", "تصميم", "تنفيذ"],
+    color: "#ec4899",
+  },
+  {
+    id: 4,
+    title: "حملة سوشيال ميديا",
+    titleEn: "Social Media Campaign",
+    category: "السوشيال ميديا",
+    categoryEn: "Social Media",
+    description: "حملة تسويقية شاملة على منصات التواصل الاجتماعي.",
+    year: "2024",
+    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=600&fit=crop",
+    tags: ["تسويق", "محتوى", "إعلانات"],
+    color: "#f43f5e",
+  },
+  {
+    id: 5,
+    title: "فيديو إعلاني لمنتجعات",
+    titleEn: "Resort Commercial",
+    category: "إنتاج الفيديو",
+    categoryEn: "Video Production",
+    description: "إنتاج فيديو ترويجي سينمائي لمنتجع سياحي فاخر.",
+    year: "2023",
+    image: "https://images.unsplash.com/photo-1573052905904-34ad8c27f0cc?w=800&h=600&fit=crop",
+    tags: ["فيديو", "سينمائي", "ترويج"],
+    color: "#f97316",
+  },
+  {
+    id: 6,
+    title: "لافتات مركز تجاري",
+    titleEn: "Mall Signage",
+    category: "اللافتات",
+    categoryEn: "Signage",
+    description: "تصميم وتنفيذ لافتات خارجية وداخلية لمركز تجاري.",
+    year: "2023",
+    image: "https://images.unsplash.com/photo-1562663474-6cbb3eaa4d14?w=800&h=600&fit=crop",
+    tags: ["لافتات", "خارجية", "داخلية"],
+    color: "#22c55e",
+  },
+  {
+    id: 7,
+    title: "هدايا دعائية للبنك",
+    titleEn: "Bank Promotional Gifts",
+    category: "الهدايا الدعائية",
+    categoryEn: "Promo Gifts",
+    description: "تصميم وإنتاج مجموعة هدايا مخصصة لموظفي بنك.",
+    year: "2023",
+    image: "https://images.unsplash.com/photo-1606156889509-1c30d639a4b1?w=800&h=600&fit=crop",
+    tags: ["هدايا", "شركات", "تخصيص"],
+    color: "#14b8a6",
+  },
+  {
+    id: 8,
+    title: "حملة إعلانية - شركة ناشئة",
+    titleEn: "Startup Ads Campaign",
+    category: "الحملات الإعلانية",
+    categoryEn: "Paid Ads",
+    description: "حملة إعلانية متكاملة لإطلاق شركة ناشئة في قطاع التقنية.",
+    year: "2023",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
+    tags: ["إعلانات", "جوجل", "تسويق"],
+    color: "#0ea5e9",
+  },
+  {
+    id: 9,
+    title: "منصة تعليمية",
+    titleEn: "E-Learning Platform",
+    category: "تصميم المواقع",
+    categoryEn: "Web Design",
+    description: "منصة تعليمية تفاعلية مع نظام إدارة محتوى متقدم.",
+    year: "2023",
+    image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&h=600&fit=crop",
+    tags: ["تعليم", "منصة", "تفاعلي"],
+    color: "#a855f7",
+  },
 ];
 
-const particlePositions = [
-  { left: 12, top: 15, duration: 6, delay: 0.5 },
-  { left: 25, top: 35, duration: 7, delay: 1.2 },
-  { left: 38, top: 55, duration: 5, delay: 0.3 },
-  { left: 51, top: 75, duration: 8, delay: 1.8 },
-  { left: 64, top: 25, duration: 6, delay: 0.8 },
-  { left: 77, top: 45, duration: 7, delay: 1.5 },
-  { left: 88, top: 65, duration: 5, delay: 0.2 },
-  { left: 15, top: 85, duration: 8, delay: 1.0 },
-  { left: 42, top: 10, duration: 6, delay: 1.6 },
-  { left: 73, top: 90, duration: 7, delay: 0.7 },
-  { left: 95, top: 40, duration: 5, delay: 1.3 },
-  { left: 30, top: 20, duration: 8, delay: 0.9 },
-  { left: 55, top: 60, duration: 6, delay: 1.1 },
-  { left: 82, top: 80, duration: 7, delay: 0.4 },
-  { left: 8, top: 50, duration: 5, delay: 1.7 },
+const categories = [
+  { id: "all", label: "الكل", icon: Layers },
+  { id: "Branding", label: "الهوية البصرية", icon: Target },
+  { id: "Web Design", label: "تصميم المواقع", icon: Zap },
+  { id: "Social Media", label: "السوشيال ميديا", icon: Eye },
+  { id: "Exhibitions", label: "المعارض", icon: ExternalLink },
 ];
 
 export function PortfolioSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(null);
 
-  const x = useTransform(scrollYProgress, [0, 1], ["5%", "-60%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
+  const filteredItems =
+    activeCategory === "all"
+      ? portfolioItems
+      : portfolioItems.filter((item) => item.categoryEn === activeCategory);
 
   return (
-    <section ref={containerRef} id="portfolio" className="relative min-h-[200vh] py-20 overflow-hidden">
-      {/* Background */}
+    <section id="portfolio" className="relative min-h-screen py-20 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-[#0A1D37] via-[#0d2341] to-[#0A1D37]" />
 
-      {/* Floating Particles */}
-      {particlePositions.map((p, i) => (
+      <div className="relative z-10 container mx-auto px-4">
         <motion.div
-          key={i}
-          className="absolute w-1 h-1 bg-primary/30 rounded-full"
-          style={{ left: `${p.left}%`, top: `${p.top}%` }}
-          animate={{ y: [0, -50, 0], opacity: [0, 1, 0] }}
-          transition={{ duration: p.duration, repeat: Infinity, delay: p.delay }}
-        />
-      ))}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
+          <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-bold mb-4">
+            معرض أعمالنا
+          </span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4">
+            <span className="gold-text">أعمالنا</span> المميزة
+          </h2>
+          <p className="text-white/50">نقدم حلولاً إبداعية تتجاوز التوقعات</p>
+        </motion.div>
 
-      {/* Sticky Content */}
-      <motion.div style={{ opacity }} className="sticky top-0 h-screen flex flex-col justify-center">
-        {/* Header */}
-        <div className="container mx-auto px-4 mb-12 text-center">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-bold mb-4"
-          >
-            أعمالنا
-          </motion.span>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            viewport={{ once: true }}
-            className="text-3xl md:text-4xl lg:text-5xl font-black"
-          >
-            <span className="gold-text">معرض</span> أعمالنا
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            viewport={{ once: true }}
-            className="text-white/50 mt-3 text-sm"
-            style={{ fontFamily: "var(--font-geist-sans)" }}
-          >
-            SHOWCASE OF OUR WORK
-          </motion.p>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="flex flex-wrap justify-center gap-3 mb-12"
+        >
+          {categories.map((cat) => {
+            const Icon = cat.icon;
+            const isActive = activeCategory === cat.id;
+            return (
+              <button
+                key={cat.id}
+                onClick={() => setActiveCategory(cat.id)}
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-all duration-300 ${
+                  isActive
+                    ? "bg-primary text-white shadow-lg shadow-primary/25"
+                    : "bg-white/5 text-white/60 hover:bg-white/10 hover:text-white"
+                }`}
+              >
+                <Icon className="w-4 h-4" />
+                {cat.label}
+              </button>
+            );
+          })}
+        </motion.div>
 
-        {/* Filmstrip Gallery */}
-        <div className="relative overflow-hidden py-6">
-          {/* Film Perforations - Top */}
-          <div className="absolute top-0 left-0 right-0 h-5 bg-[#111] z-10 flex items-center">
-            <motion.div style={{ x }} className="flex gap-6 px-2">
-              {[...Array(50)].map((_, i) => (
-                <div key={i} className="w-3 h-2 bg-[#0A1D37] rounded-sm flex-shrink-0" />
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Film Perforations - Bottom */}
-          <div className="absolute bottom-0 left-0 right-0 h-5 bg-[#111] z-10 flex items-center">
-            <motion.div style={{ x }} className="flex gap-6 px-2">
-              {[...Array(50)].map((_, i) => (
-                <div key={i} className="w-3 h-2 bg-[#0A1D37] rounded-sm flex-shrink-0" />
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Scrollable Content */}
-          <motion.div style={{ x }} className="flex gap-6 px-8 py-4">
-            {[...portfolioItems, ...portfolioItems].map((item, index) => (
-              <motion.div key={`${item.id}-${index}`} className="flex-shrink-0 w-[280px] md:w-[350px]">
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <AnimatePresence mode="popLayout">
+            {filteredItems.map((item, index) => (
+              <motion.div
+                key={item.id}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
+              >
                 <motion.div
-                  className="relative h-[350px] md:h-[420px] rounded-2xl overflow-hidden group cursor-pointer"
-                  style={{
-                    background: `linear-gradient(135deg, ${item.color}20 0%, ${item.color}05 100%)`,
-                    border: `1px solid ${item.color}30`,
-                  }}
-                  whileHover={{ scale: 1.03, y: -10 }}
-                  transition={{ duration: 0.4 }}
+                  className="group relative h-[320px] rounded-2xl overflow-hidden cursor-pointer"
+                  whileHover={{ y: -8 }}
+                  onClick={() => setSelectedProject(item)}
                 >
-                  {/* Placeholder Image */}
-                  <div
-                    className="absolute inset-0 flex items-center justify-center"
-                    style={{ background: `radial-gradient(circle, ${item.color}15 0%, transparent 70%)` }}
-                  >
-                    <motion.div
-                      className="w-20 h-20 rounded-full flex items-center justify-center"
-                      style={{ background: `${item.color}20`, border: `2px solid ${item.color}40` }}
-                      whileHover={{ rotate: 360, scale: 1.2 }}
-                      transition={{ duration: 0.6 }}
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A1D37] via-[#0A1D37]/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+
+                  <div className="absolute top-4 right-4">
+                    <span
+                      className="px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm"
+                      style={{ background: `${item.color}30`, color: item.color }}
                     >
-                      <Eye className="w-8 h-8" style={{ color: item.color }} />
-                    </motion.div>
+                      {item.category}
+                    </span>
                   </div>
 
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A1D37] via-[#0A1D37]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <span
-                        className="inline-block px-3 py-1 rounded-full text-xs font-medium mb-3"
-                        style={{ background: `${item.color}30`, color: item.color }}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                    <h3 className="text-white font-bold text-lg mb-1">{item.title}</h3>
+                    <p className="text-white/60 text-sm mb-3 line-clamp-2">{item.description}</p>
+
+                    <div className="flex items-center justify-between">
+                      <span className="text-white/40 text-xs">{item.year}</span>
+                      <motion.div
+                        className="w-10 h-10 rounded-full flex items-center justify-center"
+                        style={{ background: item.color }}
+                        whileHover={{ scale: 1.1 }}
                       >
-                        {item.category}
-                      </span>
-                      <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs text-white/40">{item.year}</span>
-                        <motion.button
-                          className="flex items-center gap-2 text-sm font-medium"
-                          style={{ color: item.color }}
-                          whileHover={{ x: -5 }}
-                        >
-                          عرض المشروع
-                          <ExternalLink className="w-4 h-4" />
-                        </motion.button>
-                      </div>
+                        <ArrowUpRight className="w-5 h-5 text-white" />
+                      </motion.div>
                     </div>
                   </div>
 
-                  {/* Frame Number */}
-                  <div className="absolute top-4 right-4 text-xs font-mono" style={{ color: item.color, opacity: 0.5 }}>
-                    {String(index + 1).padStart(3, "0")}
-                  </div>
+                  <motion.div
+                    className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ background: `${item.color}20`, backdropFilter: "blur(4px)" }}
+                  >
+                    <motion.button
+                      className="px-6 py-3 rounded-full font-bold flex items-center gap-2"
+                      style={{ background: item.color, color: "#fff" }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Eye className="w-5 h-5" />
+                      عرض المشروع
+                    </motion.button>
+                  </motion.div>
                 </motion.div>
               </motion.div>
             ))}
-          </motion.div>
-        </div>
-
-        {/* Scroll Hint */}
-        <motion.div
-          className="text-center mt-8 text-white/40 text-sm flex items-center justify-center gap-2"
-          animate={{ opacity: [0.4, 1, 0.4] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <span>اسحب للتمرير</span>
-          <motion.span animate={{ x: [0, -10, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
-            ←
-          </motion.span>
+          </AnimatePresence>
         </motion.div>
-      </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="text-center mt-16"
+        >
+          <motion.button
+            className="px-8 py-4 rounded-full font-bold text-lg bg-gradient-to-r from-primary to-purple-600 text-white shadow-lg shadow-primary/25"
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            عرض جميع المشاريع
+          </motion.button>
+        </motion.div>
+      </div>
+
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl"
+            onClick={() => setSelectedProject(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0, y: 50 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.8, opacity: 0, y: 50 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative max-w-4xl w-full bg-[#0A1D37] rounded-3xl overflow-hidden shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="relative h-[300px] md:h-[400px]">
+                <img
+                  src={selectedProject.image}
+                  alt={selectedProject.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A1D37] via-transparent to-transparent" />
+
+                <div className="absolute bottom-6 left-6 right-6">
+                  <span
+                    className="inline-block px-4 py-1.5 rounded-full text-sm font-medium mb-3"
+                    style={{ background: `${selectedProject.color}30`, color: selectedProject.color }}
+                  >
+                    {selectedProject.category}
+                  </span>
+                  <h3 className="text-white text-2xl md:text-3xl font-bold">{selectedProject.title}</h3>
+                  <p className="text-white/60">{selectedProject.titleEn}</p>
+                </div>
+              </div>
+
+              <div className="p-6 md:p-8">
+                <p className="text-white/80 text-lg leading-relaxed mb-6">
+                  {selectedProject.description}
+                </p>
+
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {selectedProject.tags.map((tag, idx) => (
+                    <span
+                      key={idx}
+                      className="px-3 py-1 rounded-full text-sm bg-white/10 text-white/70"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex items-center justify-between pt-6 border-t border-white/10">
+                  <div className="flex items-center gap-2 text-white/50">
+                    <span className="text-sm">{selectedProject.year}</span>
+                  </div>
+                  <motion.button
+                    className="flex items-center gap-2 px-6 py-3 rounded-full font-bold"
+                    style={{ background: selectedProject.color }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <ExternalLink className="w-5 h-5" />
+                    تفاصيل المشروع
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

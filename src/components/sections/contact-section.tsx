@@ -1,23 +1,24 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { useState } from "react";
 import {
-  Send, Mail, Phone, MapPin, Clock, Instagram, Twitter, Linkedin, Facebook, CheckCircle,
+  Send, Mail, Phone, MapPin, Clock, Instagram, Twitter, Linkedin, Facebook, CheckCircle, MessageSquare, Globe
 } from "lucide-react";
 
 const contactInfo = [
-  { icon: Phone, label: "اتصل بنا", value: "+966 50 000 0000", href: "tel:+966500000000" },
-  { icon: Mail, label: "راسلنا", value: "info@avatar-ad.com", href: "mailto:info@avatar-ad.com" },
-  { icon: MapPin, label: "زورنا", value: "الرياض، المملكة العربية السعودية", href: "#" },
-  { icon: Clock, label: "ساعات العمل", value: "الأحد - الخميس: 9ص - 6م", href: "#" },
+  { icon: Phone, label: "اتصل بنا", value: "+966 50 000 0000", href: "tel:+966500000000", color: "from-emerald-500/20 to-teal-500/20", iconColor: "text-emerald-400" },
+  { icon: Mail, label: "راسلنا", value: "info@avatar-ad.com", href: "mailto:info@avatar-ad.com", color: "from-blue-500/20 to-cyan-500/20", iconColor: "text-blue-400" },
+  { icon: MapPin, label: "زورنا", value: "الرياض، المملكة العربية السعودية", href: "#", color: "from-orange-500/20 to-amber-500/20", iconColor: "text-orange-400" },
+  { icon: Clock, label: "ساعات العمل", value: "الأحد - الخميس: 9ص - 6م", href: "#", color: "from-purple-500/20 to-pink-500/20", iconColor: "text-purple-400" },
 ];
 
 const socialLinks = [
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Facebook, href: "#", label: "Facebook" },
+  { icon: Instagram, href: "#", label: "Instagram", color: "hover:bg-gradient-to-br hover:from-purple-600 hover:to-pink-600" },
+  { icon: Twitter, href: "#", label: "Twitter", color: "hover:bg-blue-500" },
+  { icon: Linkedin, href: "#", label: "LinkedIn", color: "hover:bg-blue-700" },
+  { icon: Facebook, href: "#", label: "Facebook", color: "hover:bg-blue-600" },
+  { icon: Globe, href: "#", label: "Website", color: "hover:bg-emerald-500" },
 ];
 
 const services = [
@@ -25,44 +26,12 @@ const services = [
   "الحملات الإعلانية", "اللافتات", "المعارض والستاندات", "الهدايا الدعائية", "الاستشارات",
 ];
 
-const particlePositions = [
-  { left: 8, top: 12, duration: 9, delay: 0.5 },
-  { left: 18, top: 28, duration: 10, delay: 1.2 },
-  { left: 28, top: 44, duration: 8, delay: 0.3 },
-  { left: 38, top: 60, duration: 11, delay: 1.8 },
-  { left: 48, top: 76, duration: 9, delay: 0.8 },
-  { left: 58, top: 20, duration: 10, delay: 1.5 },
-  { left: 68, top: 36, duration: 8, delay: 0.2 },
-  { left: 78, top: 52, duration: 11, delay: 1.0 },
-  { left: 88, top: 68, duration: 9, delay: 1.6 },
-  { left: 15, top: 84, duration: 10, delay: 0.7 },
-  { left: 35, top: 15, duration: 8, delay: 1.3 },
-  { left: 55, top: 35, duration: 11, delay: 0.9 },
-  { left: 75, top: 55, duration: 9, delay: 1.1 },
-  { left: 92, top: 75, duration: 10, delay: 0.4 },
-  { left: 5, top: 45, duration: 8, delay: 1.7 },
-  { left: 25, top: 65, duration: 11, delay: 0.6 },
-  { left: 45, top: 85, duration: 9, delay: 1.4 },
-  { left: 65, top: 10, duration: 10, delay: 0.1 },
-  { left: 85, top: 30, duration: 8, delay: 1.9 },
-  { left: 95, top: 50, duration: 11, delay: 0.85 },
-];
-
 export function ContactSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
   const [formState, setFormState] = useState({
     name: "", email: "", phone: "", service: "", message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
-  const y = useTransform(scrollYProgress, [0, 0.2], [50, 0]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -77,174 +46,131 @@ export function ContactSection() {
   };
 
   return (
-    <section ref={containerRef} id="contact" className="relative min-h-[150vh] py-20 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0A1D37] via-[#0d2341] to-[#0A1D37]" />
-
-      {/* Particles */}
-      {particlePositions.map((p, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1 h-1 bg-primary/40 rounded-full"
-          style={{ left: `${p.left}%`, top: `${p.top}%` }}
-          animate={{ y: [0, -100, 0], opacity: [0, 1, 0] }}
-          transition={{ duration: p.duration, repeat: Infinity, delay: p.delay }}
+    <section className="relative w-full h-full">
+      {/* Image Background */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="/ra.png"
+          alt="Background"
+          className="w-full h-full object-cover"
         />
-      ))}
+        <div className="absolute inset-0 bg-[#0A1D37]/50" />
+      </div>
 
-      {/* Sticky Content */}
-      <motion.div style={{ opacity }} className="sticky top-0 h-screen flex items-center justify-center">
-        <div className="container mx-auto px-4 lg:px-8">
+      {/* Content - No Scroll */}
+      <div className="relative z-10 w-full h-full flex items-center justify-center p-4 lg:p-8">
+        <div className="w-full max-w-7xl">
           {/* Header */}
-          <div className="text-center mb-12">
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-bold mb-4"
-            >
-              تواصل معنا
-            </motion.span>
+          <div className="text-center mb-6">
             <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              viewport={{ once: true }}
-              className="text-3xl md:text-4xl lg:text-5xl font-black"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-3xl md:text-4xl lg:text-5xl font-black mb-2"
             >
               لنبدأ <span className="gold-text">مشروعك</span> معاً
             </motion.h2>
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              viewport={{ once: true }}
-              className="text-white/50 mt-3 text-sm"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-white/50 text-sm"
               style={{ fontFamily: "var(--font-geist-sans)" }}
             >
               LET&apos;S START YOUR PROJECT TOGETHER
             </motion.p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
-            {/* Contact Form */}
-            <motion.div style={{ y }} className="preserve-3d perspective-container">
-              <motion.form
+          <div className="grid lg:grid-cols-5 gap-6 items-start">
+            {/* Contact Form - Takes 3 columns */}
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="lg:col-span-3"
+            >
+              <form
                 onSubmit={handleSubmit}
-                className="relative p-6 md:p-8 rounded-3xl overflow-hidden"
-                style={{
-                  background: "linear-gradient(135deg, rgba(13, 35, 65, 0.9) 0%, rgba(10, 29, 55, 0.95) 100%)",
-                  border: "1px solid rgba(212, 175, 55, 0.15)",
-                }}
-                whileHover={{ rotateY: 2, rotateX: -2 }}
-                transition={{ type: "spring", stiffness: 300 }}
+                className="relative p-6 rounded-2xl overflow-hidden bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md border border-white/20"
               >
-                {/* Glow Effect */}
-                <div className="absolute -inset-px bg-gradient-to-br from-primary/20 via-transparent to-primary/10 rounded-3xl opacity-50" />
+                {/* Decorative Elements */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl" />
+                <div className="absolute bottom-0 left-0 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl" />
 
-                <div className="relative z-10 space-y-5">
+                <div className="relative z-10 space-y-4">
                   {/* Name */}
-                  <motion.div
-                    initial={{ opacity: 0, x: -30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 }}
-                    viewport={{ once: true }}
-                  >
-                    <label className="block text-sm font-medium text-white/70 mb-2">الاسم الكامل</label>
+                  <div>
+                    <label className="block text-sm font-medium text-white/80 mb-1.5">الاسم الكامل</label>
                     <input
                       type="text"
                       required
                       value={formState.name}
                       onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                      className="w-full px-4 py-3.5 rounded-xl bg-secondary/50 border border-primary/20 text-white placeholder:text-white/30 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                      className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all"
                       placeholder="أدخل اسمك الكامل"
                     />
-                  </motion.div>
+                  </div>
 
                   {/* Email & Phone */}
-                  <div className="grid md:grid-cols-2 gap-5">
-                    <motion.div
-                      initial={{ opacity: 0, x: -30 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.2 }}
-                      viewport={{ once: true }}
-                    >
-                      <label className="block text-sm font-medium text-white/70 mb-2">البريد الإلكتروني</label>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-white/80 mb-1.5">البريد الإلكتروني</label>
                       <input
                         type="email"
                         required
                         value={formState.email}
                         onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                        className="w-full px-4 py-3.5 rounded-xl bg-secondary/50 border border-primary/20 text-white placeholder:text-white/30 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                        className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all"
                         placeholder="example@email.com"
                       />
-                    </motion.div>
-                    <motion.div
-                      initial={{ opacity: 0, x: -30 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.25 }}
-                      viewport={{ once: true }}
-                    >
-                      <label className="block text-sm font-medium text-white/70 mb-2">رقم الهاتف</label>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-white/80 mb-1.5">رقم الهاتف</label>
                       <input
                         type="tel"
                         value={formState.phone}
                         onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
-                        className="w-full px-4 py-3.5 rounded-xl bg-secondary/50 border border-primary/20 text-white placeholder:text-white/30 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                        className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all"
                         placeholder="+966 50 000 0000"
                       />
-                    </motion.div>
+                    </div>
                   </div>
 
                   {/* Service Select */}
-                  <motion.div
-                    initial={{ opacity: 0, x: -30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.3 }}
-                    viewport={{ once: true }}
-                  >
-                    <label className="block text-sm font-medium text-white/70 mb-2">الخدمة المطلوبة</label>
+                  <div>
+                    <label className="block text-sm font-medium text-white/80 mb-1.5">الخدمة المطلوبة</label>
                     <select
                       required
                       value={formState.service}
                       onChange={(e) => setFormState({ ...formState, service: e.target.value })}
-                      className="w-full px-4 py-3.5 rounded-xl bg-secondary/50 border border-primary/20 text-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all appearance-none cursor-pointer"
+                      className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all appearance-none cursor-pointer"
                     >
-                      <option value="" className="bg-card">اختر الخدمة</option>
+                      <option value="" className="bg-[#0A1D37]">اختر الخدمة</option>
                       {services.map((service) => (
-                        <option key={service} value={service} className="bg-card">{service}</option>
+                        <option key={service} value={service} className="bg-[#0A1D37]">{service}</option>
                       ))}
                     </select>
-                  </motion.div>
+                  </div>
 
                   {/* Message */}
-                  <motion.div
-                    initial={{ opacity: 0, x: -30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.35 }}
-                    viewport={{ once: true }}
-                  >
-                    <label className="block text-sm font-medium text-white/70 mb-2">تفاصيل المشروع</label>
+                  <div>
+                    <label className="block text-sm font-medium text-white/80 mb-1.5">تفاصيل المشروع</label>
                     <textarea
                       required
-                      rows={4}
+                      rows={3}
                       value={formState.message}
                       onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                      className="w-full px-4 py-3.5 rounded-xl bg-secondary/50 border border-primary/20 text-white placeholder:text-white/30 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all resize-none"
+                      className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all resize-none"
                       placeholder="أخبرنا عن مشروعك وأهدافك..."
                     />
-                  </motion.div>
+                  </div>
 
                   {/* Submit Button */}
                   <motion.button
                     type="submit"
                     disabled={isSubmitting || isSubmitted}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
-                    viewport={{ once: true }}
-                    className={`w-full py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-3 transition-all ${
-                      isSubmitted ? "bg-green-500 text-white" : "bg-primary text-primary-foreground hover:bg-primary/90"
+                    className={`w-full py-3.5 rounded-xl font-bold text-lg flex items-center justify-center gap-3 transition-all ${
+                      isSubmitted ? "bg-green-500 text-white" : "bg-gradient-to-r from-primary to-primary/80 text-white hover:shadow-lg hover:shadow-primary/30"
                     }`}
                     whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
                     whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
@@ -253,7 +179,7 @@ export function ContactSection() {
                       <motion.div
                         animate={{ rotate: 360 }}
                         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                        className="w-6 h-6 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full"
+                        className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
                       />
                     ) : isSubmitted ? (
                       <>
@@ -268,94 +194,87 @@ export function ContactSection() {
                     )}
                   </motion.button>
                 </div>
-              </motion.form>
+              </form>
             </motion.div>
 
-            {/* Contact Info */}
-            <motion.div style={{ y }} className="space-y-6">
+            {/* Contact Info - Takes 2 columns */}
+            <motion.div 
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="lg:col-span-2 space-y-4"
+            >
               {/* Info Cards */}
-              <div className="grid sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-3">
                 {contactInfo.map((item, index) => (
                   <motion.a
                     key={item.label}
                     href={item.href}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 + index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="group p-5 rounded-2xl bg-secondary/30 border border-primary/10 hover:border-primary/30 transition-all"
-                    whileHover={{ y: -5, scale: 1.02 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
+                    className="group p-4 rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 hover:border-white/40 transition-all hover:scale-105"
                   >
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                        <item.icon className="w-6 h-6 text-primary" />
-                      </div>
-                      <div>
-                        <p className="text-xs text-white/40 mb-1">{item.label}</p>
-                        <p className="text-white font-medium">{item.value}</p>
-                      </div>
+                    <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${item.color} flex items-center justify-center mb-2`}>
+                      <item.icon className={`w-5 h-5 ${item.iconColor}`} />
                     </div>
+                    <p className="text-xs text-white/50 mb-0.5">{item.label}</p>
+                    <p className="text-white text-sm font-medium">{item.value}</p>
                   </motion.a>
                 ))}
               </div>
 
               {/* Social Links */}
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-                viewport={{ once: true }}
-                className="p-6 rounded-2xl bg-secondary/30 border border-primary/10"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.7 }}
+                className="p-4 rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20"
               >
-                <h3 className="font-bold text-white mb-4">تابعنا على</h3>
-                <div className="flex gap-3">
-                  {socialLinks.map((social, index) => (
+                <div className="flex items-center gap-2 mb-3">
+                  <MessageSquare className="w-4 h-4 text-primary" />
+                  <h3 className="font-bold text-white text-sm">تابعنا على</h3>
+                </div>
+                <div className="flex gap-2">
+                  {socialLinks.map((social) => (
                     <motion.a
                       key={social.label}
                       href={social.href}
-                      initial={{ opacity: 0, scale: 0 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.7 + index * 0.1 }}
-                      viewport={{ once: true }}
-                      className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-all"
+                      className={`w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-white/70 ${social.color} hover:text-white transition-all`}
                       whileHover={{ scale: 1.1, rotate: 5 }}
                       whileTap={{ scale: 0.9 }}
                     >
-                      <social.icon className="w-5 h-5" />
+                      <social.icon className="w-4 h-4" />
                     </motion.a>
                   ))}
                 </div>
               </motion.div>
 
-              {/* Map Placeholder */}
+              {/* Quick Message Box */}
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 }}
-                viewport={{ once: true }}
-                className="h-48 rounded-2xl overflow-hidden relative bg-secondary/30 border border-primary/10"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.8 }}
+                className="p-4 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 backdrop-blur-sm border border-primary/30"
               >
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <MapPin className="w-12 h-12 text-primary mx-auto mb-2" />
-                    <p className="text-white/60">الرياض، المملكة العربية السعودية</p>
-                  </div>
-                </div>
-                <div
-                  className="absolute inset-0 opacity-20"
-                  style={{
-                    backgroundImage: `
-                      linear-gradient(rgba(212, 175, 55, 0.1) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(212, 175, 55, 0.1) 1px, transparent 1px)
-                    `,
-                    backgroundSize: "20px 20px",
-                  }}
-                />
+                <h3 className="font-bold text-white text-sm mb-2">هل لديك سؤال عاجل؟</h3>
+                <p className="text-white/60 text-xs mb-3">تواصل معنا مباشرة عبر الواتساب للرد السريع</p>
+                <motion.a
+                  href="https://wa.me/966500000000"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-green-500/20 text-green-400 text-sm font-medium border border-green-500/30 hover:bg-green-500/30 transition-all"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  تواصل عبر واتساب
+                </motion.a>
               </motion.div>
             </motion.div>
           </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

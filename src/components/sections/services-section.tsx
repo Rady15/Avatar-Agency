@@ -4,7 +4,7 @@ import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from
 import { useState, useRef, useCallback, useEffect, useMemo } from "react";
 import {
   Globe, Palette, MessageCircle, Video, Megaphone, Monitor, Building2, Gift, Users, ArrowUpLeft,
-  ExternalLink, Eye, Calendar, CheckCircle
+  ExternalLink, Calendar, CheckCircle
 } from "lucide-react";
 
 // Enhanced services with real portfolio data
@@ -20,10 +20,10 @@ const services = [
     bgExpanded: "linear-gradient(180deg, #C62828 0%, #7f1818 100%)", 
     accent: "#FFD4D4",
     portfolio: [
-      { id: 1, title: "موقع شركة التقنية المتقدمة", year: "2024", description: "تصميم موقع احترافي لشركة تقنية سعودية متخصصة في الحلول الرقمية", image: "🌐", tags: ["تصميم UI/UX", "تطوير", "متجاوب"] },
-      { id: 2, title: "متجر إلكتروني فاخر", year: "2024", description: "متجر إلكتروني متكامل مع نظام دفع وإدارة مخزون متقدم", image: "🛍️", tags: ["تجارة إلكترونية", "دفع إلكتروني"] },
-      { id: 3, title: "منصة تعليمية تفاعلية", year: "2023", description: "منصة تعليمية مع نظام إدارة محتوى ودروس تفاعلية", image: "📚", tags: ["تعليم", "تفاعلي"] },
-      { id: 4, title: "موقع مطعم سلسلة مطاعم", year: "2023", description: "موقع عرضي مع نظام حجز طاولات وطلبات أونلاين", image: "🍽️", tags: ["حجز", "عرضي"] },
+      { id: 1, title: "موقع شركة التقنية المتقدمة", year: "2024", description: "تصميم موقع احترافي لشركة تقنية سعودية متخصصة في الحلول الرقمية", image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop", tags: ["تصميم UI/UX", "تطوير", "متجاوب"] },
+      { id: 2, title: "متجر إلكتروني فاخر", year: "2024", description: "متجر إلكتروني متكامل مع نظام دفع وإدارة مخزون متقدم", image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop", tags: ["تجارة إلكترونية", "دفع إلكتروني"] },
+      { id: 3, title: "منصة تعليمية تفاعلية", year: "2023", description: "منصة تعليمية مع نظام إدارة محتوى ودروس تفاعلية", image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=600&h=400&fit=crop", tags: ["تعليم", "تفاعلي"] },
+      { id: 4, title: "موقع مطعم سلسلة مطاعم", year: "2023", description: "موقع عرضي مع نظام حجز طاولات وطلبات أونلاين", image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=400&fit=crop", tags: ["حجز", "عرضي"] },
     ]
   },
   {
@@ -37,10 +37,10 @@ const services = [
     bgExpanded: "linear-gradient(180deg, #D4AF37 0%, #9a7d1e 100%)", 
     accent: "#0A1D37",
     portfolio: [
-      { id: 1, title: "هوية شركة عقارية فاخرة", year: "2024", description: "تصميم شعار وهوية بصرية كاملة لشركة عقارية راقية", image: "🏢", tags: ["شعار", "هوية متكاملة"] },
-      { id: 2, title: "هوية مطعم عصري", year: "2024", description: "هوية بصرية متكاملة تشمل الشعار والقائمة والتغليف", image: "🎨", tags: ["مطاعم", "تغليف"] },
-      { id: 3, title: "هوية علامة تجارية ناشئة", year: "2023", description: "بناء هوية بصرية لعلامة تجارية في مجال التجميل", image: "💄", tags: ["تجميل", "عصري"] },
-      { id: 4, title: "هوية مؤسسة مالية", year: "2023", description: "تصميم هوية رسمية لمؤسسة مالية واستثمارية", image: "💼", tags: ["مالية", "رسمي"] },
+      { id: 1, title: "هوية شركة عقارية فاخرة", year: "2024", description: "تصميم شعار وهوية بصرية كاملة لشركة عقارية راقية", image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&h=400&fit=crop", tags: ["شعار", "هوية متكاملة"] },
+      { id: 2, title: "هوية مطعم عصري", year: "2024", description: "هوية بصرية متكاملة تشمل الشعار والقائمة والتغليف", image: "https://images.unsplash.com/photo-1586015555757-62fa056716b7?w=600&h=400&fit=crop", tags: ["مطاعم", "تغليف"] },
+      { id: 3, title: "هوية علامة تجارية ناشئة", year: "2023", description: "بناء هوية بصرية لعلامة تجارية في مجال التجميل", image: "https://images.unsplash.com/photo-1636622433525-f1f3f29eb617?w=600&h=400&fit=crop", tags: ["تجميل", "عصري"] },
+      { id: 4, title: "هوية مؤسسة مالية", year: "2023", description: "تصميم هوية رسمية لمؤسسة مالية واستثمارية", image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop", tags: ["مالية", "رسمي"] },
     ]
   },
   {
@@ -54,10 +54,10 @@ const services = [
     bgExpanded: "linear-gradient(180deg, #1565C0 0%, #0d3f7a 100%)", 
     accent: "#B3E5FC",
     portfolio: [
-      { id: 1, title: "إدارة حساب مطعم شهير", year: "2024", description: "إدارة شاملة لحسابات التواصل الاجتماعي مع محتوى يومي", image: "📱", tags: ["إدارة", "محتوى"] },
-      { id: 2, title: "حملة تسويقية لمتجر", year: "2024", description: "حملة تسويقية متكاملة على إنستغرام وتويتر", image: "📢", tags: ["حملات", "إعلانات"] },
-      { id: 3, title: "محتوى شركة تقنية", year: "2023", description: "إنشاء محتوى تعليمي وتثقيفي لشركة تقنية", image: "💻", tags: ["تعليمي", "تثقيفي"] },
-      { id: 4, title: "حملة إطلاق منتج", year: "2023", description: "حملة إطلاق منتج جديد مع influencers", image: "🚀", tags: ["إطلاق", "تعاون"] },
+      { id: 1, title: "إدارة حساب مطعم شهير", year: "2024", description: "إدارة شاملة لحسابات التواصل الاجتماعي مع محتوى يومي", image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&h=400&fit=crop", tags: ["إدارة", "محتوى"] },
+      { id: 2, title: "حملة تسويقية لمتجر", year: "2024", description: "حملة تسويقية متكاملة على إنستغرام وتويتر", image: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=600&h=400&fit=crop", tags: ["حملات", "إعلانات"] },
+      { id: 3, title: "محتوى شركة تقنية", year: "2023", description: "إنشاء محتوى تعليمي وتثقيفي لشركة تقنية", image: "https://images.unsplash.com/photo-1432821596592-e2c18b78144f?w=600&h=400&fit=crop", tags: ["تعليمي", "تثقيفي"] },
+      { id: 4, title: "حملة إطلاق منتج", year: "2023", description: "حملة إطلاق منتج جديد مع influencers", image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&h=400&fit=crop", tags: ["إطلاق", "تعاون"] },
     ]
   },
   {
@@ -71,10 +71,10 @@ const services = [
     bgExpanded: "linear-gradient(180deg, #6A1B9A 0%, #40105c 100%)", 
     accent: "#E1BEE7",
     portfolio: [
-      { id: 1, title: "فيديو إعلاني لمنتجع سياحي", year: "2024", description: "إنتاج فيديو ترويجي بأسلوب سينمائي لمنتجع فاخر", image: "🎬", tags: ["سينمائي", "سياحة"] },
-      { id: 2, title: "فيديو موشن جرافيك", year: "2024", description: "فيديو موشن جرافيك لشرح خدمات شركة", image: "🎥", tags: ["موشن", "جرافيك"] },
-      { id: 3, title: "فيديو تدريبي للموظفين", year: "2023", description: "إنتاج فيديوهات تدريبية احترافية لشركة كبرى", image: "🎓", tags: ["تدريبي", "شركات"] },
-      { id: 4, title: "فيديو إعلان تلفزيوني", year: "2023", description: "إنتاج إعلان تلفزيوني 30 ثانية لمنتج استهلاكي", image: "📺", tags: ["تلفزيون", "إعلان"] },
+      { id: 1, title: "فيديو إعلاني لمنتجع سياحي", year: "2024", description: "إنتاج فيديو ترويجي بأسلوب سينمائي لمنتجع فاخر", image: "https://images.unsplash.com/photo-1573052905904-34ad8c27f0cc?w=600&h=400&fit=crop", tags: ["سينمائي", "سياحة"] },
+      { id: 2, title: "فيديو موشن جرافيك", year: "2024", description: "فيديو موشن جرافيك لشرح خدمات شركة", image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=600&h=400&fit=crop", tags: ["موشن", "جرافيك"] },
+      { id: 3, title: "فيديو تدريبي للموظفين", year: "2023", description: "إنتاج فيديوهات تدريبية احترافية لشركة كبرى", image: "https://images.unsplash.com/photo-1536240478700-b869070f9279?w=600&h=400&fit=crop", tags: ["تدريبي", "شركات"] },
+      { id: 4, title: "فيديو إعلان تلفزيوني", year: "2023", description: "إنتاج إعلان تلفزيوني 30 ثانية لمنتج استهلاكي", image: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=600&h=400&fit=crop", tags: ["تلفزيون", "إعلان"] },
     ]
   },
   {
@@ -88,10 +88,10 @@ const services = [
     bgExpanded: "linear-gradient(180deg, #E65100 0%, #8c3200 100%)", 
     accent: "#FFE0B2",
     portfolio: [
-      { id: 1, title: "حملة Google Ads متكاملة", year: "2024", description: "إدارة حملة إعلانية على جوجل أدز لمتجر إلكتروني", image: "🔍", tags: ["Google Ads", "تسويق"] },
-      { id: 2, title: "حملة فيسبوك وإنستغرام", year: "2024", description: "حملة استهداف متقدمة على فيسبوك وإنستغرام", image: "👥", tags: ["Meta Ads", "استهداف"] },
-      { id: 3, title: "حملة سناب شات", year: "2023", description: "إعلانات سناب شات للفئة العمرية الشابة", image: "👻", tags: ["Snapchat", "شباب"] },
-      { id: 4, title: "حملة تيك توك", year: "2023", description: "حملة إعلانية على تيك توك لعلامة تجارية", image: "🎵", tags: ["TikTok", "فيروسي"] },
+      { id: 1, title: "حملة Google Ads متكاملة", year: "2024", description: "إدارة حملة إعلانية على جوجل أدز لمتجر إلكتروني", image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop", tags: ["Google Ads", "تسويق"] },
+      { id: 2, title: "حملة فيسبوك وإنستغرام", year: "2024", description: "حملة استهداف متقدمة على فيسبوك وإنستغرام", image: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=600&h=400&fit=crop", tags: ["Meta Ads", "استهداف"] },
+      { id: 3, title: "حملة سناب شات", year: "2023", description: "إعلانات سناب شات للفئة العمرية الشابة", image: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?w=600&h=400&fit=crop", tags: ["Snapchat", "شباب"] },
+      { id: 4, title: "حملة تيك توك", year: "2023", description: "حملة إعلانية على تيك توك لعلامة تجارية", image: "https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=600&h=400&fit=crop", tags: ["TikTok", "فيروسي"] },
     ]
   },
   {
@@ -105,10 +105,10 @@ const services = [
     bgExpanded: "linear-gradient(180deg, #1B5E20 0%, #103812 100%)", 
     accent: "#C8E6C9",
     portfolio: [
-      { id: 1, title: "لافتات مركز تجاري", year: "2024", description: "تصميم وتنفيذ لافتات خارجية لمركز تجاري كبير", image: "🏪", tags: ["خارجية", "كبيرة"] },
-      { id: 2, title: "لافتات سلسلة مطاعم", year: "2024", description: "لافتات موحدة لعدة فروع لمطعم مشهور", image: "🍔", tags: ["موحدة", "فروع"] },
-      { id: 3, title: "لافتات داخلية مكتب", year: "2023", description: "لافتات داخلية وتوجيهية لمقر شركة", image: "🏢", tags: ["داخلية", "توجيهية"] },
-      { id: 4, title: "لوحة LED خارجية", year: "2023", description: "لوحة LED ضخمة لعرض إعلانات على الطريق السريع", image: "💡", tags: ["LED", "رقمية"] },
+      { id: 1, title: "لافتات مركز تجاري", year: "2024", description: "تصميم وتنفيذ لافتات خارجية لمركز تجاري كبير", image: "https://images.unsplash.com/photo-1562663474-6cbb3eaa4d14?w=600&h=400&fit=crop", tags: ["خارجية", "كبيرة"] },
+      { id: 2, title: "لافتات سلسلة مطاعم", year: "2024", description: "لافتات موحدة لعدة فروع لمطعم مشهور", image: "https://images.unsplash.com/photo-1555992336-fb0d29498b13?w=600&h=400&fit=crop", tags: ["موحدة", "فروع"] },
+      { id: 3, title: "لافتات داخلية مكتب", year: "2023", description: "لافتات داخلية وتوجيهية لمقر شركة", image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop", tags: ["داخلية", "توجيهية"] },
+      { id: 4, title: "لوحة LED خارجية", year: "2023", description: "لوحة LED ضخمة لعرض إعلانات على الطريق السريع", image: "https://images.unsplash.com/photo-1562654501-a0ccc0fc3fb1?w=600&h=400&fit=crop", tags: ["LED", "رقمية"] },
     ]
   },
   {
@@ -122,10 +122,10 @@ const services = [
     bgExpanded: "linear-gradient(180deg, #00695C 0%, #003d34 100%)", 
     accent: "#B2DFDB",
     portfolio: [
-      { id: 1, title: "ستاند معرض ريادة الأعمال", year: "2024", description: "تصميم وتنفيذ ستاند احترافي لشركة ناشئة", image: "🎯", tags: ["ستاند", "احترافي"] },
-      { id: 2, title: "جناح شركة تقنية", year: "2024", description: "جناح متكامل لشركة تقنية في معرض دولي", image: "🏛️", tags: ["جناح", "دولي"] },
-      { id: 3, title: "بوث منتجع سياحي", year: "2023", description: "بوث تفاعلي لمنتجع في معرض سياحة", image: "✈️", tags: ["تفاعلي", "سياحة"] },
-      { id: 4, title: "ستاند معرض عقارات", year: "2023", description: "ستاند لعرض مشاريع عقارية في معرض", image: "🏘️", tags: ["عقارات", "عرض"] },
+      { id: 1, title: "ستاند معرض ريادة الأعمال", year: "2024", description: "تصميم وتنفيذ ستاند احترافي لشركة ناشئة", image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop", tags: ["ستاند", "احترافي"] },
+      { id: 2, title: "جناح شركة تقنية", year: "2024", description: "جناح متكامل لشركة تقنية في معرض دولي", image: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=600&h=400&fit=crop", tags: ["جناح", "دولي"] },
+      { id: 3, title: "بوث منتجع سياحي", year: "2023", description: "بوث تفاعلي لمنتجع في معرض سياحة", image: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=600&h=400&fit=crop", tags: ["تفاعلي", "سياحة"] },
+      { id: 4, title: "ستاند معرض عقارات", year: "2023", description: "ستاند لعرض مشاريع عقارية في معرض", image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=400&fit=crop", tags: ["عقارات", "عرض"] },
     ]
   },
   {
@@ -139,10 +139,10 @@ const services = [
     bgExpanded: "linear-gradient(180deg, #37474F 0%, #1a2328 100%)", 
     accent: "#CFD8DC",
     portfolio: [
-      { id: 1, title: "مجموعة هدايا بنك", year: "2024", description: "تصميم وإنتاج هدايا مخصصة لموظفي بنك", image: "🏦", tags: ["شركات", "موظفين"] },
-      { id: 2, title: "هدايا مؤتمر تقني", year: "2024", description: "حقائب وهدايا لحضور مؤتمر تقني دولي", image: "🎒", tags: ["مؤتمرات", "دولية"] },
-      { id: 3, title: "هدايا تسويقية لمتجر", year: "2023", description: "أكواب ودفاتر وقلم بشعار المتجر", image: "☕", tags: ["متاجر", "يومية"] },
-      { id: 4, title: "هدايا VIP لعملاء", year: "2023", description: "مجموعة هدايا فاخرة لعملاء VIP", image: "🎁", tags: ["VIP", "فاخرة"] },
+      { id: 1, title: "مجموعة هدايا بنك", year: "2024", description: "تصميم وإنتاج هدايا مخصصة لموظفي بنك", image: "https://images.unsplash.com/photo-1606156889509-1c30d639a4b1?w=600&h=400&fit=crop", tags: ["شركات", "موظفين"] },
+      { id: 2, title: "هدايا مؤتمر تقني", year: "2024", description: "حقائب وهدايا لحضور مؤتمر تقني دولي", image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=400&fit=crop", tags: ["مؤتمرات", "دولية"] },
+      { id: 3, title: "هدايا تسويقية لمتجر", year: "2023", description: "أكواب ودفاتر وقلم بشعار المتجر", image: "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=600&h=400&fit=crop", tags: ["متاجر", "يومية"] },
+      { id: 4, title: "هدايا VIP لعملاء", year: "2023", description: "مجموعة هدايا فاخرة لعملاء VIP", image: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=600&h=400&fit=crop", tags: ["VIP", "فاخرة"] },
     ]
   },
   {
@@ -150,16 +150,16 @@ const services = [
     icon: Users, 
     title: "الاستشارات", 
     titleEn: "Consulting",
-    description: "نقدم استشارات تسويقية متخصصة لمساعدك في تطوير استراتيجيتك التسويقية وتحقيق أهدافك التجارية.",
+    description: "نقدم استشارات تسويقية متخصصة لمساعدتك في تطوير استراتيجيتك التسويقية وتحقيق أهدافك التجارية.",
     cta: "اطلب الخدمة", 
     bg: "#0A1D37", 
     bgExpanded: "linear-gradient(180deg, #0A1D37 0%, #050e1b 100%)", 
     accent: "#D4AF37",
     portfolio: [
-      { id: 1, title: "استشارة لشركة ناشئة", year: "2024", description: "خطة تسويقية متكاملة لإطلاق منتج جديد", image: "📊", tags: ["خطة", "إطلاق"] },
-      { id: 2, title: "تحليل سوق لعلامة تجارية", year: "2024", description: "دراسة سوق وتحليل منافسين لدخول السوق", image: "📈", tags: ["تحليل", "سوق"] },
-      { id: 3, title: "استراتيجية تحول رقمي", year: "2023", description: "خطة تحول رقمي لشركة تقليدية", image: "🔄", tags: ["رقمي", "تحول"] },
-      { id: 4, title: "ورشة تدريبية تسويقية", year: "2023", description: "ورشة تدريبية لفريق تسويق شركة كبرى", image: "👨‍🏫", tags: ["تدريب", "ورش"] },
+      { id: 1, title: "استشارة لشركة ناشئة", year: "2024", description: "خطة تسويقية متكاملة لإطلاق منتج جديد", image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop", tags: ["خطة", "إطلاق"] },
+      { id: 2, title: "تحليل سوق لعلامة تجارية", year: "2024", description: "دراسة سوق وتحليل منافسين لدخول السوق", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop", tags: ["تحليل", "سوق"] },
+      { id: 3, title: "استراتيجية تحول رقمي", year: "2023", description: "خطة تحول رقمي لشركة تقليدية", image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&h=400&fit=crop", tags: ["رقمي", "تحول"] },
+      { id: 4, title: "ورشة تدريبية تسويقية", year: "2023", description: "ورشة تدريبية لفريق تسويق شركة كبرى", image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop", tags: ["تدريب", "ورش"] },
     ]
   },
 ];
@@ -226,9 +226,19 @@ export function ServicesSection() {
   }, [expandedService]);
 
   const handleServiceClick = useCallback((index: number) => {
-    setExpandedService(expandedService === index ? null : index);
-    setActiveIndex(expandedService === index ? null : index);
+    if (expandedService === null) {
+      setExpandedService(index);
+      setActiveIndex(index);
+    } else if (expandedService !== index) {
+      setExpandedService(index);
+      setActiveIndex(index);
+    }
   }, [expandedService]);
+
+  const handleCloseExpanded = useCallback(() => {
+    setExpandedService(null);
+    setActiveIndex(null);
+  }, []);
 
   return (
     <section
@@ -261,6 +271,7 @@ export function ServicesSection() {
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={(e) => handleMouseLeave(index, e)}
             onClick={() => handleServiceClick(index)}
+            onCloseExpanded={handleCloseExpanded}
           />
         );
       })}
@@ -281,11 +292,12 @@ interface PanelWithGlowProps {
   onMouseEnter: () => void;
   onMouseLeave: (e: React.MouseEvent<HTMLDivElement>) => void;
   onClick: () => void;
+  onCloseExpanded: () => void;
 }
 
 function PanelWithGlow({
   service, index, isActive, isExpanded, hasActive, panelRipples, IconComponent, textColor, totalServices,
-  onMouseEnter, onMouseLeave, onClick,
+  onMouseEnter, onMouseLeave, onClick, onCloseExpanded,
 }: PanelWithGlowProps) {
   const panelRef = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0);
@@ -523,7 +535,6 @@ function PanelWithGlow({
                   onClick();
                 }}
               >
-                <Eye className="w-5 h-5" />
                 عرض أعمالنا
                 <ArrowUpLeft className="w-4 h-4 transition-transform group-hover:-translate-y-0.5 group-hover:-translate-x-0.5" />
               </motion.button>
@@ -583,7 +594,7 @@ function PanelWithGlow({
                 whileTap={{ scale: 0.95 }}
                 onClick={(e) => {
                   e.stopPropagation();
-                  onClick();
+                  onCloseExpanded();
                 }}
               >
                 <ArrowUpLeft className="w-4 h-4 rotate-180" />
@@ -593,75 +604,38 @@ function PanelWithGlow({
 
             {/* Portfolio Grid */}
             <div className="px-8 pb-12 pt-6">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {service.portfolio.map((item, idx) => (
                   <motion.div
                     key={item.id}
-                    className="group rounded-2xl overflow-hidden transition-all duration-300"
-                    style={{ 
-                      background: `${service.accent}10`, 
-                      border: `1px solid ${service.accent}20`,
-                    }}
+                    className="group relative rounded-2xl overflow-hidden cursor-pointer"
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 + idx * 0.1 }}
-                    whileHover={{ 
-                      scale: 1.02, 
-                      y: -5,
-                      borderColor: `${service.accent}50`,
-                      boxShadow: `0 20px 40px -15px ${service.bg}80`
-                    }}
+                    whileHover={{ y: -8 }}
                   >
-                    {/* Project Image/Icon */}
-                    <div 
-                      className="h-48 flex items-center justify-center relative overflow-hidden"
-                      style={{ background: `linear-gradient(135deg, ${service.accent}15 0%, ${service.bg} 100%)` }}
-                    >
-                      <motion.span 
-                        className="text-6xl"
-                        whileHover={{ scale: 1.2, rotate: 5 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
-                        {item.image}
-                      </motion.span>
+                    <div className="relative h-56 overflow-hidden">
+                      <img 
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
                       
-                      {/* Hover Overlay */}
-                      <motion.div
-                        className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                        style={{ background: `${service.bg}90` }}
-                      >
-                        <motion.button
-                          className="px-6 py-3 rounded-xl font-bold flex items-center gap-2"
-                          style={{ background: service.accent, color: service.bg }}
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                        >
-                          <Eye className="w-5 h-5" />
-                          عرض المشروع
-                        </motion.button>
-                      </motion.div>
-                    </div>
-
-                    {/* Project Details */}
-                    <div className="p-6">
-                      <div className="flex justify-between items-start mb-3">
-                        <h4 className="font-bold text-lg" style={{ color: textColor }}>{item.title}</h4>
-                        <span 
-                          className="text-xs px-3 py-1 rounded-full flex items-center gap-1"
-                          style={{ background: `${service.accent}25`, color: service.accent }}
-                        >
-                          <Calendar className="w-3 h-3" />
+                      <div className="absolute top-4 right-4">
+                        <span className="px-3 py-1 rounded-full text-xs font-medium bg-white/20 backdrop-blur-sm text-white">
                           {item.year}
                         </span>
                       </div>
-                      
-                      <p className="text-sm opacity-70 mb-4 leading-relaxed" style={{ color: textColor }}>
+                    </div>
+
+                    <div className="p-5" style={{ background: `${service.accent}08`, borderTop: `1px solid ${service.accent}20` }}>
+                      <h4 className="font-bold text-lg mb-2 line-clamp-1" style={{ color: textColor }}>{item.title}</h4>
+                      <p className="text-sm opacity-70 mb-4 line-clamp-2" style={{ color: textColor }}>
                         {item.description}
                       </p>
 
-                      {/* Tags */}
                       <div className="flex flex-wrap gap-2">
-                        {item.tags.map((tag, tagIdx) => (
+                        {item.tags.slice(0, 3).map((tag, tagIdx) => (
                           <span
                             key={tagIdx}
                             className="text-xs px-2 py-1 rounded-md"
@@ -703,19 +677,21 @@ function PanelWithGlow({
 
               {/* CTA Section */}
               <motion.div
-                className="mt-12 p-8 rounded-2xl text-center"
+                className="mt-12 p-8 rounded-2xl text-center relative overflow-hidden"
                 style={{ background: `linear-gradient(135deg, ${service.accent}20 0%, ${service.accent}05 100%)`, border: `1px solid ${service.accent}30` }}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 }}
               >
+                <div className="absolute inset-0 opacity-10" style={{ backgroundImage: `radial-gradient(circle at 2px 2px, ${service.accent} 1px, transparent 1px)`, backgroundSize: '20px 20px' }} />
+                
                 <CheckCircle className="w-12 h-12 mx-auto mb-4" style={{ color: service.accent }} />
-                <h4 className="text-xl font-bold mb-2" style={{ color: textColor }}>جاهز لبدء مشروعك؟</h4>
-                <p className="text-sm opacity-70 mb-6" style={{ color: textColor }}>
+                <h4 className="text-xl font-bold mb-2 relative z-10" style={{ color: textColor }}>جاهز لبدء مشروعك؟</h4>
+                <p className="text-sm opacity-70 mb-6 relative z-10" style={{ color: textColor }}>
                   دعنا نساعدك في تحقيق رؤيتك التسويقية
                 </p>
                 <motion.button
-                  className="px-8 py-4 rounded-xl font-bold text-lg inline-flex items-center gap-3"
+                  className="px-8 py-4 rounded-xl font-bold text-lg inline-flex items-center gap-3 relative z-10"
                   style={{ background: service.accent, color: service.bg }}
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
@@ -782,9 +758,14 @@ function FabricStretch({ side, yPercent, color }: { side: "left" | "right"; yPer
 
 function ZoomLines({ color }: { color: string }) {
   const rays = useMemo(() => {
+    const pseudoRandom = (s: number) => {
+      const x = Math.sin(s) * 10000;
+      return x - Math.floor(x);
+    };
+    
     return Array.from({ length: 24 }).map((_, i) => ({
-      id: i, angle: (360 / 24) * i, width: 2 + Math.random() * 6,
-      length: 40 + Math.random() * 60, delay: Math.random() * 2,
+      id: i, angle: (360 / 24) * i, width: 2 + pseudoRandom(i * 100) * 6,
+      length: 40 + pseudoRandom(i * 100 + 1) * 60, delay: pseudoRandom(i * 100 + 2) * 2,
     }));
   }, []);
 

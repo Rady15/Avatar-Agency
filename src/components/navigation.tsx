@@ -36,39 +36,21 @@ export function Navigation() {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <motion.div
-              className="relative w-12 h-12"
-              whileHover={{ scale: 1.1, rotate: 180 }}
-              transition={{ duration: 0.6, ease: "easeInOut" }}
-            >
-              <div
-                className="absolute inset-0"
-                style={{
-                  background: "linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #B8860B 100%)",
-                  clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
-                }}
-              />
-              <div
-                className="absolute inset-2"
-                style={{
-                  background: "linear-gradient(135deg, #0A1D37 0%, #152d4a 100%)",
-                  clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
-                }}
-              />
-              <span className="absolute inset-0 flex items-center justify-center text-primary font-bold text-lg">
-                A
-              </span>
-            </motion.div>
-            <div className="hidden sm:block">
-              <span className="text-xl font-bold gold-text">أفتار</span>
-              <p
-                className="text-[10px] text-white/50 tracking-widest -mt-1"
-                style={{ fontFamily: "var(--font-geist-sans)" }}
-              >
-                AVATAR
-              </p>
-            </div>
+          <Link href="/" className="flex items-center gap-2 group">
+            <motion.img
+              src="/logo.svg"
+              alt="AVATAR Logo"
+              className="w-12 h-12 object-contain"
+              animate={{ rotateY: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            />
+            <motion.img
+              src="/logotxt.svg"
+              alt="AVATAR"
+              className="hidden sm:block h-8 object-contain"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -95,7 +77,7 @@ export function Navigation() {
           {/* CTA Button */}
           <Link
             href="/contact"
-            className="hidden md:flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-bold rounded-lg text-sm btn-3d"
+            className="hidden md:flex items-center gap-2 px-6 py-3 text-white font-bold rounded-lg text-sm btn-3d"
           >
             <motion.span
               initial={{ opacity: 0, scale: 0.8 }}
@@ -143,7 +125,7 @@ export function Navigation() {
             <Link
               href="/contact"
               onClick={() => setIsOpen(false)}
-              className="block py-4 px-6 bg-primary text-primary-foreground font-bold rounded-xl text-center mt-4"
+              className="block py-4 px-6 btn-3d text-white font-bold rounded-xl text-center mt-4"
             >
               ابدأ مشروعك
             </Link>

@@ -43,7 +43,7 @@ const config: Config = {
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
+        ring: "#222e64",
         chart: {
           "1": "hsl(var(--chart-1))",
           "2": "hsl(var(--chart-2))",
@@ -80,8 +80,8 @@ const config: Config = {
           to: { transform: "rotateY(360deg)" },
         },
         "pulse-glow": {
-          "0%, 100%": { filter: "drop-shadow(0 0 20px rgba(212, 175, 55, 0.3))" },
-          "50%": { filter: "drop-shadow(0 0 40px rgba(212, 175, 55, 0.6))" },
+          "0%, 100%": { filter: "drop-shadow(0 0 20px rgba(34, 46, 100, 0.3))" },
+          "50%": { filter: "drop-shadow(0 0 40px rgba(34, 46, 100, 0.6))" },
         },
         "card-enter": {
           from: {
@@ -107,7 +107,7 @@ const config: Config = {
         },
         "blink-caret": {
           "from, to": { borderColor: "transparent" },
-          "50%": { borderColor: "var(--primary)" },
+          "50%": { borderColor: "#222e64" },
         },
       },
     },

@@ -6,10 +6,10 @@ import { Menu, X, Diamond } from "lucide-react";
 import Link from "next/link";
 
 const navLinks = [
-  { label: "الرئيسية", labelEn: "Home", href: "/" },
-  { label: "من نحن", labelEn: "About", href: "/about" },
-  { label: "خدماتنا", labelEn: "Services", href: "/services" },
-  { label: "تواصل معنا", labelEn: "Contact", href: "/contact" },
+  { label: "الرئيسية", labelEn: "Home", href: "/" as const },
+  { label: "من نحن", labelEn: "About", href: "/about" as const },
+  { label: "خدماتنا", labelEn: "Services", href: "/services" as const },
+  { label: "تواصل معنا", labelEn: "Contact", href: "/contact" as const },
 ];
 
 export function Navigation() {

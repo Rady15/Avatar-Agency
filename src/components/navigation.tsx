@@ -2,8 +2,9 @@
 
 import { motion, useScroll } from "framer-motion";
 import { useState, useEffect } from "react";
-import { Menu, X, Diamond } from "lucide-react";
+import { Menu, X, Diamond, Globe } from "lucide-react";
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
 
 const navLinks = [
   { label: "الرئيسية", labelEn: "Home", href: "/" as const },
@@ -15,6 +16,7 @@ const navLinks = [
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { language, toggleLanguage, t } = useLanguage();
   const { scrollY } = useScroll();
 
   useEffect(() => {
@@ -29,9 +31,8 @@ export function Navigation() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled ? "bg-[#0A1D37]/95 backdrop-blur-xl border-b border-primary/10" : "bg-transparent"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? "bg-[#0A1D37]/95 backdrop-blur-xl border-b border-primary/10" : "bg-transparent"
+        }`}
     >
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-20">
@@ -67,30 +68,46 @@ export function Navigation() {
                   transition={{ delay: index * 0.1 + 0.3 }}
                   whileHover={{ y: -2 }}
                 >
-                  <span className="text-sm font-medium">{link.label}</span>
+                  <span className="text-sm font-medium">
+                    {language === "ar" ? link.label : link.labelEn}
+                  </span>
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
                 </motion.span>
               </Link>
             ))}
           </nav>
 
-          {/* CTA Button */}
-          <Link
-            href="/contact"
-            className="hidden md:flex items-center gap-2 px-6 py-3 text-white font-bold rounded-lg text-sm btn-3d"
-          >
-            <motion.span
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.6 }}
+          {/* Language Switcher & CTA */}
+          <div className="hidden md:flex items-center gap-3">
+            {/* Language Switch Button */}
+            <motion.button
+              onClick={toggleLanguage}
+              className="flex items-center gap-2 px-4 py-2 text-white/80 hover:text-primary transition-colors bg-white/5 rounded-lg border border-white/10 hover:border-primary/30"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2"
             >
-              <Diamond className="w-4 h-4" />
-              ابدأ مشروعك
-            </motion.span>
-          </Link>
+              <Globe className="w-4 h-4" />
+              <span className="text-sm font-medium">{language === "ar" ? "EN" : "عربي"}</span>
+            </motion.button>
+
+            {/* CTA Button */}
+            <Link
+              href="#contact"
+              className="flex items-center gap-2 px-6 py-3 text-white font-bold rounded-lg text-sm btn-3d"
+            >
+              <motion.span
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.6 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center gap-2"
+              >
+                <Diamond className="w-4 h-4" />
+                {t("ابدأ مشروعك", "Start Project")}
+              </motion.span>
+            </Link>
+          </div>
 
           {/* Mobile Menu Toggle */}
           <button
@@ -116,18 +133,32 @@ export function Navigation() {
                 onClick={() => setIsOpen(false)}
                 className="flex items-center justify-between py-4 px-6 text-white/80 hover:text-primary hover:bg-secondary/30 rounded-xl transition-all"
               >
-                <span className="font-medium">{link.label}</span>
+                <span className="font-medium">
+                  {language === "ar" ? link.label : link.labelEn}
+                </span>
                 <span className="text-xs text-white/30" style={{ fontFamily: "var(--font-geist-sans)" }}>
-                  {link.labelEn}
+                  {language === "ar" ? link.labelEn : link.label}
                 </span>
               </Link>
             ))}
+
+            {/* Language Switch - Mobile */}
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center justify-between w-full py-4 px-6 text-white/80 hover:text-primary hover:bg-secondary/30 rounded-xl transition-all"
+            >
+              <span className="font-medium">
+                {t("تغيير اللغة", "Switch Language")}
+              </span>
+              <Globe className="w-4 h-4" />
+            </button>
+
             <Link
               href="/contact"
               onClick={() => setIsOpen(false)}
               className="block py-4 px-6 btn-3d text-white font-bold rounded-xl text-center mt-4"
             >
-              ابدأ مشروعك
+              {t("ابدأ مشروعك", "Start Project")}
             </Link>
           </nav>
         </motion.div>
@@ -135,3 +166,4 @@ export function Navigation() {
     </motion.header>
   );
 }
+

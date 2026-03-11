@@ -118,6 +118,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-tajawal), var(--font-geist-sans), sans-serif;
@@ -144,10 +145,25 @@
 }
 
 /* Allow scrolling for dynamic content */
-html, body {
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
   height: auto;
   min-height: 100vh;
   overflow-x: hidden;
+}
+
+/* Hide scrollbar but keep scrollability */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Selection color */
@@ -184,14 +200,14 @@ html, body {
 
 /* Glow effects */
 .gold-glow {
-  box-shadow: 
+  box-shadow:
     0 0 30px rgba(34, 46, 100, 0.4),
     0 0 60px rgba(34, 46, 100, 0.2),
     0 0 90px rgba(34, 46, 100, 0.1);
 }
 
 .card-glow {
-  box-shadow: 
+  box-shadow:
     0 25px 50px -12px rgba(0, 0, 0, 0.5),
     0 0 40px rgba(34, 46, 100, 0.1);
 }
@@ -203,7 +219,7 @@ html, body {
 
 .card-3d-lift:hover {
   transform: perspective(1000px) rotateY(-5deg) rotateX(5deg) translateZ(30px);
-  box-shadow: 
+  box-shadow:
     0 35px 60px -15px rgba(0, 0, 0, 0.6),
     0 0 50px rgba(212, 175, 55, 0.2);
 }
@@ -226,9 +242,21 @@ html, body {
 /* Typing cursor animation */
 .typing-cursor::after {
   content: '|';
-  color: var(--primary);
+  color: white;
   animation: blink-caret 0.75s step-end infinite;
   margin-right: 4px;
+}
+
+@keyframes blink-caret {
+
+  from,
+  to {
+    border-color: transparent
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
 
 /* Button 3D with Lighting Effect */
@@ -247,27 +275,33 @@ html, body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.3),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent);
   animation: lightSweep 3s ease-in-out infinite;
 }
 
 .btn-3d:hover {
   transform: translateY(-8px) rotateX(10deg);
-  box-shadow: 
+  box-shadow:
     0 30px 60px -15px rgba(34, 46, 100, 0.5),
     0 0 40px rgba(34, 46, 100, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 @keyframes lightSweep {
-  0% { left: -100%; }
-  50% { left: 100%; }
-  100% { left: 100%; }
+  0% {
+    left: -100%;
+  }
+
+  50% {
+    left: 100%;
+  }
+
+  100% {
+    left: 100%;
+  }
 }
 
 /* Outline Button with Lighting */
@@ -285,19 +319,17 @@ html, body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent);
   animation: lightSweep 3s ease-in-out infinite;
   animation-delay: 1.5s;
 }
 
 .btn-outline:hover {
   background: linear-gradient(135deg, rgba(34, 46, 100, 0.5) 0%, rgba(42, 58, 122, 0.4) 50%, rgba(26, 37, 80, 0.5) 100%);
-  box-shadow: 
+  box-shadow:
     0 20px 40px -10px rgba(34, 46, 100, 0.4),
     0 0 30px rgba(34, 46, 100, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -317,7 +349,7 @@ html, body {
 
 /* Gradient mesh */
 .gradient-mesh {
-  background: 
+  background:
     radial-gradient(at 20% 30%, rgba(34, 46, 100, 0.15) 0px, transparent 50%),
     radial-gradient(at 80% 20%, rgba(42, 58, 122, 0.1) 0px, transparent 50%),
     radial-gradient(at 40% 80%, rgba(26, 37, 80, 0.1) 0px, transparent 50%),
@@ -325,18 +357,45 @@ html, body {
 }
 
 /* Service card backgrounds */
-.bg-service-navy { background: linear-gradient(135deg, #222e64 0%, #2a3a7a 100%); }
-.bg-service-gold { background: linear-gradient(135deg, #222e64 0%, #2a3a7a 100%); }
-.bg-service-blue { background: linear-gradient(135deg, #1E88E5 0%, #1565C0 100%); }
-.bg-service-red { background: linear-gradient(135deg, #C62828 0%, #8E0000 100%); }
-.bg-service-purple { background: linear-gradient(135deg, #6A1B9A 0%, #4A148C 100%); }
-.bg-service-green { background: linear-gradient(135deg, #1B5E20 0%, #0D3D0F 100%); }
-.bg-service-orange { background: linear-gradient(135deg, #E65100 0%, #BF360C 100%); }
-.bg-service-teal { background: linear-gradient(135deg, #00695C 0%, #004D40 100%); }
-.bg-service-white { background: linear-gradient(135deg, #FAFAFA 0%, #E0E0E0 100%); }
+.bg-service-navy {
+  background: linear-gradient(135deg, #222e64 0%, #2a3a7a 100%);
+}
+
+.bg-service-gold {
+  background: linear-gradient(135deg, #222e64 0%, #2a3a7a 100%);
+}
+
+.bg-service-blue {
+  background: linear-gradient(135deg, #1E88E5 0%, #1565C0 100%);
+}
+
+.bg-service-red {
+  background: linear-gradient(135deg, #C62828 0%, #8E0000 100%);
+}
+
+.bg-service-purple {
+  background: linear-gradient(135deg, #6A1B9A 0%, #4A148C 100%);
+}
+
+.bg-service-green {
+  background: linear-gradient(135deg, #1B5E20 0%, #0D3D0F 100%);
+}
+
+.bg-service-orange {
+  background: linear-gradient(135deg, #E65100 0%, #BF360C 100%);
+}
+
+.bg-service-teal {
+  background: linear-gradient(135deg, #00695C 0%, #004D40 100%);
+}
+
+.bg-service-white {
+  background: linear-gradient(135deg, #FAFAFA 0%, #E0E0E0 100%);
+}
 
 /* Full Screen Layout with Scroll for Frame Animation */
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -391,9 +450,11 @@ html::-webkit-scrollbar {
   0% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-20%);
   }
+
   100% {
     transform: translateY(0);
   }

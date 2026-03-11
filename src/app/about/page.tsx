@@ -13,7 +13,7 @@ export default function AboutPage() {
       <TubesBackground className="fixed inset-0 z-0">
         <div className="w-full h-full" />
       </TubesBackground>
-      <PointerCursor 
+      <PointerCursor
         size={36}
         color="#ffffff"
         glowColor="#6366f1"
@@ -21,7 +21,7 @@ export default function AboutPage() {
         showGlow={true}
       />
       <main className="relative z-10">
-        <AboutSection />
+        <AboutSection fullContent={true} />
         <TestimonialsSection />
       </main>
     </>

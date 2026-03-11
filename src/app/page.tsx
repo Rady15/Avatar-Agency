@@ -1,27 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IntroAnimation } from "@/components/intro-animation";
 import { Navigation } from "@/components/navigation";
-import { TubesBackground } from "@/components/ui/tubes-background";
+import { SpaceBackground } from "@/components/ui/space-background";
 import { PointerCursor } from "@/components/ui/pointer-cursor";
 import { HeroSection } from "@/components/sections/hero-section";
+import { AboutSection } from "@/components/sections/about-section";
+import { PortfolioSection } from "@/components/sections/portfolio-section";
+import { ContactSection } from "@/components/sections/contact-section";
+import { Footer } from "@/components/footer";
+import { TestimonialsSection } from "@/components/sections/testimonials-section";
 
 export default function Home() {
-  const [showIntro, setShowIntro] = useState(true);
+  const [showIntro, setShowIntro] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    const hasPlayed = sessionStorage.getItem("introPlayed");
+    if (!hasPlayed) {
+      setShowIntro(true);
+    }
+  }, []);
 
   const handleIntroComplete = () => {
+    sessionStorage.setItem("introPlayed", "true");
     setShowIntro(false);
   };
+
+  if (!isMounted) return null; // Prevent hydration mismatch
 
   return (
     <>
       {showIntro && <IntroAnimation onComplete={handleIntroComplete} />}
       <Navigation />
-      <TubesBackground className="fixed inset-0 z-0">
-        <div className="w-full h-full" />
-      </TubesBackground>
-      <PointerCursor 
+      <SpaceBackground />
+      <PointerCursor
         size={36}
         color="#ffffff"
         glowColor="#6366f1"
@@ -29,8 +44,13 @@ export default function Home() {
         showGlow={true}
       />
       <main className="relative z-10">
-        <HeroSection />
+        <HeroSection showBackground={false} />
+        <AboutSection showBackground={false} />
+        <PortfolioSection showBackground={false} />
+        <TestimonialsSection showBackground={false} />
+        <ContactSection showBackground={false} />
       </main>
+      <Footer />
     </>
   );
 }

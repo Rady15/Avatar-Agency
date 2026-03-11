@@ -14,12 +14,12 @@ const quickLinks = [
 
 const services = [
   "تصميم المواقع", "الهوية البصرية", "السوشيال ميديا", "إنتاج الفيديو",
-  "الحملات الإعلانية", "اللافتات", "المعارض والستاندات", "الهدايا الدعائية", "الاستشارات",
+  "الحملات الإعلانية", "اللافتات", "المعارض والستاندات", "الهدايا الدعائية", "تطبيقات الجوال", "المطبوعات", "الاستشارات",
 ];
 
 export function Footer() {
   const [currentYear, setCurrentYear] = useState(2026);
-  
+
   useEffect(() => {
     setCurrentYear(new Date().getFullYear());
   }, []);
@@ -167,7 +167,7 @@ export function Footer() {
             © {currentYear} أفتار للدعاية والإعلان. جميع الحقوق محفوظة.
           </p>
           <p className="text-sm text-white/30 text-center md:text-left">
-            صُمم بـ ❤️ في أفتار
+            صُمم بـواسطة فريق <Link href="https://oktech-uae.com" target="_blank" className="text-primary hover:underline">OK_Tech</Link>
           </p>
         </div>
       </div>

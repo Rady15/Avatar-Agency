@@ -70,7 +70,7 @@ export function AboutSection({ showBackground = true, fullContent = false }: Abo
   // On fullContent (/about page): normal flow layout, no sticky effect
   if (fullContent) {
     return (
-      <section className="relative py-20">
+      <section className="relative py-20" style={{ direction: language === 'ar' ? 'rtl' : 'ltr' }}>
         {showBackground && (
           <div className="fixed inset-0 z-0 w-full h-full overflow-hidden pointer-events-none">
             <video autoPlay muted playsInline preload="auto" className="w-full h-full object-cover">
@@ -239,7 +239,7 @@ export function AboutSection({ showBackground = true, fullContent = false }: Abo
   const sectionHeight = "h-[100vh]";
 
   return (
-    <section ref={containerRef} className={`relative ${sectionHeight}`}>
+    <section ref={containerRef} className={`relative ${sectionHeight}`} style={{ direction: language === 'ar' ? 'rtl' : 'ltr' }}>
       {showBackground && (
         <div className="fixed inset-0 z-0 w-full h-full overflow-hidden pointer-events-none">
           <video autoPlay muted playsInline preload="auto" className="w-full h-full object-cover">

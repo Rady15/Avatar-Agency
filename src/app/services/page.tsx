@@ -13,7 +13,7 @@ export default function ServicesPage() {
 
   return (
     <>
-      <Navigation />
+   
       <AnimatedStars />
 
       {/* Back Button & Mobile Lang - Floating */}

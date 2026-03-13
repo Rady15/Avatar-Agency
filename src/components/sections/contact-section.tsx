@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Send, Mail, Phone, MapPin, Clock, Instagram, Twitter, Linkedin, Facebook, CheckCircle, MessageSquare, Globe
 } from "lucide-react";
@@ -33,6 +33,11 @@ export function ContactSection({ showBackground = true }: { showBackground?: boo
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,10 +52,14 @@ export function ContactSection({ showBackground = true }: { showBackground?: boo
   };
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
+  const { scrollYProgress } = useScroll(
+    mounted
+      ? {
+          target: containerRef,
+          offset: ["start end", "end start"]
+        }
+      : {}
+  );
 
   const contentOpacity = useTransform(
     scrollYProgress,
@@ -65,7 +74,7 @@ export function ContactSection({ showBackground = true }: { showBackground?: boo
   );
 
   return (
-    <section ref={containerRef} id="contact" className="relative h-[150vh]">
+    <section ref={containerRef} id="contact" className="relative min-h-screen">
       {/* Image Background */}
       {showBackground && (
         <div className="fixed inset-0 z-0 pointer-events-none">
@@ -79,7 +88,7 @@ export function ContactSection({ showBackground = true }: { showBackground?: boo
       )}
 
       {/* Sticky Content Container */}
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+      <div className="sticky top-0 min-h-screen w-full flex items-center justify-center overflow-visible">
         <motion.div
           className="relative z-10 w-full h-full flex items-center justify-center p-4 lg:p-8"
           style={{ opacity: contentOpacity, y: contentY }}

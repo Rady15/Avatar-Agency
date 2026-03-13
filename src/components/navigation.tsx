@@ -2,6 +2,7 @@
 
 import { motion, useScroll } from "framer-motion";
 import { useState, useEffect } from "react";
+import { useIsPresent } from "framer-motion";
 import { Menu, X, Diamond, Globe } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
@@ -18,6 +19,8 @@ export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const { language, toggleLanguage, t } = useLanguage();
   const { scrollY } = useScroll();
+
+  const isPresent = useIsPresent();
 
   useEffect(() => {
     const unsubscribe = scrollY.on("change", (latest) => {

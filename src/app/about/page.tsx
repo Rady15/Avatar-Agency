@@ -9,7 +9,7 @@ import { TestimonialsSection } from "@/components/sections/testimonials-section"
 export default function AboutPage() {
   return (
     <>
-      <Navigation />
+
       <TubesBackground className="fixed inset-0 z-0">
         <div className="w-full h-full" />
       </TubesBackground>

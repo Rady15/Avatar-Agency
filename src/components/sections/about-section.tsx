@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { motion, useScroll, useTransform } from "framer-motion";
 import {
@@ -35,19 +35,29 @@ interface AboutSectionProps {
 
 export function AboutSection({ showBackground = true, fullContent = false }: AboutSectionProps) {
   const { language, t, isMounted } = useLanguage();
+  const [mounted, setMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Only use scroll animations on homepage (compact mode)
+  const { scrollYProgress } = fullContent ? { scrollYProgress: null } : useScroll(
+    mounted
+      ? {
+          target: containerRef,
+          offset: ["start end", "end start"],
+        }
+      : {}
+  );
 
   // Only apply scroll-linked fade on homepage (compact mode)
-  const contentOpacityScrolled = useTransform(scrollYProgress, [0.05, 0.2, 0.8, 0.95], [0, 1, 1, 0]);
-  const contentYScrolled = useTransform(scrollYProgress, [0.05, 0.2, 0.8, 0.95], [60, 0, 0, -60]);
+  const contentOpacityScrolled = scrollYProgress ? useTransform(scrollYProgress, [0.05, 0.2, 0.8, 0.95], [0, 1, 1, 0]) : null;
+  const contentYScrolled = scrollYProgress ? useTransform(scrollYProgress, [0.05, 0.2, 0.8, 0.95], [60, 0, 0, -60]) : null;
 
   if (!isMounted) {
-    return <section ref={containerRef} className={`relative ${fullContent ? "min-h-screen" : "h-[150vh]"}`} />;
+    return <section ref={fullContent ? undefined : containerRef} className={`relative ${fullContent ? "min-h-screen" : "h-[150vh]"}`} />;
   }
 
   const highlights = [
@@ -227,9 +237,9 @@ export function AboutSection({ showBackground = true, fullContent = false }: Abo
       )}
 
       {/* ── STICKY viewport ── */}
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+      <div className="sticky top-0 min-h-screen w-full flex items-center justify-center overflow-visible">
         <motion.div
-          className="relative z-10 w-full max-w-6xl mx-auto px-6 lg:px-10 overflow-y-auto max-h-screen py-10"
+          className="relative z-10 w-full max-w-6xl mx-auto px-6 lg:px-10 py-10"
           style={{ opacity: contentOpacityScrolled, y: contentYScrolled }}
         >
           {/* ── TWO-COLUMN: Logo (left) + Description (right) ── */}

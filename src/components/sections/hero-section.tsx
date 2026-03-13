@@ -42,17 +42,26 @@ export function HeroSection({ showBackground = true }: { showBackground?: boolea
   const [currentSlogan, setCurrentSlogan] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
+  const [mounted, setMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const slogans = useMemo(() => language === "ar"
     ? ["نكسر القواعد لخلق الابتكار", "Breaking Rules to Create Innovation"]
     : ["Breaking Rules to Create Innovation", "نكسر القواعد لخلق الابتكار"], [language]);
 
   // Track scroll progress
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
+  const { scrollYProgress } = useScroll(
+    mounted
+      ? {
+          target: containerRef,
+          offset: ["start start", "end end"]
+        }
+      : {}
+  );
 
   // Content opacity based on scroll
   const contentOpacity = useTransform(scrollYProgress, [0, 0.4, 0.6], [1, 1, 0]);

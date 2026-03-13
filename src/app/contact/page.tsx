@@ -8,7 +8,7 @@ import { ContactSection } from "@/components/sections/contact-section";
 export default function ContactPage() {
   return (
     <>
-      <Navigation />
+
       <TubesBackground className="fixed inset-0 z-0">
         <div className="w-full h-full" />
       </TubesBackground>

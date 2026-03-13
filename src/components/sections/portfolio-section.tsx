@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { Layers, Target, Zap, Eye, ExternalLink, X, Film, Globe, Gift, Printer } from "lucide-react";
 import { CardCarousel } from "@/components/ui/card-carousel";
@@ -138,12 +138,21 @@ const portfolioCategories = [
 
 export function PortfolioSection({ showBackground = true }: { showBackground?: boolean }) {
   const [activeCategory, setActiveCategory] = useState("branding");
+  const [mounted, setMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const { scrollYProgress } = useScroll(
+    mounted
+      ? {
+          target: containerRef,
+          offset: ["start end", "end start"],
+        }
+      : {}
+  );
 
   const contentOpacity = useTransform(scrollYProgress, [0.05, 0.2, 0.8, 0.95], [0, 1, 1, 0]);
   const contentY = useTransform(scrollYProgress, [0.05, 0.2, 0.8, 0.95], [60, 0, 0, -60]);
@@ -151,12 +160,12 @@ export function PortfolioSection({ showBackground = true }: { showBackground?: b
   const currentCategory = portfolioCategories.find((c) => c.id === activeCategory)!;
 
   return (
-    <section ref={containerRef} id="portfolio" className="relative h-[150vh]">
+    <section ref={containerRef} id="portfolio" className="relative min-h-screen">
       {showBackground && (
         <div className="fixed inset-0 bg-gradient-to-b from-[#0A1D37] via-[#0d2341] to-[#0A1D37] z-0 pointer-events-none" />
       )}
 
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+      <div className="sticky top-0 min-h-screen w-full flex items-center justify-center overflow-visible">
         <motion.div
           className="relative z-10 w-full h-full flex flex-col justify-center"
           style={{ opacity: contentOpacity, y: contentY }}

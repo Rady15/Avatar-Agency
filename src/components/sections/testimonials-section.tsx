@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
 import { GlowCard } from "@/components/ui/glow-card";
@@ -51,23 +51,32 @@ const stats = [
 ];
 
 export function TestimonialsSection({ showBackground = true }: { showBackground?: boolean }) {
+  const [mounted, setMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const { scrollYProgress } = useScroll(
+    mounted
+      ? {
+          target: containerRef,
+          offset: ["start end", "end start"],
+        }
+      : {}
+  );
 
   const contentOpacity = useTransform(scrollYProgress, [0.1, 0.3, 0.7, 0.9], [0, 1, 1, 0]);
   const contentY = useTransform(scrollYProgress, [0.1, 0.3, 0.7, 0.9], [50, 0, 0, -50]);
 
   return (
-    <section ref={containerRef} className="relative h-[150vh]">
+    <section ref={containerRef} className="relative min-h-screen">
       {showBackground && (
         <div className="fixed inset-0 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent pointer-events-none z-0" />
       )}
 
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+      <div className="sticky top-0 min-h-screen w-full flex items-center justify-center overflow-visible">
         <motion.div
           className="w-full max-w-5xl px-4 flex flex-col gap-4"
           style={{ opacity: contentOpacity, y: contentY }}

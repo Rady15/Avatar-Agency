@@ -40,7 +40,7 @@ export function SpaceBackground() {
             {/* Base Image */}
             <div
                 className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                style={{ backgroundImage: "url('/1.jpg')" }}
+                style={{ backgroundImage: "url('/1.webp')" }}
             />
 
             {/* Stars Overlay */}

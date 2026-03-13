@@ -1,55 +1,72 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import assetsList from "@/data/assets.json";
 
-// We exclude huge video files from automatic image preloading to avoid bandwidth hogs.
-// We only preload images to browser memory.
+const criticalAssets = [
+    "/LOGO/White-logo_01.png",
+    "/LOGO/Blue-logo_01.png",
+    "/assets/استشارات/1.png",
+    "/assets/اعلانت ممولة/1.png",
+    "/assets/السوشيال ميديا/1.png",
+    "/assets/اللافتات/1.png",
+    "/assets/المعارض/1.png",
+    "/assets/الهوية البصرية/1.png",
+    "/assets/انتاج الفديو/1.png",
+    "/assets/تصميم المواقع/1.png",
+    "/assets/تطبيقات/1.png",
+    "/assets/مطبوعات/1.png",
+    "/assets/هدايا/1.png",
+];
+
 export function AssetPreloader() {
-    const [mounted, setMounted] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [progress, setProgress] = useState(0);
 
     useEffect(() => {
-        // Only start preloading after the main content is fully loaded
-        // to avoid blocking critical rendering.
-        if (document.readyState === "complete") {
-            setMounted(true);
-        } else {
-            window.addEventListener("load", () => setMounted(true));
-            return () => window.removeEventListener("load", () => setMounted(true));
-        }
-    }, []);
+        let loadedCount = 0;
+        const totalCritical = criticalAssets.length;
 
-    useEffect(() => {
-        if (!mounted) return;
-
-        // Background preloading logic
-        // We process assets in chunks to avoid locking the UI thread
-        const images = assetsList.filter((src) => src.match(/\.(png|jpe?g|svg|webp)$/i));
-
-        // Chunking function
-        const preloadChunk = (chunk: string[]) => {
-            chunk.forEach((src) => {
+        const preloadCritical = () => {
+            criticalAssets.forEach((src) => {
                 const img = new Image();
-                // Since we use encodeURI in the app for Arabic paths, 
-                // we should preload the encoded version
                 img.src = encodeURI(src);
+
+                img.onload = () => {
+                    loadedCount++;
+                    setProgress(Math.round((loadedCount / totalCritical) * 100));
+                    if (loadedCount >= totalCritical) {
+                        setTimeout(() => setLoading(false), 300);
+                    }
+                };
+
+                img.onerror = () => {
+                    loadedCount++;
+                    setProgress(Math.round((loadedCount / totalCritical) * 100));
+                    if (loadedCount >= totalCritical) {
+                        setTimeout(() => setLoading(false), 300);
+                    }
+                };
             });
         };
 
-        const chunkSize = 5;
-        let i = 0;
+        if (document.readyState === "complete") {
+            preloadCritical();
+        } else {
+            window.addEventListener("load", preloadCritical);
+            return () => window.removeEventListener("load", preloadCritical);
+        }
+    }, []);
 
-        const interval = setInterval(() => {
-            if (i >= images.length) {
-                clearInterval(interval);
-                return;
-            }
-            preloadChunk(images.slice(i, i + chunkSize));
-            i += chunkSize;
-        }, 500); // Preload 5 images every 500ms silently
+    if (!loading) return null;
 
-        return () => clearInterval(interval);
-    }, [mounted]);
-
-    return null; // This component doesn't render anything
+    return (
+        <div className="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-black gap-4">
+            <div className="w-48 h-1 bg-white/10 rounded-full overflow-hidden">
+                <div
+                    className="h-full bg-[#D4AF37] transition-all duration-300 ease-out"
+                    style={{ width: `${progress}%` }}
+                />
+            </div>
+        </div>
+    );
 }

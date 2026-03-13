@@ -2,16 +2,31 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 import {
   Send, Mail, Phone, MapPin, Clock, Instagram, Twitter, Linkedin, Facebook, CheckCircle, MessageSquare, Globe
 } from "lucide-react";
 import { GlowCard } from "@/components/ui/glow-card";
 
 const contactInfo = [
-  { icon: Phone, label: "اتصل بنا", value: "+966 50 000 0000", href: "tel:+966500000000", color: "from-emerald-500/20 to-teal-500/20", iconColor: "text-emerald-400" },
-  { icon: Mail, label: "راسلنا", value: "info@avatar-ad.com", href: "mailto:info@avatar-ad.com", color: "from-blue-500/20 to-cyan-500/20", iconColor: "text-blue-400" },
-  { icon: MapPin, label: "زورنا", value: "الرياض، المملكة العربية السعودية", href: "#", color: "from-orange-500/20 to-amber-500/20", iconColor: "text-orange-400" },
-  { icon: Clock, label: "ساعات العمل", value: "الأحد - الخميس: 9ص - 6م", href: "#", color: "from-purple-500/20 to-pink-500/20", iconColor: "text-purple-400" },
+  { icon: Phone, label: "اتصل بنا", labelEn: "Call Us", value: "+966 50 000 0000", valueEn: "+966 50 000 0000", href: "tel:+966500000000", color: "from-emerald-500/20 to-teal-500/20", iconColor: "text-emerald-400" },
+  { icon: Mail, label: "راسلنا", labelEn: "Email Us", value: "info@avatar-ad.com", valueEn: "info@avatar-ad.com", href: "mailto:info@avatar-ad.com", color: "from-blue-500/20 to-cyan-500/20", iconColor: "text-blue-400" },
+  { icon: MapPin, label: "زورنا", labelEn: "Visit Us", value: "الرياض، المملكة العربية السعودية", valueEn: "Riyadh, Kingdom of Saudi Arabia", href: "#", color: "from-orange-500/20 to-amber-500/20", iconColor: "text-orange-400" },
+  { icon: Clock, label: "ساعات العمل", labelEn: "Working Hours", value: "الأحد - الخميس: 9ص - 6م", valueEn: "Sun - Thu: 9AM - 6PM", href: "#", color: "from-purple-500/20 to-pink-500/20", iconColor: "text-purple-400" },
+];
+
+const servicesList = [
+  { label: "تصميم المواقع", labelEn: "Web Design" },
+  { label: "الهوية البصرية", labelEn: "Visual Identity" },
+  { label: "السوشيال ميديا", labelEn: "Social Media" },
+  { label: "إنتاج الفيديو", labelEn: "Video Production" },
+  { label: "الحملات الإعلانية", labelEn: "Ad Campaigns" },
+  { label: "اللافتات", labelEn: "Signage" },
+  { label: "المعارض والستاندات", labelEn: "Exhibitions & Stands" },
+  { label: "الهدايا الدعائية", labelEn: "Promotional Gifts" },
+  { label: "تطبيقات الجوال", labelEn: "Mobile Apps" },
+  { label: "المطبوعات", labelEn: "Printing" },
+  { label: "الاستشارات", labelEn: "Consulting" },
 ];
 
 const socialLinks = [
@@ -22,12 +37,8 @@ const socialLinks = [
   { icon: Globe, href: "#", label: "Website", color: "hover:bg-emerald-500" },
 ];
 
-const services = [
-  "تصميم المواقع", "الهوية البصرية", "السوشيال ميديا", "إنتاج الفيديو",
-  "الحملات الإعلانية", "اللافتات", "المعارض والستاندات", "الهدايا الدعائية", "تطبيقات الجوال", "المطبوعات", "الاستشارات",
-];
-
 export function ContactSection({ showBackground = true }: { showBackground?: boolean }) {
+  const { language, t, isMounted } = useLanguage();
   const [formState, setFormState] = useState({
     name: "", email: "", phone: "", service: "", message: "",
   });
@@ -88,10 +99,9 @@ export function ContactSection({ showBackground = true }: { showBackground?: boo
       )}
 
       {/* Sticky Content Container */}
-      <div className="sticky top-0 min-h-screen w-full flex items-center justify-center overflow-visible">
-        <motion.div
+      <div className="sticky top-0 min-h-screen w-full flex items-center justify-center overflow-visible" style={{ direction: language === 'ar' ? 'rtl' : 'ltr' }}>
+        <div
           className="relative z-10 w-full h-full flex items-center justify-center p-4 lg:p-8"
-          style={{ opacity: contentOpacity, y: contentY }}
         >
           <div className="w-full max-w-7xl">
             {/* Header */}
@@ -102,7 +112,7 @@ export function ContactSection({ showBackground = true }: { showBackground?: boo
                 transition={{ duration: 0.6 }}
                 className="text-3xl md:text-4xl lg:text-5xl font-black mb-2"
               >
-                لنبدأ <span className="gold-text">مشروعك</span> معاً
+                {language === 'ar' ? 'لنبدأ ' : 'Let\'s Start '}<span className="gold-text">{language === 'ar' ? 'مشروعك' : 'Your Project'}</span>{language === 'ar' ? ' معاً' : ' Together'}
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0, y: -20 }}
@@ -111,7 +121,7 @@ export function ContactSection({ showBackground = true }: { showBackground?: boo
                 className="text-white/50 text-sm"
                 style={{ fontFamily: "var(--font-geist-sans)" }}
               >
-                LET&apos;S START YOUR PROJECT TOGETHER
+                {language === 'ar' ? 'ابدأ مشروعك الآن واحصل على استشارة مجانية' : 'START YOUR PROJECT NOW AND GET A FREE CONSULTATION'}
               </motion.p>
             </div>
 
@@ -135,21 +145,21 @@ export function ContactSection({ showBackground = true }: { showBackground?: boo
                     <div className="relative z-10 space-y-4">
                       {/* Name */}
                       <div>
-                        <label className="block text-sm font-medium text-white/80 mb-1.5">الاسم الكامل</label>
+                        <label className="block text-sm font-medium text-white/80 mb-1.5">{language === 'ar' ? 'الاسم الكامل' : 'Full Name'}</label>
                         <input
                           type="text"
                           required
                           value={formState.name}
                           onChange={(e) => setFormState({ ...formState, name: e.target.value })}
                           className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all"
-                          placeholder="أدخل اسمك الكامل"
+                          placeholder={language === 'ar' ? 'أدخل اسمك الكامل' : 'Enter your full name'}
                         />
                       </div>
 
                       {/* Email & Phone */}
                       <div className="grid md:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-sm font-medium text-white/80 mb-1.5">البريد الإلكتروني</label>
+                          <label className="block text-sm font-medium text-white/80 mb-1.5">{language === 'ar' ? 'البريد الإلكتروني' : 'Email'}</label>
                           <input
                             type="email"
                             required
@@ -160,7 +170,7 @@ export function ContactSection({ showBackground = true }: { showBackground?: boo
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-white/80 mb-1.5">رقم الهاتف</label>
+                          <label className="block text-sm font-medium text-white/80 mb-1.5">{language === 'ar' ? 'رقم الهاتف' : 'Phone Number'}</label>
                           <input
                             type="tel"
                             value={formState.phone}
@@ -173,30 +183,30 @@ export function ContactSection({ showBackground = true }: { showBackground?: boo
 
                       {/* Service Select */}
                       <div>
-                        <label className="block text-sm font-medium text-white/80 mb-1.5">الخدمة المطلوبة</label>
+                        <label className="block text-sm font-medium text-white/80 mb-1.5">{language === 'ar' ? 'الخدمة المطلوبة' : 'Required Service'}</label>
                         <select
                           required
                           value={formState.service}
                           onChange={(e) => setFormState({ ...formState, service: e.target.value })}
                           className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all appearance-none cursor-pointer"
                         >
-                          <option value="" className="bg-[#0A1D37]">اختر الخدمة</option>
-                          {services.map((service) => (
-                            <option key={service} value={service} className="bg-[#0A1D37]">{service}</option>
+                          <option value="" className="bg-[#0A1D37]">{language === 'ar' ? 'اختر الخدمة' : 'Choose Service'}</option>
+                          {servicesList.map((service) => (
+                            <option key={service.label} value={service.label} className="bg-[#0A1D37]">{language === 'ar' ? service.label : service.labelEn}</option>
                           ))}
                         </select>
                       </div>
 
                       {/* Message */}
                       <div>
-                        <label className="block text-sm font-medium text-white/80 mb-1.5">تفاصيل المشروع</label>
+                        <label className="block text-sm font-medium text-white/80 mb-1.5">{language === 'ar' ? 'تفاصيل المشروع' : 'Project Details'}</label>
                         <textarea
                           required
                           rows={3}
                           value={formState.message}
                           onChange={(e) => setFormState({ ...formState, message: e.target.value })}
                           className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all resize-none"
-                          placeholder="أخبرنا عن مشروعك وأهدافك..."
+                          placeholder={language === 'ar' ? 'أخبرنا عن مشروعك وأهدافك...' : 'Tell us about your project and goals...'}
                         />
                       </div>
 
@@ -218,12 +228,12 @@ export function ContactSection({ showBackground = true }: { showBackground?: boo
                         ) : isSubmitted ? (
                           <>
                             <CheckCircle className="w-5 h-5" />
-                            تم الإرسال بنجاح!
+                            {language === 'ar' ? 'تم الإرسال بنجاح!' : 'Sent Successfully!'}
                           </>
                         ) : (
                           <>
                             <Send className="w-5 h-5" />
-                            أرسل رسالتك
+                            {language === 'ar' ? 'أرسل رسالتك' : 'Send Message'}
                           </>
                         )}
                       </motion.button>
@@ -253,8 +263,8 @@ export function ContactSection({ showBackground = true }: { showBackground?: boo
                         <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${item.color} flex items-center justify-center mb-2`}>
                           <item.icon className={`w-5 h-5 ${item.iconColor}`} />
                         </div>
-                        <p className="text-xs text-white/50 mb-0.5">{item.label}</p>
-                        <p className="text-white text-sm font-medium">{item.value}</p>
+                        <p className="text-xs text-white/50 mb-0.5">{language === 'ar' ? item.label : item.labelEn}</p>
+                        <p className="text-white text-sm font-medium">{language === 'ar' ? item.value : item.valueEn}</p>
                       </motion.a>
                     </GlowCard>
                   ))}
@@ -269,7 +279,7 @@ export function ContactSection({ showBackground = true }: { showBackground?: boo
                 >
                   <div className="flex items-center gap-2 mb-3">
                     <MessageSquare className="w-4 h-4 text-primary" />
-                    <h3 className="font-bold text-white text-sm">تابعنا على</h3>
+                    <h3 className="font-bold text-white text-sm">{language === 'ar' ? 'تابعنا على' : 'Follow Us'}</h3>
                   </div>
                   <div className="flex gap-2">
                     {socialLinks.map((social) => (
@@ -293,8 +303,8 @@ export function ContactSection({ showBackground = true }: { showBackground?: boo
                   transition={{ duration: 0.5, delay: 0.8 }}
                   className="p-4 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 backdrop-blur-sm border border-primary/30"
                 >
-                  <h3 className="font-bold text-white text-sm mb-2">هل لديك سؤال عاجل؟</h3>
-                  <p className="text-white/60 text-xs mb-3">تواصل معنا مباشرة عبر الواتساب للرد السريع</p>
+                  <h3 className="font-bold text-white text-sm mb-2">{language === 'ar' ? 'هل لديك سؤال عاجل؟' : 'Have an Urgent Question?'}</h3>
+                  <p className="text-white/60 text-xs mb-3">{language === 'ar' ? 'تواصل معنا مباشرة عبر الواتساب للرد السريع' : 'Contact us directly via WhatsApp for quick response'}</p>
                   <motion.a
                     href="https://wa.me/966500000000"
                     target="_blank"
@@ -304,13 +314,13 @@ export function ContactSection({ showBackground = true }: { showBackground?: boo
                     whileTap={{ scale: 0.98 }}
                   >
                     <MessageSquare className="w-4 h-4" />
-                    تواصل عبر واتساب
+                    {language === 'ar' ? 'تواصل عبر واتساب' : 'Chat on WhatsApp'}
                   </motion.a>
                 </motion.div>
               </motion.div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

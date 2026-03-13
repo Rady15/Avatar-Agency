@@ -92,12 +92,14 @@ export const AnimatedTestimonials = ({
                                     }}
                                     className="absolute inset-0 origin-bottom"
                                 >
-                                    <img
-                                        src={testimonial.src}
-                                        alt={testimonial.name}
-                                        draggable={false}
-                                        className="h-full w-full rounded-3xl object-cover object-center shadow-2xl"
-                                    />
+                                    <div className="h-full w-full rounded-3xl bg-white p-2 shadow-2xl">
+                                        <img
+                                            src={testimonial.src}
+                                            alt={testimonial.name}
+                                            draggable={false}
+                                            className="h-full w-full rounded-2xl object-contain"
+                                        />
+                                    </div>
                                 </motion.div>
                             ))}
                         </AnimatePresence>

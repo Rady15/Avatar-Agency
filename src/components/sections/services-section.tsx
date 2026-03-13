@@ -8,16 +8,17 @@ import {
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { CardCarousel } from "@/components/ui/card-carousel";
+import { ServiceVerticalStack } from "@/components/ui/service-vertical-stack";
 
 // Enhanced services with real portfolio data
 const services = [
   {
     id: 1,
-    title: "تصميم المواقع",
+    title: "إنشاء المواقع الإلكترونية",
     imgDir: "تصميم المواقع",
-    titleEn: "Web Design",
-    description: "نصمم ونطور مواقع ويب احترافية ومتجاوبة تعكس هوية علامتك التجارية وتوفر تجربة مستخدم استثنائية تميزك عن المنافسين.",
-    descriptionEn: "We design and develop professional, responsive websites that reflect your brand identity.",
+    titleEn: "Web Development",
+    description: "تقدم أفتار أقوى خدمة للاتصال والتواصل وهي خدمة إنشاء المواقع الإلكترونية بحيث تكون قادر على مشاركة اهتمامك والتسويق والترويج عن منتجاتك وزيادة أرباحك وجذب عملائك. موقعك الإلكتروني دليل على مصداقيتك.",
+    descriptionEn: "Avatar offers the strongest communication service - website creation. You can share your interests, market and promote your products, increase your profits, and attract customers. Your website is proof of your credibility.",
     cta: "اطلب الخدمة",
     ctaEn: "Request Service",
     bg: "#C62828",
@@ -33,11 +34,11 @@ const services = [
   },
   {
     id: 2,
-    title: "الهوية البصرية",
+    title: "الغرافيك ديزاين",
     imgDir: "الهوية البصرية",
-    titleEn: "Branding",
-    description: "نبني هويات بصرية متكاملة ومتميزة تعكس قيم علامتك التجارية.",
-    descriptionEn: "We build integrated visual identities that reflect your brand values.",
+    titleEn: "Graphic Design",
+    description: "تخلق لك أفتار فرصة تحويل أفكارك إلى تصاميم مثالية واقعية تجذب انتباه الجمهور وتساعدك بشكل أكبر على توصيل منتجاتك وخدماتك بشكل فريد يعكس هويتك ويساعد العملاء على اكتشاف منتجاتك بالشكل الأمثل وبالتالي انتشار هويتك التجارية بشكل أوسع.",
+    descriptionEn: "Avatar creates an opportunity for you to transform your ideas into realistic, perfect designs that attract attention. We help you deliver your products and services in a unique way that reflects your identity and helps customers discover your products optimally.",
     cta: "اطلب الخدمة",
     ctaEn: "Request Service",
     bg: "#D4AF37",
@@ -58,11 +59,11 @@ const services = [
   },
   {
     id: 3,
-    title: "السوشيال ميديا",
+    title: "إدارة مواقع التواصل الاجتماعي",
     imgDir: "السوشيال ميديا",
-    titleEn: "Social Media",
-    description: "ندير حساباتك على منصات التواصل الاجتماعي باحترافية.",
-    descriptionEn: "We professionally manage your social media accounts.",
+    titleEn: "Social Media Management",
+    description: "يمكنك بناء قاعدة كبيرة من العملاء من خلال إدارة مواقع التواصل الاجتماعي التي يستخدمها أكثر من 8 مليار مستخدم حيث يصبح بإمكانك معرفة ما يريده الجمهور من خلال استطلاع الرأي وردود أفعالهم وجمع معلومات عنهم وبناء علاقة قوية معهم وهذا ما توفره لكم أفتار بطريقة جذابة واحترافية وموثوقة.",
+    descriptionEn: "You can build a large customer base through social media management used by more than 8 billion users. You can discover what the audience wants through polls, reactions, and gathering information to build strong relationships. Avatar provides this in an attractive, professional, and reliable way.",
     cta: "اطلب الخدمة",
     ctaEn: "Request Service",
     bg: "#1565C0",
@@ -76,29 +77,11 @@ const services = [
   },
   {
     id: 4,
-    title: "إنتاج الفيديو",
-    imgDir: "انتاج الفديو",
-    titleEn: "Video Production",
-    description: "ننتج فيديوهات إعلانية وترويجية احترافية.",
-    descriptionEn: "We produce professional advertising and promotional videos.",
-    cta: "اطلب الخدمة",
-    ctaEn: "Request Service",
-    bg: "#6A1B9A",
-    bgExpanded: "linear-gradient(180deg, #6A1B9A 0%, #40105c 100%)",
-    accent: "#E1BEE7",
-    portfolio: [
-      { id: 1, title: "إعلان تجاري", titleEn: "Commercial TVC", year: "2024", description: "إنتاج إعلان تلفزيوني", descriptionEn: "TVC Production", image: encodeURI("/assets/انتاج الفديو/protfolio/1.jpg"), tags: ["TVC"], tagsEn: ["TVC"] },
-      { id: 2, title: "فيديو تعريفي", titleEn: "Intro Video", year: "2024", description: "فيديو تعريفي للشركات", descriptionEn: "Corporate Intro Video", image: encodeURI("/assets/انتاج الفديو/protfolio/2.jpg"), tags: ["Intro"], tagsEn: ["Intro"] },
-      { id: 3, title: "موشن جرافيك", titleEn: "Motion Graphics", year: "2024", description: "تصميم موشن جرافيك", descriptionEn: "Motion Graphics Design", image: encodeURI("/assets/انتاج الفديو/protfolio/3.png"), tags: ["Motion"], tagsEn: ["Motion"] },
-    ]
-  },
-  {
-    id: 5,
-    title: "الحملات الإعلانية",
+    title: "التسويق الإلكتروني",
     imgDir: "اعلانت ممولة",
-    titleEn: "Paid Ads",
-    description: "نصمم وندير حملات إعلانية مدفوعة فعّالة.",
-    descriptionEn: "We design and manage effective paid advertising campaigns.",
+    titleEn: "Digital Marketing",
+    description: "تساعدك أفتار في خلق التواصل بينك وبين جمهورك المستهدف من خلال التسويق الإلكتروني حيث أصبح بإمكانك ترويج منتجاتك في جميع الأوقات وفي مناطق جغرافية مختلفة بتكلفة أقل من التسويق التقليدي مما يوفر الوقت والجهد والتكلفة.",
+    descriptionEn: "Avatar helps create communication between you and your target audience through digital marketing. You can promote your products at all times and in different geographical areas at a lower cost than traditional marketing, saving time, effort, and cost.",
     cta: "اطلب الخدمة",
     ctaEn: "Request Service",
     bg: "#E65100",
@@ -113,74 +96,30 @@ const services = [
     ]
   },
   {
+    id: 5,
+    title: "الدعاية والإعلان",
+    imgDir: "اعلانت ممولة",
+    titleEn: "Advertising",
+    description: "تقدم أفتار من خلال الدعاية والإعلان تسويق خدماتك وأفكارك من خلال تحديد المميزات والخصائص وشرحها بأقل تكلفة باستخدام الوسيلة الإعلانية المناسبة مما يخلق التنافس بين الشركات ومحاولة جذب العملاء بجميع فئاتهم مما يجلب الأرباح المالية الكثيرة.",
+    descriptionEn: "Avatar provides advertising services to market your services and ideas by identifying features and explaining them at the lowest cost using the appropriate advertising medium, creating competition between companies and attempting to attract customers of all categories.",
+    cta: "اطلب الخدمة",
+    ctaEn: "Request Service",
+    bg: "#FF5722",
+    bgExpanded: "linear-gradient(180deg, #FF5722 0%, #c41c00 100%)",
+    accent: "#FFCCBC",
+    portfolio: [
+      { id: 1, title: "حملة إعلانية", titleEn: "Ad Campaign", year: "2024", description: "حملة إعلانية شاملة", descriptionEn: "Comprehensive Ad Campaign", image: encodeURI("/assets/اعلانت ممولة/portfolio/1.jpg"), tags: ["Campaign"], tagsEn: ["Campaign"] },
+      { id: 2, title: "هوية إعلانية", titleEn: "Ad Identity", year: "2024", description: "تطوير هوية إعلانية", descriptionEn: "Advertising Identity Development", image: encodeURI("/assets/اعلانت ممولة/portfolio/2.jpg"), tags: ["Identity"], tagsEn: ["Identity"] },
+      { id: 3, title: "إعلان ممول", titleEn: "Sponsored Ad", year: "2024", description: "إعلانات احترافية", descriptionEn: "Professional Ads", image: encodeURI("/assets/اعلانت ممولة/portfolio/3.jpg"), tags: ["Sponsored"], tagsEn: ["Sponsored"] },
+    ]
+  },
+  {
     id: 6,
-    title: "اللافتات",
-    imgDir: "اللافتات",
-    titleEn: "Signage",
-    description: "نصمم وننفذ لافتات داخلية وخارجية مميزة.",
-    descriptionEn: "We design and execute distinctive indoor and outdoor signage.",
-    cta: "اطلب الخدمة",
-    ctaEn: "Request Service",
-    bg: "#1B5E20",
-    bgExpanded: "linear-gradient(180deg, #1B5E20 0%, #103812 100%)",
-    accent: "#C8E6C9",
-    portfolio: [
-      { id: 1, title: "لافتة خارجية", titleEn: "Outdoor Sign", year: "2024", description: "تصميم لافتة محلات", descriptionEn: "Retail Signboard Design", image: encodeURI("/assets/اللافتات/portfolio/1.png"), tags: ["Outdoor"], tagsEn: ["Outdoor"] },
-      { id: 2, title: "لافتة ثلاثية الأبعاد", titleEn: "3D Signage", year: "2024", description: "حروف بارزة مضيئة", descriptionEn: "Illuminated 3D Letters", image: encodeURI("/assets/اللافتات/portfolio/2.png"), tags: ["3D"], tagsEn: ["3D"] },
-      { id: 3, title: "لوحة توجيهية", titleEn: "Directional Sign", year: "2024", description: "لوحات توجيهية داخلية", descriptionEn: "Indoor Wayfinding", image: encodeURI("/assets/اللافتات/portfolio/3.png"), tags: ["Wayfinding"], tagsEn: ["Wayfinding"] },
-      { id: 4, title: "لوحة بوب أب", titleEn: "Pop-up Sign", year: "2023", description: "لوحات عرض مؤقتة", descriptionEn: "Temporary Display Sign", image: encodeURI("/assets/اللافتات/portfolio/4.png"), tags: ["Display"], tagsEn: ["Display"] },
-      { id: 5, title: "لافتة مكتبية", titleEn: "Office Sign", year: "2023", description: "لافتات مكاتب واستقبال", descriptionEn: "Office & Reception Sign", image: encodeURI("/assets/اللافتات/portfolio/5.png"), tags: ["Office"], tagsEn: ["Office"] },
-      { id: 6, title: "لافتة جدارية", titleEn: "Wall Mural", year: "2024", description: "تصميم جداريات تجارية", descriptionEn: "Commercial Wall Murals", image: encodeURI("/assets/اللافتات/portfolio/6.png"), tags: ["Mural"], tagsEn: ["Mural"] },
-    ]
-  },
-  {
-    id: 7,
-    title: "المعارض والستاندات",
-    imgDir: "المعارض",
-    titleEn: "Exhibitions",
-    description: "نصمم وننفذ ستاندات معارض احترافية.",
-    descriptionEn: "We design and execute professional exhibition stands.",
-    cta: "اطلب الخدمة",
-    ctaEn: "Request Service",
-    bg: "#00695C",
-    bgExpanded: "linear-gradient(180deg, #00695C 0%, #003d34 100%)",
-    accent: "#B2DFDB",
-    portfolio: [
-      { id: 1, title: "بوث معرض", titleEn: "Expo Booth", year: "2024", description: "تصميم بوث متكامل", descriptionEn: "Full Expo Booth Design", image: encodeURI("/assets/المعارض/portfolio/1.png"), tags: ["Booth"], tagsEn: ["Booth"] },
-      { id: 2, title: "ستاند عرض", titleEn: "Display Stand", year: "2024", description: "ستاند عرض منتجات", descriptionEn: "Product Display Stand", image: encodeURI("/assets/المعارض/portfolio/2.png"), tags: ["Stand"], tagsEn: ["Stand"] },
-      { id: 3, title: "منصة عرض", titleEn: "Promo Counter", year: "2024", description: "منصة ترويجية", descriptionEn: "Promotional Counter", image: encodeURI("/assets/المعارض/portfolio/3.png"), tags: ["Counter"], tagsEn: ["Counter"] },
-      { id: 4, title: "رول أب", titleEn: "Roll-up Banner", year: "2023", description: "تصميم رول أب", descriptionEn: "Roll-up Design", image: encodeURI("/assets/المعارض/portfolio/4.png"), tags: ["Banner"], tagsEn: ["Banner"] },
-      { id: 5, title: "خلفية معرض", titleEn: "Backdrop", year: "2023", description: "خلفية تصوير معارض", descriptionEn: "Expo Backdrop", image: encodeURI("/assets/المعارض/portfolio/5.png"), tags: ["Backdrop"], tagsEn: ["Backdrop"] },
-      { id: 6, title: "ستاند تفاعلي", titleEn: "Interactive Stand", year: "2024", description: "ستاند عرض تفاعلي", descriptionEn: "Interactive Expo Stand", image: encodeURI("/assets/المعارض/portfolio/6.png"), tags: ["Interactive"], tagsEn: ["Interactive"] },
-      { id: 7, title: "تجهيز أجنحة", titleEn: "Booth Setup", year: "2024", description: "تجهيز أجنحة المعارض", descriptionEn: "Exhibition Booth Setup", image: encodeURI("/assets/المعارض/portfolio/7.png"), tags: ["Setup"], tagsEn: ["Setup"] },
-    ]
-  },
-  {
-    id: 8,
-    title: "الهدايا الدعائية",
-    imgDir: "هدايا",
-    titleEn: "Promo Gifts",
-    description: "نوفر هدايا دعائية إبداعية ومخصصة.",
-    descriptionEn: "We provide creative and customized promotional gifts.",
-    cta: "اطلب الخدمة",
-    ctaEn: "Request Service",
-    bg: "#37474F",
-    bgExpanded: "linear-gradient(180deg, #37474F 0%, #1a2328 100%)",
-    accent: "#CFD8DC",
-    portfolio: [
-      { id: 1, title: "هدية مؤسسية", titleEn: "Corporate Gift", year: "2024", description: "هدايا شركات فاخرة", descriptionEn: "Luxury Corporate Gifts", image: encodeURI("/assets/هدايا/protfolio/1.png"), tags: ["Gifts"], tagsEn: ["Gifts"] },
-      { id: 2, title: "منتجات دعائية", titleEn: "Promo Products", year: "2024", description: "مطبوعات دعائية للهدايا", descriptionEn: "Custom Promo Products", image: encodeURI("/assets/هدايا/protfolio/2.png"), tags: ["Promo"], tagsEn: ["Promo"] },
-      { id: 3, title: "طقم هدايا", titleEn: "Gift Set", year: "2024", description: "طقم هدايا متكامل", descriptionEn: "Full Gift Set", image: encodeURI("/assets/هدايا/protfolio/3.png"), tags: ["Set"], tagsEn: ["Set"] },
-      { id: 4, title: "هدايا ترويجية", titleEn: "Giveaways", year: "2023", description: "توزيعات وهدايا بسيطة", descriptionEn: "Promotional Giveaways", image: encodeURI("/assets/هدايا/protfolio/4.png"), tags: ["Giveaway"], tagsEn: ["Giveaway"] },
-    ]
-  },
-  {
-    id: 9,
-    title: "تطبيقات الجوال",
+    title: "إنشاء التطبيقات",
     imgDir: "تطبيقات",
     titleEn: "App Development",
-    description: "نصمم ونطور تطبيقات جوال احترافية.",
-    descriptionEn: "We design and develop professional mobile apps.",
+    description: "تطبيقات الهواتف الذكية والأجهزة اللوحية أصبحت جزءاً لا يتجزأ من حياتنا اليومية وتساعدنا في تسهيل العديد من الأمور في حياتنا الشخصية والمهنية. تقدم خدمة تطوير التطبيقات للشركات فرصة لتحسين وتوسيع خدماتها ومنتجاتها من خلال تطوير تطبيقات تلبي احتياجات عملائها. تتضمن خدمات تطوير التطبيقات تصميم وتطوير التطبيقات واختبارها ونشرها في المتاجر الرقمية، كما تشمل الصيانة والتحديثات اللازمة لتطبيقات الشركة. يمكن أن تساعد خدمة تطوير التطبيقات الشركات في زيادة الإيرادات وتحسين تجربة العملاء وتعزيز العلامة التجارية.",
+    descriptionEn: "Smartphone and tablet apps have become an integral part of our daily life, helping us simplify many things in our personal and professional lives. App development services provide companies with the opportunity to improve and expand their services and products through developing apps that meet customer needs.",
     cta: "اطلب الخدمة",
     ctaEn: "Request Service",
     bg: "#0277BD",
@@ -196,12 +135,12 @@ const services = [
     ]
   },
   {
-    id: 10,
+    id: 7,
     title: "المطبوعات",
     imgDir: "مطبوعات",
-    titleEn: "Printed Materials",
-    description: "نقدم خدمات طباعة احترافية عالية الجودة.",
-    descriptionEn: "We provide professional high-quality printing services.",
+    titleEn: "Printing Services",
+    description: "تعد من أهم وسائل الدعاية لذلك تعمل الشركة على تميز المطبوعات الدعائية من حيث الجودة العالية والشكل المميز. تشمل المطبوعات: الكروت الشخصية، بروشور، فولدر، فلايرز، منيو، خطاب شركة، أظرف، بوستر، نتيجة مكتب، نتيجة حائط، أجندات، كوستر فل، بلوك نوت، كتالوجات، مجلات، استيكر، علبة مناديل، دفاتر فواتير وإيصالات، كتب جامعات، علب، طباعة ونسخ CD. كما تشمل مطبوعات المطاعم مثل: مناديل، شاليموه، كوسترز، مفارش ورقية، دفاتر كابتن أوردر، طباعة يونيفورم، طباعة كابات، صناديق دليفري.",
+    descriptionEn: "Printing is one of the most important advertising media. The company works to distinguish promotional prints in terms of high quality and distinctive shape. This includes business cards, brochures, folders, flyers, menus, company letters, envelopes, posters, and more.",
     cta: "اطلب الخدمة",
     ctaEn: "Request Service",
     bg: "#5D4037",
@@ -223,12 +162,92 @@ const services = [
     ]
   },
   {
+    id: 8,
+    title: "اللافتات",
+    imgDir: "اللافتات",
+    titleEn: "Signage",
+    description: "جميع أنواع اللافتات الإرشادية المعدنية والبلاستيكية داخل المباني وخارجها والتي تستخدمها الشركات والمستشفيات والمدارس والمصانع والمؤسسات بالإضافة إلى طباعة استاندات العرض للشركات التي تستخدم داخل الشركات أو في المعارض الخارجية وذلك لسهولة فكها ونقلها مثل: ROLLUP - POPUP - X BANNERS. كما تقدم أفتار خدمة طباعة وتركيب اللافتات الإعلانية الخاصة بالشركات والمحلات التجارية مثل: طباعة فليكس - بانر - فينيل - سى ثرو - استانلس – نحاس - صاج – كلادن بلاستيك - إكليرك – لدات لصق الفينيل بأنواعه المختلفة على واجهات الشركات وعلى السيارات.",
+    descriptionEn: "All types of metal and plastic signage inside and outside buildings used by companies, hospitals, schools, factories, and institutions, plus display stands for companies used inside or at external exhibitions.",
+    cta: "اطلب الخدمة",
+    ctaEn: "Request Service",
+    bg: "#1B5E20",
+    bgExpanded: "linear-gradient(180deg, #1B5E20 0%, #103812 100%)",
+    accent: "#C8E6C9",
+    portfolio: [
+      { id: 1, title: "لافتة خارجية", titleEn: "Outdoor Sign", year: "2024", description: "تصميم لافتة محلات", descriptionEn: "Retail Signboard Design", image: encodeURI("/assets/اللافتات/portfolio/1.png"), tags: ["Outdoor"], tagsEn: ["Outdoor"] },
+      { id: 2, title: "لافتة ثلاثية الأبعاد", titleEn: "3D Signage", year: "2024", description: "حروف بارزة مضيئة", descriptionEn: "Illuminated 3D Letters", image: encodeURI("/assets/اللافتات/portfolio/2.png"), tags: ["3D"], tagsEn: ["3D"] },
+      { id: 3, title: "لوحة توجيهية", titleEn: "Directional Sign", year: "2024", description: "لوحات توجيهية داخلية", descriptionEn: "Indoor Wayfinding", image: encodeURI("/assets/اللافتات/portfolio/3.png"), tags: ["Wayfinding"], tagsEn: ["Wayfinding"] },
+      { id: 4, title: "لوحة بوب أب", titleEn: "Pop-up Sign", year: "2023", description: "لوحات عرض مؤقتة", descriptionEn: "Temporary Display Sign", image: encodeURI("/assets/اللافتات/portfolio/4.png"), tags: ["Display"], tagsEn: ["Display"] },
+      { id: 5, title: "لافتة مكتبية", titleEn: "Office Sign", year: "2023", description: "لافتات مكاتب واستقبال", descriptionEn: "Office & Reception Sign", image: encodeURI("/assets/اللافتات/portfolio/5.png"), tags: ["Office"], tagsEn: ["Office"] },
+      { id: 6, title: "لافتة جدارية", titleEn: "Wall Mural", year: "2024", description: "تصميم جداريات تجارية", descriptionEn: "Commercial Wall Murals", image: encodeURI("/assets/اللافتات/portfolio/6.png"), tags: ["Mural"], tagsEn: ["Mural"] },
+    ]
+  },
+  {
+    id: 9,
+    title: "الهدايا الدعائية",
+    imgDir: "هدايا",
+    titleEn: "Promotional Gifts",
+    description: "نظراً لأهمية المواد الدعائية حيث أنها هدية يحتفظ بها العميل، تهتم الشركة باختيار أفضل الهدايا مثل: أقلام، ميداليات، بلوك نوت، كوستر، مجناتيك، مجات، تيشيرتات، كابات، ساعات حائط، نتائج مكتب، نتائج حائط.",
+    descriptionEn: "Due to the importance of promotional materials as gifts that customers keep, the company focuses on selecting the best gifts such as pens, medals, notebooks, coasters, magnets, t-shirts, caps, wall clocks, and more.",
+    cta: "اطلب الخدمة",
+    ctaEn: "Request Service",
+    bg: "#37474F",
+    bgExpanded: "linear-gradient(180deg, #37474F 0%, #1a2328 100%)",
+    accent: "#CFD8DC",
+    portfolio: [
+      { id: 1, title: "هدية مؤسسية", titleEn: "Corporate Gift", year: "2024", description: "هدايا شركات فاخرة", descriptionEn: "Luxury Corporate Gifts", image: encodeURI("/assets/هدايا/protfolio/1.png"), tags: ["Gifts"], tagsEn: ["Gifts"] },
+      { id: 2, title: "منتجات دعائية", titleEn: "Promo Products", year: "2024", description: "مطبوعات دعائية للهدايا", descriptionEn: "Custom Promo Products", image: encodeURI("/assets/هدايا/protfolio/2.png"), tags: ["Promo"], tagsEn: ["Promo"] },
+      { id: 3, title: "طقم هدايا", titleEn: "Gift Set", year: "2024", description: "طقم هدايا متكامل", descriptionEn: "Full Gift Set", image: encodeURI("/assets/هدايا/protfolio/3.png"), tags: ["Set"], tagsEn: ["Set"] },
+      { id: 4, title: "هدايا ترويجية", titleEn: "Giveaways", year: "2023", description: "توزيعات وهدايا بسيطة", descriptionEn: "Promotional Giveaways", image: encodeURI("/assets/هدايا/protfolio/4.png"), tags: ["Giveaway"], tagsEn: ["Giveaway"] },
+    ]
+  },
+  {
+    id: 10,
+    title: "خدمات المعارض والمؤتمرات",
+    imgDir: "المعارض",
+    titleEn: "Exhibition Services",
+    description: "نقدم دورة حياة كاملة في تنظيم وإدارة المعارض وتشمل: إدارة أدوات المعارض بأفضل صورة، وبأفكار جديدة تناسب الحدث. الاختيار بين الكثير من المواقع المختلفة التي تناسب الحدث. وضع خطط تسويقية مدروسة للمعارض. توفير كافة المستلزمات والاحتياجات اللازمة.",
+    descriptionEn: "We provide a complete lifecycle for organizing and managing exhibitions, including: managing exhibition tools in the best way with new ideas suitable for the event, choosing from many different sites suitable for the event, and creating well-planned marketing strategies for exhibitions.",
+    cta: "اطلب الخدمة",
+    ctaEn: "Request Service",
+    bg: "#00695C",
+    bgExpanded: "linear-gradient(180deg, #00695C 0%, #003d34 100%)",
+    accent: "#B2DFDB",
+    portfolio: [
+      { id: 1, title: "بوث معرض", titleEn: "Expo Booth", year: "2024", description: "تصميم بوث متكامل", descriptionEn: "Full Expo Booth Design", image: encodeURI("/assets/المعارض/portfolio/1.png"), tags: ["Booth"], tagsEn: ["Booth"] },
+      { id: 2, title: "ستاند عرض", titleEn: "Display Stand", year: "2024", description: "ستاند عرض منتجات", descriptionEn: "Product Display Stand", image: encodeURI("/assets/المعارض/portfolio/2.png"), tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 3, title: "منصة عرض", titleEn: "Promo Counter", year: "2024", description: "منصة ترويجية", descriptionEn: "Promotional Counter", image: encodeURI("/assets/المعارض/portfolio/3.png"), tags: ["Counter"], tagsEn: ["Counter"] },
+      { id: 4, title: "رول أب", titleEn: "Roll-up Banner", year: "2023", description: "تصميم رول أب", descriptionEn: "Roll-up Design", image: encodeURI("/assets/المعارض/portfolio/4.png"), tags: ["Banner"], tagsEn: ["Banner"] },
+      { id: 5, title: "خلفية معرض", titleEn: "Backdrop", year: "2023", description: "خلفية تصوير معارض", descriptionEn: "Expo Backdrop", image: encodeURI("/assets/المعارض/portfolio/5.png"), tags: ["Backdrop"], tagsEn: ["Backdrop"] },
+      { id: 6, title: "ستاند تفاعلي", titleEn: "Interactive Stand", year: "2024", description: "ستاند عرض تفاعلي", descriptionEn: "Interactive Expo Stand", image: encodeURI("/assets/المعارض/portfolio/6.png"), tags: ["Interactive"], tagsEn: ["Interactive"] },
+      { id: 7, title: "تجهيز أجنحة", titleEn: "Booth Setup", year: "2024", description: "تجهيز أجنحة المعارض", descriptionEn: "Exhibition Booth Setup", image: encodeURI("/assets/المعارض/portfolio/7.png"), tags: ["Setup"], tagsEn: ["Setup"] },
+    ]
+  },
+  {
     id: 11,
-    title: "الاستشارات",
+    title: "الفيديوهات المتحركة",
+    imgDir: "انتاج الفديو",
+    titleEn: "Motion Graphics",
+    description: "أصبح بالإمكان شرح الأفكار وترويج المنتجات عن طريق المزج بين النص والرسم والحركة والصوت باستخدام الموشن غرافيك. تقدم أفتار هذه الخدمة بطريقة فعالة ومميزة بإشراف مصممين محترفين.",
+    descriptionEn: "It is now possible to explain ideas and promote products by mixing text, drawing, motion, and sound using motion graphics. Avatar provides this service effectively and distinctively under the supervision of professional designers.",
+    cta: "اطلب الخدمة",
+    ctaEn: "Request Service",
+    bg: "#6A1B9A",
+    bgExpanded: "linear-gradient(180deg, #6A1B9A 0%, #40105c 100%)",
+    accent: "#E1BEE7",
+    portfolio: [
+      { id: 1, title: "إعلان تجاري", titleEn: "Commercial TVC", year: "2024", description: "إنتاج إعلان تلفزيوني", descriptionEn: "TVC Production", image: encodeURI("/assets/انتاج الفديو/protfolio/1.jpg"), tags: ["TVC"], tagsEn: ["TVC"] },
+      { id: 2, title: "فيديو تعريفي", titleEn: "Intro Video", year: "2024", description: "فيديو تعريفي للشركات", descriptionEn: "Corporate Intro Video", image: encodeURI("/assets/انتاج الفديو/protfolio/2.jpg"), tags: ["Intro"], tagsEn: ["Intro"] },
+      { id: 3, title: "موشن جرافيك", titleEn: "Motion Graphics", year: "2024", description: "تصميم موشن جرافيك", descriptionEn: "Motion Graphics Design", image: encodeURI("/assets/انتاج الفديو/protfolio/3.png"), tags: ["Motion"], tagsEn: ["Motion"] },
+    ]
+  },
+  {
+    id: 12,
+    title: "استشارات التسويق",
     imgDir: "استشارات",
-    titleEn: "Consulting",
-    description: "نقدم استشارات تسويقية متخصصة.",
-    descriptionEn: "We provide specialized marketing consulting.",
+    titleEn: "Marketing Consulting",
+    description: "خدمات استشارات التسويق هي خدمات تعمل على مساعدة الشركات والأفراد على تحقيق أهدافهم التسويقية وتطوير استراتيجياتهم التسويقية بشكل أكثر فاعلية. يمكن لخدمات استشارات التسويق أن تشمل تحليل السوق والمنافسة، تحديد الجمهور المستهدف، تطوير خطط التسويق الشاملة، تحسين العلاقة مع العملاء، تنفيذ حملات إعلانية ناجحة، وقياس النتائج وتحسينها. يمكن أن تساعد خدمات استشارات التسويق الشركات على زيادة المبيعات، تعزيز العلامة التجارية، تحسين تجربة العملاء، توسيع نطاق العمل، وتحسين الإنتاجية.",
+    descriptionEn: "Marketing consulting services help companies and individuals achieve their marketing goals and develop more effective marketing strategies. This can include market and competitor analysis, target audience identification, developing comprehensive marketing plans, improving customer relationships, implementing successful advertising campaigns, and measuring and improving results.",
     cta: "اطلب الخدمة",
     ctaEn: "Request Service",
     bg: "#0A1D37",
@@ -238,6 +257,24 @@ const services = [
       { id: 1, title: "خطة تسويقية", titleEn: "Marketing Plan", year: "2024", description: "إعداد استراتيجيات التسويق", descriptionEn: "Marketing Strategy Prep", image: encodeURI("/assets/استشارات/portfolio/1.jpg"), tags: ["Strategy"], tagsEn: ["Strategy"] },
       { id: 2, title: "دراسة جدوى", titleEn: "Feasibility Study", year: "2024", description: "دراسات الجدوى الاقتصادية", descriptionEn: "Economic Feasibility Study", image: encodeURI("/assets/استشارات/portfolio/2.jpg"), tags: ["Study"], tagsEn: ["Study"] },
       { id: 3, title: "تحليل منافسين", titleEn: "Competitor Analysis", year: "2024", description: "تحليل السوق والمنافسين", descriptionEn: "Market Competitor Analysis", image: encodeURI("/assets/استشارات/portfolio/3.jpg"), tags: ["Analysis"], tagsEn: ["Analysis"] },
+    ]
+  },
+  {
+    id: 13,
+    title: "تصميم الستاندات",
+    imgDir: "المعارض",
+    titleEn: "Stand Design",
+    description: "في أفتار، نقدم خدمة تصميم ستاندات مبتكرة ومخصصة تعكس هوية علامتك التجارية وتُبرزها في المعارض والفعاليات. نركز على التفاصيل، ونمزج بين الإبداع والوظيفية لنضمن لك تصميماً جذاباً، عملياً، ويحقق أهدافك التسويقية. يشمل: تصميم ثلاثي الأبعاد واقعي، استغلال ذكي للمساحة، موافقة على شروط المعارض السعودية، وقابل للتنفيذ بدقة تامة.",
+    descriptionEn: "At Avatar, we provide innovative and customized stand design services that reflect your brand identity and highlight it at exhibitions and events. We focus on details and combine creativity and functionality to ensure an attractive, practical design that achieves your marketing goals.",
+    cta: "اطلب الخدمة",
+    ctaEn: "Request Service",
+    bg: "#7B1FA2",
+    bgExpanded: "linear-gradient(180deg, #7B1FA2 0%, #4a0072 100%)",
+    accent: "#E1BEE7",
+    portfolio: [
+      { id: 1, title: "تصميم ستاند ثلاثي الأبعاد", titleEn: "3D Stand Design", year: "2024", description: "تصميم ستاند ثلاثي الأبعاد", descriptionEn: "3D Stand Design", image: encodeURI("/assets/المعارض/portfolio/1.png"), tags: ["3D"], tagsEn: ["3D"] },
+      { id: 2, title: "ستاند معرض", titleEn: "Expo Stand", year: "2024", description: "تصميم ستاند معرض", descriptionEn: "Expo Stand Design", image: encodeURI("/assets/المعارض/portfolio/2.png"), tags: ["Expo"], tagsEn: ["Expo"] },
+      { id: 3, title: "تصميم ستاند مخصص", titleEn: "Custom Stand", year: "2024", description: "تصميم ستاند مخصص", descriptionEn: "Custom Stand Design", image: encodeURI("/assets/المعارض/portfolio/3.png"), tags: ["Custom"], tagsEn: ["Custom"] },
     ]
   },
 ];
@@ -330,38 +367,76 @@ export function ServicesSection() {
     setActiveIndex(null);
   }, []);
 
+  const handleNextService = useCallback(() => {
+    if (expandedService !== null) {
+      const nextIndex = (expandedService + 1) % services.length;
+      setExpandedService(nextIndex);
+      setActiveIndex(nextIndex);
+    }
+  }, [expandedService]);
+
+  const handlePrevService = useCallback(() => {
+    if (expandedService !== null) {
+      const prevIndex = (expandedService - 1 + services.length) % services.length;
+      setExpandedService(prevIndex);
+      setActiveIndex(prevIndex);
+    }
+  }, [expandedService]);
+
   return (
     <section
       id="services"
       className="relative w-full h-screen overflow-hidden bg-[#050505]"
       style={{ direction: "ltr" }}
     >
-      {/* Navigation Arrows */}
+      {/* Navigation Arrows - Work for both normal and expanded modes */}
       <AnimatePresence>
-        {startIndex > 0 && (
-          <motion.button
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            className="absolute left-6 top-1/2 -translate-y-1/2 z-[40] w-14 h-14 rounded-full flex items-center justify-center border border-white/10 bg-black/20 backdrop-blur-md text-white hover:bg-white/10 transition-colors"
-            onClick={prevSlide}
-          >
-            <ChevronLeft className="w-8 h-8" />
-          </motion.button>
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {startIndex < maxIndex && (
-          <motion.button
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-            className="absolute right-6 top-1/2 -translate-y-1/2 z-[40] w-14 h-14 rounded-full flex items-center justify-center border border-white/10 bg-black/20 backdrop-blur-md text-white hover:bg-white/10 transition-colors"
-            onClick={nextSlide}
-          >
-            <ChevronRight className="w-8 h-8" />
-          </motion.button>
+        {expandedService !== null ? (
+          <>
+            <motion.button
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              className="absolute left-6 top-1/2 -translate-y-1/2 z-[50] w-14 h-14 rounded-full flex items-center justify-center border border-white/10 bg-black/20 backdrop-blur-md text-white hover:bg-white/10 transition-colors"
+              onClick={handlePrevService}
+            >
+              <ChevronLeft className="w-8 h-8" />
+            </motion.button>
+            <motion.button
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+              className="absolute right-6 top-1/2 -translate-y-1/2 z-[50] w-14 h-14 rounded-full flex items-center justify-center border border-white/10 bg-black/20 backdrop-blur-md text-white hover:bg-white/10 transition-colors"
+              onClick={handleNextService}
+            >
+              <ChevronRight className="w-8 h-8" />
+            </motion.button>
+          </>
+        ) : (
+          <>
+            {startIndex > 0 && (
+              <motion.button
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                className="absolute left-6 top-1/2 -translate-y-1/2 z-[40] w-14 h-14 rounded-full flex items-center justify-center border border-white/10 bg-black/20 backdrop-blur-md text-white hover:bg-white/10 transition-colors"
+                onClick={prevSlide}
+              >
+                <ChevronLeft className="w-8 h-8" />
+              </motion.button>
+            )}
+            {startIndex < maxIndex && (
+              <motion.button
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                className="absolute right-6 top-1/2 -translate-y-1/2 z-[40] w-14 h-14 rounded-full flex items-center justify-center border border-white/10 bg-black/20 backdrop-blur-md text-white hover:bg-white/10 transition-colors"
+                onClick={nextSlide}
+              >
+                <ChevronRight className="w-8 h-8" />
+              </motion.button>
+            )}
+          </>
         )}
       </AnimatePresence>
 
@@ -395,6 +470,8 @@ export function ServicesSection() {
               onMouseLeave={(e) => handleMouseLeave(index, e)}
               onClick={() => handleServiceClick(index)}
               onCloseExpanded={handleCloseExpanded}
+              onNextService={handleNextService}
+              onPrevService={handlePrevService}
               startIndex={startIndex}
               expandedService={expandedService}
               language={language}
@@ -419,6 +496,8 @@ interface PanelWithGlowProps {
   onMouseLeave: (e: React.MouseEvent<HTMLDivElement>) => void;
   onClick: () => void;
   onCloseExpanded: () => void;
+  onNextService: () => void;
+  onPrevService: () => void;
   startIndex: number;
   expandedService: number | null;
   language: string;
@@ -426,7 +505,7 @@ interface PanelWithGlowProps {
 
 function PanelWithGlow({
   service, index, isActive, isExpanded, hasActive, panelRipples, textColor, totalServices,
-  onMouseEnter, onMouseLeave, onClick, onCloseExpanded, startIndex, expandedService, language,
+  onMouseEnter, onMouseLeave, onClick, onCloseExpanded, onNextService, onPrevService, startIndex, expandedService, language,
 }: PanelWithGlowProps) {
   const panelRef = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0);
@@ -548,9 +627,9 @@ function PanelWithGlow({
         <FabricStretch key={ripple.id} side={ripple.side} yPercent={ripple.yPercent} color={ripple.color} />
       ))}
 
-      {/* Collapsed State */}
+      {/* Collapsed State - Always visible when not expanded */}
       <AnimatePresence>
-        {!isActive && !isExpanded && (
+        {!isExpanded && (
           <motion.div
             className="absolute inset-0 flex flex-col items-center justify-center gap-6 z-[3]"
             initial={{ opacity: 0 }}
@@ -599,168 +678,13 @@ function PanelWithGlow({
         )}
       </AnimatePresence>
 
-      {/* Active State - Service Details */}
-      <AnimatePresence>
-        {isActive && !isExpanded && (
-          <motion.div
-            className="absolute inset-0 flex flex-col items-center justify-center p-6 md:p-12 lg:p-20 z-[3] overflow-y-auto"
-            style={{ direction: "rtl" }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4, delay: 0.3 }}
-          >
-            {/* Max Width Container for Layout */}
-            <div className="w-full max-w-7xl flex flex-col gap-12">
-
-              {/* Top Row: Content & Image */}
-              <div className="flex flex-col md:flex-row items-center justify-between gap-12 lg:gap-20">
-
-                {/* Right Side - Description Content */}
-                <motion.div
-                  className="w-full md:w-1/2 flex flex-col items-center md:items-start text-right"
-                  initial={{ x: 60, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  exit={{ x: 60, opacity: 0 }}
-                  transition={{ duration: 0.5, delay: 0.4, ease: [0.32, 0.72, 0, 1] }}
-                >
-                  <motion.span
-                    className="inline-block text-sm font-mono tracking-[0.3em] mb-4"
-                    style={{ color: `${textColor}60`, fontFamily: "var(--font-geist-mono)" }}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
-                  >
-                    {String(service.id).padStart(2, "0")} — {String(totalServices).padStart(2, "0")}
-                  </motion.span>
-
-                  <motion.h2
-                    className="text-4xl md:text-5xl lg:text-7xl font-black leading-tight mb-3"
-                    style={{ color: textColor }}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5, duration: 0.5 }}
-                  >
-                    {language === 'ar' ? service.title : service.titleEn}
-                  </motion.h2>
-
-                  <motion.p
-                    className="text-lg md:text-xl font-medium mb-6 opacity-40 uppercase tracking-widest"
-                    style={{ color: textColor }}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.55 }}
-                  >
-                    {language === 'ar' ? service.titleEn : service.title}
-                  </motion.p>
-
-                  <motion.div
-                    className="h-1 w-24 mb-6 bg-gradient-to-l"
-                    style={{ backgroundImage: `linear-gradient(to left, ${service.accent}, transparent)` }}
-                    initial={{ width: 0 }}
-                    animate={{ width: 96 }}
-                    transition={{ delay: 0.6, duration: 0.8 }}
-                  />
-
-                  <motion.p
-                    className="text-lg md:text-xl leading-relaxed mb-8 opacity-80"
-                    style={{ color: textColor }}
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.65, duration: 0.5 }}
-                  >
-                    {language === 'ar' ? service.description : service.descriptionEn}
-                  </motion.p>
-                </motion.div>
-
-                {/* Left Side - Hero Image */}
-                <motion.div
-                  className="w-full md:w-1/2 flex items-center justify-center relative"
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0.8, opacity: 0 }}
-                  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  <div className="relative w-full max-w-[550px] aspect-square min-h-[350px] md:min-h-[500px] flex items-center justify-center">
-                    {/* Decorative Rings */}
-                    <motion.div
-                      className="absolute rounded-full"
-                      style={{ width: "80%", height: "80%", border: `1px solid ${service.accent}20` }}
-                      animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.1, 0.2] }}
-                      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                    />
-                    <motion.div
-                      className="absolute rounded-full"
-                      style={{ width: "60%", height: "60%", border: `1px solid ${service.accent}40` }}
-                      animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.3, 0.1] }}
-                      transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                    />
-
-                    <motion.div className="w-full h-full relative z-10 flex items-center justify-center">
-                      <AnimatePresence initial={false}>
-                        <motion.img
-                          key={isHovering ? 'hover-active' : 'idle-active'}
-                          src={encodeURI(`/assets/${service.imgDir}/${isHovering ? '2.png' : '1.png'}`)}
-                          className="absolute inset-0 w-full h-full object-contain filter drop-shadow-[0_0_60px_rgba(255,255,255,0.25)]"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.4 }}
-                        />
-                      </AnimatePresence>
-                    </motion.div>
-                  </div>
-                </motion.div>
-              </div>
-
-              {/* Bottom Row - Interaction Buttons */}
-              <motion.div
-                className="flex flex-wrap items-center justify-center md:justify-start gap-6 pt-8 border-t border-white/10"
-                initial={{ y: 30, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.8 }}
-              >
-                <motion.button
-                  className="group flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-lg transition-all"
-                  style={{ background: `${service.accent}20`, border: `1px solid ${service.accent}40`, color: textColor }}
-                  whileHover={{ scale: 1.05, background: `${service.accent}30` }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onClick();
-                  }}
-                >
-                  {language === 'ar' ? "عرض معرض الأعمال" : "View Portfolio"}
-                  <ArrowUpLeft className="w-5 h-5 transition-transform group-hover:-translate-y-1 group-hover:-translate-x-1" />
-                </motion.button>
-
-                <motion.a
-                  href="#contact"
-                  className="group flex items-center gap-4 px-10 py-4 rounded-2xl font-bold text-lg transition-all"
-                  style={{ background: service.accent, color: service.bg }}
-                  whileHover={{ scale: 1.05, y: -4, boxShadow: `0 10px 40px ${service.accent}40` }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                >
-                  {language === 'ar' ? service.cta : service.ctaEn}
-                  <ExternalLink className="w-6 h-6 transition-transform group-hover:-translate-y-1 group-hover:-translate-x-1" />
-                </motion.a>
-              </motion.div>
-
-            </div>
-          </motion.div>
-        )
-        }
-      </AnimatePresence >
-
       {/* Expanded State - Portfolio Showcase */}
       <AnimatePresence>
         {
           isExpanded && (
             <motion.div
               className="absolute inset-0 overflow-y-auto z-[3]"
+              style={{ direction: "rtl" }}
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 50 }}
@@ -768,102 +692,138 @@ function PanelWithGlow({
             >
               {/* Header - Centered Title */}
               <motion.div
-                className="sticky top-0 z-10 px-8 py-10 flex flex-col items-center justify-center text-center w-full"
+                className="sticky top-0 z-10 px-4 md:px-8 py-6 flex items-center justify-center w-full"
                 style={{ background: `linear-gradient(to bottom, ${service.bgExpanded} 0%, transparent 100%)` }}
               >
-                <motion.div
-                  className="w-20 h-20 rounded-2xl flex items-center justify-center mb-6"
-                  style={{ background: `${service.accent}20`, border: `1px solid ${service.accent}40` }}
-                  initial={{ scale: 0, rotate: 0 }}
-                  animate={{ scale: 1, rotate: 0 }}
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                >
-                  <img src={`/assets/${service.imgDir}/1.png`} className="w-12 h-12 object-contain" alt="" />
-                </motion.div>
-
-                <motion.h3
-                  className="text-4xl md:text-5xl lg:text-6xl font-black mb-4"
-                  style={{ color: textColor }}
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                >
-                  {language === 'ar' ? `أعمال ${service.title}` : `${service.titleEn} Portfolio`}
-                </motion.h3>
-
-                <motion.p
-                  className="text-lg opacity-60 max-w-2xl"
-                  style={{ color: textColor }}
-                  initial={{ y: 10, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  {language === 'ar'
-                    ? `نستعرض لكم مجموعة من أفضل أعمالنا في مجال ${service.title}، حيث نجمع بين الإبداع والنتائج الملموسة.`
-                    : `We present to you a collection of our best work in ${service.titleEn}, where we combine creativity with tangible results.`}
-                </motion.p>
-
-                <motion.button
-                  className="absolute top-8 left-8 flex items-center gap-2 px-4 py-2 rounded-lg transition-all"
-                  style={{ background: `${service.accent}20`, color: textColor }}
-                  whileHover={{ scale: 1.05, background: `${service.accent}40` }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onCloseExpanded();
-                  }}
-                >
-                  <ArrowUpLeft className={`w-4 h-4 ${language === 'en' ? 'rotate-0' : 'rotate-180'}`} />
-                  {language === 'ar' ? "رجوع" : "Back"}
-                </motion.button>
+                <div className="flex items-center gap-4">
+                  <motion.div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center"
+                    style={{ background: `${service.accent}20`, border: `1px solid ${service.accent}40` }}
+                    initial={{ scale: 0, rotate: 0 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                  >
+                    <img src={`/assets/${service.imgDir}/1.png`} className="w-8 h-8 object-contain" alt="" />
+                  </motion.div>
+                  <motion.h3
+                    className="text-2xl md:text-3xl lg:text-4xl font-black"
+                    style={{ color: textColor }}
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                  >
+                    {language === 'ar' ? service.title : service.titleEn}
+                  </motion.h3>
+                </div>
               </motion.div>
 
-              {/* Card Carousel Portfolio Showcase */}
-              <div className="px-4 pb-8">
-                <CardCarousel
-                  images={service.portfolio.map(p => ({
-                    src: p.image,
-                    alt: language === 'ar' ? p.title : p.titleEn,
-                  }))}
-                  autoplayDelay={2000}
-                  showPagination={true}
-                  showNavigation={false}
-                />
+              {/* Main Content - Two Columns */}
+              <div className="px-4 md:px-8 lg:px-12 py-8">
+                <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-start">
+                  
+                  {/* Left Side - Vertical Stack Portfolio */}
+                  <motion.div 
+                    className="w-full lg:w-1/2"
+                    initial={{ x: -50, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.2, duration: 0.5 }}
+                  >
+                    <ServiceVerticalStack
+                      items={service.portfolio.map(p => ({
+                        id: p.id,
+                        src: p.image,
+                        alt: language === 'ar' ? p.title : p.titleEn,
+                        title: p.title,
+                        titleEn: p.titleEn,
+                      }))}
+                      accentColor={service.accent}
+                    />
+                  </motion.div>
+
+                  {/* Right Side - Full Description */}
+                  <motion.div 
+                    className="w-full lg:w-1/2 flex flex-col"
+                    initial={{ x: 50, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.3, duration: 0.5 }}
+                  >
+                    <div className="sticky top-28">
+                      <motion.span
+                        className="inline-block text-sm font-mono tracking-[0.3em] mb-4"
+                        style={{ color: `${textColor}60`, fontFamily: "var(--font-geist-mono)" }}
+                      >
+                        {String(service.id).padStart(2, "0")} — {String(totalServices).padStart(2, "0")}
+                      </motion.span>
+
+                      <motion.h2
+                        className="text-3xl md:text-4xl lg:text-5xl font-black leading-tight mb-4"
+                        style={{ color: textColor }}
+                      >
+                        {language === 'ar' ? service.title : service.titleEn}
+                      </motion.h2>
+
+                      <motion.p
+                        className="text-lg md:text-xl font-medium mb-6 opacity-40 uppercase tracking-widest"
+                        style={{ color: textColor }}
+                      >
+                        {language === 'ar' ? service.titleEn : service.title}
+                      </motion.p>
+
+                      <motion.div
+                        className="h-1 w-24 mb-8"
+                        style={{ background: service.accent }}
+                      />
+
+                      <motion.div
+                        className="space-y-4"
+                        style={{ color: textColor }}
+                      >
+                        {language === 'ar' 
+                          ? service.description.split('. ').filter(s => s.trim()).map((sentence, idx) => (
+                              <motion.p
+                                key={idx}
+                                className="text-base md:text-lg leading-relaxed opacity-80"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.4 + idx * 0.1 }}
+                              >
+                                {sentence.trim()}{sentence.trim().endsWith('.') ? '' : '.'}
+                              </motion.p>
+                            ))
+                          : service.descriptionEn.split('. ').filter(s => s.trim()).map((sentence, idx) => (
+                              <motion.p
+                                key={idx}
+                                className="text-base md:text-lg leading-relaxed opacity-80"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.4 + idx * 0.1 }}
+                              >
+                                {sentence.trim()}{sentence.trim().endsWith('.') ? '' : '.'}
+                              </motion.p>
+                            ))
+                        }
+                      </motion.div>
+
+                      {/* CTA Buttons */}
+                      <motion.div
+                        className="flex flex-wrap gap-4 mt-10"
+                        initial={{ y: 20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.6 }}
+                      >
+                        <motion.a
+                          href="#contact"
+                          className="flex items-center gap-3 px-8 py-3 rounded-xl font-bold text-base transition-all"
+                          style={{ background: service.accent, color: service.bg }}
+                          whileHover={{ scale: 1.05, y: -2, boxShadow: `0 10px 40px ${service.accent}40` }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          {language === 'ar' ? service.cta : service.ctaEn}
+                          <ExternalLink className="w-5 h-5" />
+                        </motion.a>
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                </div>
               </div>
-
-
-
-              {/* CTA Section */}
-              {/* <motion.div
-                className="mt-12 p-8 rounded-2xl text-center relative overflow-hidden"
-                style={{ background: `linear-gradient(135deg, ${service.accent}20 0%, ${service.accent}05 100%)`, border: `1px solid ${service.accent}30` }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 }}
-              >
-                <div className="absolute inset-0 opacity-10" style={{ backgroundImage: `radial-gradient(circle at 2px 2px, ${service.accent} 1px, transparent 1px)`, backgroundSize: '20px 20px' }} />
-
-                <CheckCircle className="w-12 h-12 mx-auto mb-4" style={{ color: service.accent }} />
-                <h4 className="text-xl font-bold mb-2 relative z-10" style={{ color: textColor }}>
-                  {language === 'ar' ? "جاهز لبدء مشروعك؟" : "Ready to start your project?"}
-                </h4>
-                <p className="text-sm opacity-70 mb-6 relative z-10" style={{ color: textColor }}>
-                  {language === 'ar' ? "دعنا نساعدك في تحقيق رؤيتك التسويقية" : "Let us help you achieve your marketing vision"}
-                </p>
-                <motion.a
-                  href="#contact"
-                  className="px-8 py-4 rounded-xl font-bold text-lg inline-flex items-center gap-3 relative z-10"
-                  style={{ background: service.accent, color: service.bg }}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                >
-                  <ExternalLink className="w-5 h-5" />
-                  {language === 'ar' ? "ابدأ مشروعك الآن" : "Start Your Project Now"}
-                </motion.a>
-              </motion.div> */}
             </motion.div>
           )
         }

@@ -14,18 +14,18 @@ import "swiper/css/effect-coverflow";
 import { GlowCard } from "@/components/ui/glow-card";
 
 const values = [
-  { icon: Lightbulb, title: "الابتكار", titleEn: "Innovation", desc: "نكسر القواعد لخلق الحلول الإبداعية التي تتجاوز التوقعات", descEn: "We break the rules to create innovative solutions that exceed expectations", iconColor: "text-yellow-400" },
-  { icon: Target, title: "الجودة", titleEn: "Quality", desc: "نلتزم بأعلى معايير الإتقان في كل مشروع ننفذه", descEn: "We commit to the highest standards in every project we deliver", iconColor: "text-blue-400" },
+  { icon: Shield, title: "الموثوقية", titleEn: "Reliability", desc: "نسعى لتحقيق أحلامك ورسم مستقبلك من خلال تقديم أفضل الخدمات بموثوقية وجودة", descEn: "We strive to achieve your dreams and shape your future by providing the best services with reliability and quality", iconColor: "text-cyan-400" },
+  { icon: Lightbulb, title: "الإبداع", titleEn: "Creativity", desc: "نقدم أفكار إبداعية تنافسية تميز علامتك عن المنافسين", descEn: "We provide competitive creative ideas that distinguish your brand from competitors", iconColor: "text-yellow-400" },
+  { icon: Target, title: "الفعالية", titleEn: "Effectiveness", desc: "نستخدم استراتيجيات فعالة تضمن تحقيق أهدافك التسويقية", descEn: "We use effective strategies to ensure your marketing goals are achieved", iconColor: "text-blue-400" },
+  { icon: Heart, title: "الشغف", titleEn: "Passion", desc: "نعمل بحب للعمل وشغف لتقديم ما هو أفضل لك", descEn: "We work with love for work and passion to deliver the best for you", iconColor: "text-rose-400" },
   { icon: Users, title: "الشراكة", titleEn: "Partnership", desc: "نبني علاقات طويلة الأمد مع عملائنا والشركاء", descEn: "We build long-term relationships with our clients and partners", iconColor: "text-green-400" },
-  { icon: Award, title: "التميز", titleEn: "Excellence", desc: "نسعى دائماً للريادة والتفوق في كل ما نقدمه", descEn: "We always strive for leadership and excellence in everything we offer", iconColor: "text-purple-400" },
-  { icon: Heart, title: "الشغف", titleEn: "Passion", desc: "نعمل بحب للعمل وشغف لتقديم ما هو أفضل", descEn: "We work with love for what we do and passion to deliver the best", iconColor: "text-rose-400" },
-  { icon: Shield, title: "الموثوقية", titleEn: "Reliability", desc: "نحرص على تنفيذ مشاريعكم في الوقت المحدد وبأعلى جودة", descEn: "We ensure your projects are delivered on time with the highest quality", iconColor: "text-cyan-400" },
+  { icon: Award, title: "التميز", titleEn: "Excellence", desc: "سعي دائم للوصول إلى الأفضل من خلال خدماتنا المتميزة", descEn: "Constant strive to reach the best through our distinguished services", iconColor: "text-purple-400" },
 ];
 
 const methodology = [
-  { step: "01", title: "الفهم", titleEn: "Understanding", desc: "ندرس البراند، السوق، والجمهور المستهدف بعمق لنفهم احتياجاتكم الحقيقية", descEn: "We deeply study the brand, market, and target audience to understand your real needs", icon: "📊" },
+  { step: "01", title: "الفهم", titleEn: "Understanding", desc: "ندرس البراند، السوق، والجمهور بعمق لنفهم احتياجاتكم الحقيقية", descEn: "We study the brand, market, and audience deeply to understand your real needs", icon: "📊" },
   { step: "02", title: "التخطيط", titleEn: "Planning", desc: "نضع استراتيجية واضحة مبنية على أهداف حقيقية وقابلة للقياس", descEn: "We develop a clear strategy based on real and measurable goals", icon: "📋" },
-  { step: "03", title: "التنفيذ والتطوير", titleEn: "Execution & Development", desc: "نطبق الاستراتيجيات ونراقب الأداء ونطور باستمرار لتحقيق أفضل النتائج", descEn: "We implement strategies, monitor performance, and continuously develop for the best results", icon: "🚀" },
+  { step: "03", title: "التنفيذ والتطوير", titleEn: "Execution & Development", desc: "نطبق الاستراتيجيات ونراقب الأداء ونطور باستمرار لتحقيق أفضل النتائج", descEn: "We implement strategies, monitor performance, and continuously develop to achieve the best results", icon: "🚀" },
 ];
 
 interface AboutSectionProps {
@@ -108,8 +108,8 @@ export function AboutSection({ showBackground = true, fullContent = false }: Abo
                 </h2>
               </div>
               <p className="text-lg text-white/80 leading-relaxed">
-                {t("نجاحنا بدأ بخطوات صغيرة على مسار طويل، مرافق بحب للعمل وشغف لتقديم ما هو أفضل لكم. نقدم أفضل الخدمات تحت إشراف نخبة من الخبراء المختصين في العديد من المجالات.",
-                  "Our success began with small steps on a long journey, accompanied by love for work and passion to deliver the best. We offer the finest services under elite specialists.")}
+                {t("نجاحنا بدأ بخطوات صغيرة على مسار طويل مرافق بحب للعمل وشغف لتقديم ما هو أفضل لك وسعي دائم للوصول إلى الأفضل من خلال خدماتنا المتميزة وأسعارنا المناسبة ومواكبة كل ما هو جديد. نقدم لك أفضل الخدمات تحت إشراف نخبة من الخبراء المختصين في العديد من المجالات بإدارة كادر محترف. مقرنا الرئيسي المملكة العربية السعودية.",
+                  "Our success began with small steps on a long journey accompanied by love for work and passion to deliver what is best for you, with constant striving to reach the best through our distinguished services, reasonable prices, and keeping up with everything new. We offer you the best services under the supervision of elite experts in many fields, managed by a professional team. Our headquarters is in the Kingdom of Saudi Arabia.")}
               </p>
               <div className="p-4 rounded-2xl bg-gradient-to-r from-yellow-400/10 to-orange-500/10 border border-yellow-400/20">
                 <div className="flex items-center gap-3 mb-2 justify-end">
@@ -119,8 +119,20 @@ export function AboutSection({ showBackground = true, fullContent = false }: Abo
                   </div>
                 </div>
                 <p className="text-white/70 text-sm leading-relaxed">
-                  {t("تمكين العلامات التجارية من تحقيق نمو مستدام عبر حلول دعائية وتسويقية متكاملة.",
-                    "Enabling brands to achieve sustainable growth through integrated marketing solutions.")}
+                  {t("تمكين العلامات التجارية من تحقيق نمو مستدام عبر حلول دعائية وتسويقية متكاملة، تعتمد على التخطيط الاستراتيجي، والإبداع، والتنفيذ الاحترافي القائم على تحليل البيانات وقياس الأداء. نلتزم بتقديم قيمة حقيقية تتجاوز التوقعات، وتدعم مكانة عملائنا في سوق تنافسي متسارع.",
+                    "Enabling brands to achieve sustainable growth through integrated advertising and marketing solutions, based on strategic planning, creativity, and professional execution based on data analysis and performance measurement. We are committed to delivering real value that exceeds expectations and supports our clients' position in a rapidly competitive market.")}
+                </p>
+              </div>
+              <div className="p-4 rounded-2xl bg-gradient-to-r from-purple-400/10 to-pink-500/10 border border-purple-400/20">
+                <div className="flex items-center gap-3 mb-2 justify-end">
+                  <span className="text-white font-bold">{t("قيمنا", "Our Values")}</span>
+                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center flex-shrink-0">
+                    <Star className="w-5 h-5 text-white" />
+                  </div>
+                </div>
+                <p className="text-white/70 text-sm leading-relaxed">
+                  {t("نسعى لتحقيق أحلامك ورسم مستقبلك من خلال تقديم أفضل الخدمات بموثوقية وجودة وأفكار إبداعية تنافسية وأساليب واستراتيجيات فعالة.",
+                    "We strive to achieve your dreams and shape your future by providing the best services with reliability, quality, competitive creative ideas, and effective methods and strategies.")}
                 </p>
               </div>
               <ul className="flex flex-col gap-2">
@@ -287,8 +299,8 @@ export function AboutSection({ showBackground = true, fullContent = false }: Abo
 
               <p className="text-lg text-white/80 leading-relaxed">
                 {t(
-                  "نجاحنا بدأ بخطوات صغيرة على مسار طويل، مرافق بحب للعمل وشغف لتقديم ما هو أفضل لكم. نقدم أفضل الخدمات تحت إشراف نخبة من الخبراء المختصين في العديد من المجالات.",
-                  "Our success began with small steps on a long journey, accompanied by love for work and a passion for delivering the best. We offer the finest services under elite specialists."
+                  "نجاحنا بدأ بخطوات صغيرة على مسار طويل مرافق بحب للعمل وشغف لتقديم ما هو أفضل لك وسعي دائم للوصول إلى الأفضل من خلال خدماتنا المتميزة وأسعارنا المناسبة ومواكبة كل ما هو جديد. نقدم لك أفضل الخدمات تحت إشراف نخبة من الخبراء المختصين في العديد من المجالات بإدارة كادر محترف. مقرنا الرئيسي المملكة العربية السعودية.",
+                  "Our success began with small steps on a long journey accompanied by love for work and passion to deliver what is best for you, with constant striving to reach the best through our distinguished services, reasonable prices, and keeping up with everything new. We offer you the best services under the supervision of elite experts in many fields, managed by a professional team. Our headquarters is in the Kingdom of Saudi Arabia."
                 )}
               </p>
 
@@ -302,8 +314,24 @@ export function AboutSection({ showBackground = true, fullContent = false }: Abo
                 </div>
                 <p className="text-white/70 text-sm leading-relaxed">
                   {t(
-                    "تمكين العلامات التجارية من تحقيق نمو مستدام عبر حلول دعائية وتسويقية متكاملة.",
-                    "Enabling brands to achieve sustainable growth through integrated marketing solutions."
+                    "تمكين العلامات التجارية من تحقيق نمو مستدام عبر حلول دعائية وتسويقية متكاملة، تعتمد على التخطيط الاستراتيجي، والإبداع، والتنفيذ الاحترافي القائم على تحليل البيانات وقياس الأداء. نلتزم بتقديم قيمة حقيقية تتجاوز التوقعات، وتدعم مكانة عملائنا في سوق تنافسي متسارع.",
+                    "Enabling brands to achieve sustainable growth through integrated advertising and marketing solutions, based on strategic planning, creativity, and professional execution based on data analysis and performance measurement. We are committed to delivering real value that exceeds expectations and supports our clients' position in a rapidly competitive market."
+                  )}
+                </p>
+              </div>
+
+              {/* Values */}
+              <div className="p-4 rounded-2xl bg-gradient-to-r from-purple-400/10 to-pink-500/10 border border-purple-400/20 backdrop-blur-md">
+                <div className="flex items-center gap-3 mb-2 justify-end">
+                  <span className="text-white font-bold text-base">{t("قيمنا", "Our Values")}</span>
+                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center flex-shrink-0">
+                    <Star className="w-5 h-5 text-white" />
+                  </div>
+                </div>
+                <p className="text-white/70 text-sm leading-relaxed">
+                  {t(
+                    "نسعى لتحقيق أحلامك ورسم مستقبلك من خلال تقديم أفضل الخدمات بموثوقية وجودة وأفكار إبداعية تنافسية وأساليب واستراتيجيات فعالة.",
+                    "We strive to achieve your dreams and shape your future by providing the best services with reliability, quality, competitive creative ideas, and effective methods and strategies."
                   )}
                 </p>
               </div>

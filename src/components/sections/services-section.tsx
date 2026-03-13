@@ -684,7 +684,7 @@ function PanelWithGlow({
           isExpanded && (
             <motion.div
               className="absolute inset-0 overflow-y-auto z-[3]"
-              style={{ direction: "rtl" }}
+              style={{ direction: language === 'ar' ? 'rtl' : 'ltr' }}
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 50 }}
@@ -716,12 +716,12 @@ function PanelWithGlow({
               </motion.div>
 
               {/* Main Content - Two Columns */}
-              <div className="px-4 md:px-8 lg:px-12 py-8">
-                <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-start">
+              <div className="px-4 md:px-8 lg:px-12 py-8" style={{ direction: language === 'ar' ? 'rtl' : 'ltr' }}>
+                <div className={`flex flex-col lg:flex-row gap-8 lg:gap-16 items-start ${language === 'ar' ? 'lg:flex-row-reverse' : ''}`}>
                   
-                  {/* Left Side - Vertical Stack Portfolio */}
+                  {/* Portfolio - Left in English, Right in Arabic */}
                   <motion.div 
-                    className="w-full lg:w-1/2"
+                    className={`w-full lg:w-1/2 ${language === 'ar' ? 'lg:order-2' : ''}`}
                     initial={{ x: -50, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 0.2, duration: 0.5 }}
@@ -738,9 +738,9 @@ function PanelWithGlow({
                     />
                   </motion.div>
 
-                  {/* Right Side - Full Description */}
+                  {/* Description - Right in English, Left in Arabic */}
                   <motion.div 
-                    className="w-full lg:w-1/2 flex flex-col"
+                    className={`w-full lg:w-1/2 flex flex-col ${language === 'ar' ? 'lg:order-1' : ''}`}
                     initial={{ x: 50, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 0.3, duration: 0.5 }}
@@ -773,7 +773,7 @@ function PanelWithGlow({
                       />
 
                       <motion.div
-                        className="space-y-4"
+                        className={`space-y-4 ${language === 'ar' ? 'text-right' : 'text-left'}`}
                         style={{ color: textColor }}
                       >
                         {language === 'ar' 
@@ -804,7 +804,7 @@ function PanelWithGlow({
 
                       {/* CTA Buttons */}
                       <motion.div
-                        className="flex flex-wrap gap-4 mt-10"
+                        className={`flex flex-wrap gap-4 mt-10 ${language === 'ar' ? 'justify-end' : 'justify-start'}`}
                         initial={{ y: 20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ delay: 0.6 }}

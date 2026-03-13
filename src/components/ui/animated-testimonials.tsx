@@ -4,11 +4,15 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/context/LanguageContext";
 
 type Testimonial = {
     quote: string;
+    quoteEn?: string;
     name: string;
+    nameEn?: string;
     designation: string;
+    designationEn?: string;
     src: string;
 };
 
@@ -23,6 +27,7 @@ export const AnimatedTestimonials = ({
     className?: string;
     accentColor?: string;
 }) => {
+    const { language, isMounted } = useLanguage();
     const [active, setActive] = useState(0);
     const [randomRotations, setRandomRotations] = useState<number[]>([]);
 
@@ -126,13 +131,13 @@ export const AnimatedTestimonials = ({
                         }}
                     >
                         <h3 className="text-3xl font-bold" style={{ color: "white" }}>
-                            {testimonials[active].name}
+                            {language === 'ar' ? testimonials[active].name : (testimonials[active].nameEn || testimonials[active].name)}
                         </h3>
                         <p className="text-sm opacity-60" style={{ color: "white" }}>
-                            {testimonials[active].designation}
+                            {language === 'ar' ? testimonials[active].designation : (testimonials[active].designationEn || testimonials[active].designation)}
                         </p>
                         <motion.p className="text-lg mt-8" style={{ color: "rgba(255,255,255,0.8)" }}>
-                            {testimonials[active].quote.split(" ").map((word, index) => (
+                            {(language === 'ar' ? testimonials[active].quote : (testimonials[active].quoteEn || testimonials[active].quote)).split(" ").map((word, index) => (
                                 <motion.span
                                     key={index}
                                     initial={{

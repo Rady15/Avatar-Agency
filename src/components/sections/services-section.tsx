@@ -717,9 +717,9 @@ function PanelWithGlow({
 
               {/* Main Content - Two Columns */}
               <div className="px-4 md:px-8 lg:px-12 py-8" style={{ direction: language === 'ar' ? 'rtl' : 'ltr' }}>
-                <div className={`flex flex-col lg:flex-row gap-8 lg:gap-16 items-start ${language === 'ar' ? 'lg:flex-row-reverse' : ''}`}>
+                <div className={`flex flex-col lg:flex-row gap-8 lg:gap-16 items-start ${language === 'ar' ? '' : ''}`}>
                   
-                  {/* Portfolio - Left in English, Right in Arabic */}
+                  {/* Portfolio - Right in Arabic, Left in English */}
                   <motion.div 
                     className={`w-full lg:w-1/2 ${language === 'ar' ? 'lg:order-2' : ''}`}
                     initial={{ x: -50, opacity: 0 }}
@@ -738,7 +738,7 @@ function PanelWithGlow({
                     />
                   </motion.div>
 
-                  {/* Description - Right in English, Left in Arabic */}
+                  {/* Description - Left in Arabic, Right in English */}
                   <motion.div 
                     className={`w-full lg:w-1/2 flex flex-col ${language === 'ar' ? 'lg:order-1' : ''}`}
                     initial={{ x: 50, opacity: 0 }}

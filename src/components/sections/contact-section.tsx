@@ -11,7 +11,7 @@ import { GlowCard } from "@/components/ui/glow-card";
 const contactInfo = [
   { icon: Phone, label: "اتصل بنا", labelEn: "Call Us", value: "+966 50 000 0000", valueEn: "+966 50 000 0000", href: "tel:+966500000000", color: "from-emerald-500/20 to-teal-500/20", iconColor: "text-emerald-400" },
   { icon: Mail, label: "راسلنا", labelEn: "Email Us", value: "info@avatar-ad.com", valueEn: "info@avatar-ad.com", href: "mailto:info@avatar-ad.com", color: "from-blue-500/20 to-cyan-500/20", iconColor: "text-blue-400" },
-  { icon: MapPin, label: "زورنا", labelEn: "Visit Us", value: "الرياض، المملكة العربية السعودية", valueEn: "Riyadh, Kingdom of Saudi Arabia", href: "#", color: "from-orange-500/20 to-amber-500/20", iconColor: "text-orange-400" },
+  { icon: MapPin, label: "زورنا", labelEn: "Visit Us", value: "الرياض، المملكة العربية السعودية", valueEn: "Riyadh, Kingdom of Saudi Arabia", href: "https://maps.app.goo.gl/your-location-here", color: "from-orange-500/20 to-amber-500/20", iconColor: "text-orange-400" },
   { icon: Clock, label: "ساعات العمل", labelEn: "Working Hours", value: "الأحد - الخميس: 9ص - 6م", valueEn: "Sun - Thu: 9AM - 6PM", href: "#", color: "from-purple-500/20 to-pink-500/20", iconColor: "text-purple-400" },
 ];
 
@@ -30,10 +30,10 @@ const servicesList = [
 ];
 
 const socialLinks = [
-  { icon: Instagram, href: "#", label: "Instagram", color: "hover:bg-gradient-to-br hover:from-purple-600 hover:to-pink-600" },
-  { icon: Twitter, href: "#", label: "Twitter", color: "hover:bg-blue-500" },
+  { icon: Facebook, href: "https://www.facebook.com/theavatarksa", label: "Facebook", color: "hover:bg-blue-600" },
+  { icon: Instagram, href: "https://www.instagram.com/theavatarksa?igsh=MW1hY3QzaWJwMWVnNw==", label: "Instagram", color: "hover:bg-gradient-to-br hover:from-purple-600 hover:to-pink-600" },
+  { icon: Twitter, href: "https://www.tiktok.com/@theavatarksa", label: "TikTok", color: "hover:bg-black" },
   { icon: Linkedin, href: "#", label: "LinkedIn", color: "hover:bg-blue-700" },
-  { icon: Facebook, href: "#", label: "Facebook", color: "hover:bg-blue-600" },
   { icon: Globe, href: "#", label: "Website", color: "hover:bg-emerald-500" },
 ];
 
@@ -269,6 +269,26 @@ export function ContactSection({ showBackground = true }: { showBackground?: boo
                     </GlowCard>
                   ))}
                 </div>
+
+                {/* Map Section */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                  className="rounded-2xl overflow-hidden border border-white/20"
+                >
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3571.083295488267!2d46.67529531525595!3d24.71357298046908!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f02e3f1f1f1f1%3A0x1f1f1f1f1f1f1f1!2sRiyadh%2C%20Saudi%20Arabia!5e0!3m2!1sen!2sus!4v1635789012345!5m2!1sen!2sus"
+                    width="100%"
+                    height="250"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="w-full"
+                    title="Riyadh Location"
+                  />
+                </motion.div>
 
                 {/* Social Links */}
                 <motion.div

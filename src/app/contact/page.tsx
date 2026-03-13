@@ -6,14 +6,8 @@ import { ContactSection } from "@/components/sections/contact-section";
 
 export default function ContactPage() {
   return (
-    <>
-
-      <TubesBackground className="fixed inset-0 z-0">
-        <div className="w-full h-full" />
-      </TubesBackground>
-      <main className="relative z-10 w-screen h-screen overflow-hidden">
-        <ContactSection />
-      </main>
-    </>
+    <main className="relative min-h-screen">
+      <ContactSection />
+    </main>
   );
 }

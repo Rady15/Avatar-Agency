@@ -56,12 +56,9 @@ export function ContactSection({ showBackground = true }: { showBackground?: boo
 
   return (
     <section id="contact" className="relative py-20 overflow-hidden" style={{ direction: language === 'ar' ? 'rtl' : 'ltr' }}>
-      {/* Background */}
+      {/* Background - transparent to show hero image behind */}
       {showBackground && (
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0A1D37] via-[#0d2847] to-[#0A1D37]" />
-          <div className="absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-        </div>
+        <div className="absolute inset-0 z-0 bg-transparent" />
       )}
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8">
@@ -241,9 +238,9 @@ export function ContactSection({ showBackground = true }: { showBackground?: boo
                   onChange={(e) => setFormState({ ...formState, service: e.target.value })}
                   className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/20 transition-all appearance-none cursor-pointer"
                 >
-                  <option value="" className="bg-[#0A1D37]">{language === 'ar' ? 'اختر الخدمة' : 'Choose Service'}</option>
+                  <option value="" className="bg-white">{language === 'ar' ? 'اختر الخدمة' : 'Choose Service'}</option>
                   {servicesList.map((service) => (
-                    <option key={service.label} value={service.label} className="bg-[#0A1D37]">
+                    <option key={service.label} value={service.label} className="bg-white">
                       {language === 'ar' ? service.label : service.labelEn}
                     </option>
                   ))}

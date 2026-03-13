@@ -8,7 +8,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "btn-3d from-[#222e64] via-[#2a3a7a] to-[#222e64] text-white",
+        default: "btn-3d from-[#D4AF37] via-[#f59e0b] to-[#D4AF37] text-black",
         destructive:
           "bg-destructive text-white hover:bg-destructive/90",
         outline:

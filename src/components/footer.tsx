@@ -42,19 +42,19 @@ export function Footer() {
               <div
                 className="w-12 h-12"
                 style={{
-                  background: "linear-gradient(135deg, #222e64 0%, #2a3a7a 50%, #1a2550 100%)",
+                  background: "linear-gradient(135deg, #D4AF37 0%, #f59e0b 50%, #D4AF37 100%)",
                   clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
                 }}
               >
                 <div
                   className="w-full h-full flex items-center justify-center"
                   style={{
-                    background: "linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%)",
+                    background: "linear-gradient(135deg, #0A1D37 0%, #1a3a5c 100%)",
                     clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
                     margin: "3px",
                   }}
                 >
-                  <span className="text-[#222e64] font-bold">A</span>
+                  <span className="text-[#D4AF37] font-bold">A</span>
                 </div>
               </div>
               <div>

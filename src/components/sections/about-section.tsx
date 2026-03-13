@@ -240,7 +240,7 @@ export function AboutSection({ showBackground = true, fullContent = false }: Abo
       <div className="sticky top-0 min-h-screen w-full flex items-center justify-center overflow-visible">
         <motion.div
           className="relative z-10 w-full max-w-6xl mx-auto px-6 lg:px-10 py-10"
-          style={{ opacity: contentOpacityScrolled, y: contentYScrolled }}
+          style={{ opacity: contentOpacityScrolled ?? 1, y: contentYScrolled ?? 0 }}
         >
           {/* ── TWO-COLUMN: Logo (left) + Description (right) ── */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">

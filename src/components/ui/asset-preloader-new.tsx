@@ -5,6 +5,18 @@ import { useEffect, useState } from "react";
 const criticalAssets = [
   "/LOGO/White-logo_01.png",
   "/LOGO/Blue-logo_01.png",
+  "/manager.png",
+  "/manager2.png",
+  "/ch1.png",
+  "/ch2.png",
+  "/ch3.png",
+  "/Flow2.mp4",
+  "/1.webp",
+  "/1_png.png",
+  "/2_png.png",
+];
+
+const portfolioAssets = [
   "/assets/استشارات/1.png",
   "/assets/اعلانت ممولة/1.png",
   "/assets/السوشيال ميديا/1.png",
@@ -23,37 +35,60 @@ export function AssetPreloader() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    const allAssets = [...criticalAssets, ...portfolioAssets];
     let loadedCount = 0;
-    const totalCritical = criticalAssets.length;
+    const totalCritical = allAssets.length;
 
-    const preloadCritical = () => {
-      criticalAssets.forEach((src) => {
-        const img = new Image();
-        img.src = encodeURI(src);
+    const preloadAll = () => {
+      allAssets.forEach((src) => {
+        const isVideo = src.endsWith('.mp4');
         
-        img.onload = () => {
-          loadedCount++;
-          setProgress(Math.round((loadedCount / totalCritical) * 100));
-          if (loadedCount >= totalCritical) {
-            setTimeout(() => setLoading(false), 300);
-          }
-        };
-        
-        img.onerror = () => {
-          loadedCount++;
-          setProgress(Math.round((loadedCount / totalCritical) * 100));
-          if (loadedCount >= totalCritical) {
-            setTimeout(() => setLoading(false), 300);
-          }
-        };
+        if (isVideo) {
+          const video = document.createElement('video');
+          video.preload = 'auto';
+          video.src = src;
+          video.onloadeddata = () => {
+            loadedCount++;
+            setProgress(Math.round((loadedCount / totalCritical) * 100));
+            if (loadedCount >= totalCritical) {
+              setTimeout(() => setLoading(false), 500);
+            }
+          };
+          video.onerror = () => {
+            loadedCount++;
+            setProgress(Math.round((loadedCount / totalCritical) * 100));
+            if (loadedCount >= totalCritical) {
+              setTimeout(() => setLoading(false), 500);
+            }
+          };
+        } else {
+          const img = new Image();
+          img.src = encodeURI(src);
+          
+          img.onload = () => {
+            loadedCount++;
+            setProgress(Math.round((loadedCount / totalCritical) * 100));
+            if (loadedCount >= totalCritical) {
+              setTimeout(() => setLoading(false), 500);
+            }
+          };
+          
+          img.onerror = () => {
+            loadedCount++;
+            setProgress(Math.round((loadedCount / totalCritical) * 100));
+            if (loadedCount >= totalCritical) {
+              setTimeout(() => setLoading(false), 500);
+            }
+          };
+        }
       });
     };
 
     if (document.readyState === "complete") {
-      preloadCritical();
+      preloadAll();
     } else {
-      window.addEventListener("load", preloadCritical);
-      return () => window.removeEventListener("load", preloadCritical);
+      window.addEventListener("load", preloadAll);
+      return () => window.removeEventListener("load", preloadAll);
     }
   }, []);
 

@@ -58,7 +58,7 @@ export function Footer() {
                 </div>
               </div>
               <div>
-                <h3 className="text-xl font-bold gold-text">أفتار</h3>
+                <h3 className="text-xl font-bold text-yellow-400">أفتار</h3>
                 <p className="text-[10px] text-white/40 tracking-widest" style={{ fontFamily: "var(--font-geist-sans)" }}>
                   AVATAR ADVERTISING
                 </p>
@@ -101,7 +101,7 @@ export function Footer() {
             transition={{ delay: 0.1 }}
             viewport={{ once: true }}
           >
-            <h4 className="font-bold text-lg mb-6 gold-text">روابط سريعة</h4>
+            <h4 className="font-bold text-lg mb-6 text-yellow-400">روابط سريعة</h4>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.label}>
@@ -124,7 +124,7 @@ export function Footer() {
             transition={{ delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <h4 className="font-bold text-lg mb-6 gold-text">خدماتنا</h4>
+            <h4 className="font-bold text-lg mb-6 text-yellow-400">خدماتنا</h4>
             <ul className="grid grid-cols-2 gap-2">
               {services.map((service) => (
                 <li key={service}>
@@ -143,7 +143,7 @@ export function Footer() {
             transition={{ delay: 0.3 }}
             viewport={{ once: true }}
           >
-            <h4 className="font-bold text-lg mb-6 gold-text">تواصل معنا</h4>
+            <h4 className="font-bold text-lg mb-6 text-yellow-400">تواصل معنا</h4>
             <ul className="space-y-4">
               <li className="flex items-center gap-3 text-white/60 text-sm">
                 <Phone className="w-4 h-4 text-primary" />

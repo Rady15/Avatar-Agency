@@ -97,7 +97,7 @@ export function TestimonialsSection({ showBackground = true }: { showBackground?
           {/* Header */}
           <div className="text-center">
             <h2 className="text-4xl md:text-5xl font-black text-white mb-1">
-              <span className="gold-text">{language === 'ar' ? 'آراء' : 'Our'}</span> {language === 'ar' ? 'عملائنا' : 'Clients'}
+              <span className="text-yellow-400">{language === 'ar' ? 'آراء' : 'Our'}</span> {language === 'ar' ? 'عملائنا' : 'Clients'}
             </h2>
             <p className="text-white/50 text-sm">{language === 'ar' ? 'شركاء النجاح يشاركونك تجربتهم' : 'Success partners share their experience with you'}</p>
           </div>
@@ -109,7 +109,7 @@ export function TestimonialsSection({ showBackground = true }: { showBackground?
           <div className="grid grid-cols-4 gap-3 mt-2">
             {stats.map((stat, i) => (
               <GlowCard key={i} customSize glowColor="red" className="w-full p-3 text-center">
-                <div className="text-2xl md:text-3xl font-black gold-text mb-0.5">{stat.number}</div>
+                <div className="text-2xl md:text-3xl font-black text-yellow-400 mb-0.5">{stat.number}</div>
                 <div className="text-white/50 text-xs">{language === 'ar' ? stat.label : (stat.labelEn || stat.label)}</div>
               </GlowCard>
             ))}

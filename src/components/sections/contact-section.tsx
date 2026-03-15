@@ -73,9 +73,9 @@ export function ContactSection({ showBackground = true }: { showBackground?: boo
         >
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4">
             {language === 'ar' ? (
-              <>تواصل <span className="gold-text">معنا</span></>
+              <>تواصل <span className="text-yellow-400">معنا</span></>
             ) : (
-              <>Contact <span className="gold-text">Us</span></>
+              <>Contact <span className="text-yellow-400">Us</span></>
             )}
           </h2>
           <p className="text-white/60 text-lg max-w-2xl mx-auto">

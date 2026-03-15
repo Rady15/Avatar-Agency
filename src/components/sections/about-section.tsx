@@ -171,7 +171,7 @@ export function AboutSection({ showBackground = true, fullContent = false }: Abo
               <div>
                 <p className="text-white/50 text-sm font-semibold tracking-widest uppercase mb-2">{t("تعرف علينا", "Get to know us")}</p>
                 <h2 className="text-4xl md:text-5xl font-black text-white leading-tight">
-                  {t("من", "About")} <span className="gold-text">{t("نحن", "Us")}</span>
+                  {t("من", "About")} <span className="text-yellow-400">{t("نحن", "Us")}</span>
                 </h2>
               </div>
               <p className="text-lg text-white/80 leading-relaxed">
@@ -210,7 +210,7 @@ export function AboutSection({ showBackground = true, fullContent = false }: Abo
           {/* Methodology */}
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
             <h3 className="text-3xl font-bold text-white text-center mb-8">
-              {t("منهجيتنا", "Our Methodology")} <span className="gold-text">{t("في العمل", "in Work")}</span>
+              {t("منهجيتنا", "Our Methodology")} <span className="text-yellow-400">{t("في العمل", "in Work")}</span>
             </h3>
             <div className="grid md:grid-cols-3 gap-6">
               {methodology.map((item) => (
@@ -227,7 +227,7 @@ export function AboutSection({ showBackground = true, fullContent = false }: Abo
           {/* Values — 3D Skewed Cards */}
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
             <h3 className="text-3xl font-bold text-white text-center mb-8">
-              {t("قيمنا التي", "Our Values that")} <span className="gold-text">{t("تميزنا", "Distinguish Us")}</span>
+              {t("قيمنا التي", "Our Values that")} <span className="text-yellow-400">{t("تميزنا", "Distinguish Us")}</span>
             </h3>
 
             <style>{`
@@ -338,10 +338,8 @@ export function AboutSection({ showBackground = true, fullContent = false }: Abo
     );
   }
 
-  const sectionHeight = "h-[100vh]";
-
   return (
-    <section ref={containerRef} className={`relative ${sectionHeight}`} style={{ direction: language === 'ar' ? 'rtl' : 'ltr' }}>
+    <section ref={containerRef} className="relative h-auto md:h-[150vh]" style={{ direction: language === 'ar' ? 'rtl' : 'ltr' }}>
       {showBackground && (
         <div className="fixed inset-0 z-0 w-full h-full overflow-hidden pointer-events-none">
           <video autoPlay muted playsInline preload="auto" className="w-full h-full object-cover">
@@ -350,8 +348,8 @@ export function AboutSection({ showBackground = true, fullContent = false }: Abo
         </div>
       )}
 
-      {/* ── STICKY viewport ── */}
-      <div className="sticky top-0 min-h-screen w-full flex items-center justify-center overflow-visible">
+      {/* ── STICKY viewport: desktop only ── */}
+      <div className="hidden md:sticky md:top-0 md:min-h-screen md:w-full md:flex md:items-center md:justify-center md:overflow-visible">
         <motion.div
           className="relative z-10 w-full max-w-6xl mx-auto px-6 lg:px-10 py-10"
           style={{ opacity: contentOpacityScrolled ?? 1, y: contentYScrolled ?? 0 }}
@@ -395,7 +393,7 @@ export function AboutSection({ showBackground = true, fullContent = false }: Abo
                   {t("تعرف علينا", "Get to know us")}
                 </p>
                 <h2 className="text-4xl md:text-5xl font-black text-white leading-tight">
-                  {t("من", "About")} <span className="gold-text">{t("نحن", "Us")}</span>
+                  {t("من", "About")} <span className="text-yellow-400">{t("نحن", "Us")}</span>
                 </h2>
               </div>
 
@@ -478,7 +476,7 @@ export function AboutSection({ showBackground = true, fullContent = false }: Abo
               {/* Methodology */}
               <div>
                 <h3 className="text-3xl font-bold text-white text-center mb-8">
-                  {t("منهجيتنا", "Our Methodology")} <span className="gold-text">{t("في العمل", "in Work")}</span>
+                  {t("منهجيتنا", "Our Methodology")} <span className="text-yellow-400">{t("في العمل", "in Work")}</span>
                 </h3>
                 <div className="grid md:grid-cols-3 gap-6">
                   {methodology.map((item) => (
@@ -502,7 +500,7 @@ export function AboutSection({ showBackground = true, fullContent = false }: Abo
               {/* Values */}
               <div>
                 <h3 className="text-3xl font-bold text-white text-center mb-8">
-                  {t("قيمنا التي", "Our Values that")} <span className="gold-text">{t("تميزنا", "Distinguish Us")}</span>
+                  {t("قيمنا التي", "Our Values that")} <span className="text-yellow-400">{t("تميزنا", "Distinguish Us")}</span>
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
                   {values.map((value) => (
@@ -533,6 +531,74 @@ export function AboutSection({ showBackground = true, fullContent = false }: Abo
               </div>
             </div>
           )}
+        </motion.div>
+      </div>
+
+      {/* Mobile container: no sticky */}
+      <div className="block md:hidden w-full px-4 py-8">
+        <motion.div
+          className="relative z-10 w-full max-w-6xl mx-auto"
+        >
+          <div className="grid grid-cols-1 gap-8">
+            <motion.div
+              className="flex flex-col items-center justify-center"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              <div className="relative">
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-yellow-400/30 to-orange-500/30 blur-3xl scale-125" />
+                <div className="relative w-48 h-48 rounded-3xl overflow-hidden border border-white/20 shadow-2xl bg-black/30 backdrop-blur-md flex items-center justify-center">
+                  <img
+                    src="/LOGO/White-logo_01.png"
+                    alt="Avatar Agency Logo"
+                    className="w-40 h-40 object-contain drop-shadow-2xl"
+                  />
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="flex flex-col gap-4 text-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <div>
+                <p className="text-white/50 text-xs font-semibold tracking-widest uppercase mb-1">
+                  {t("تعرف علينا", "Get to know us")}
+                </p>
+                <h2 className="text-3xl font-black text-white leading-tight">
+                  {t("من", "About")} <span className="text-yellow-400">{t("نحن", "Us")}</span>
+                </h2>
+              </div>
+
+              <p className="text-base text-white/80 leading-relaxed">
+                {t(
+                  "نجاحنا بدأ بخطوات صغيرة على مسار طويل مرافق بحب للعمل وشغف لتقديم ما هو أفضل لك.",
+                  "Our success began with small steps on a long journey accompanied by love for work and passion to deliver what is best for you."
+                )}
+              </p>
+
+              <div className="p-3 rounded-xl bg-gradient-to-r from-yellow-400/10 to-orange-500/10 border border-yellow-400/20">
+                <span className="text-white font-bold text-sm">{t("رسالتنا", "Our Mission")}</span>
+                <p className="text-white/70 text-xs mt-1">
+                  {t("تمكين العلامات التجارية من تحقيق نمو مستدام", "Enabling brands to achieve sustainable growth")}
+                </p>
+              </div>
+
+              <ul className="flex flex-col gap-1 text-center">
+                {highlights.map((item, i) => (
+                  <li key={i} className="flex items-center gap-2 justify-center">
+                    <CheckCircle className="w-4 h-4 text-yellow-400 flex-shrink-0" />
+                    <span className="text-white/80 text-sm">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

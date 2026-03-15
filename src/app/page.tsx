@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import CinematicIntro from "@/components/cinematic-intro";
 import { SpaceBackground } from "@/components/ui/space-background";
 import { HeroSection } from "@/components/sections/hero-section";
 import { AboutSection } from "@/components/sections/about-section";
@@ -27,31 +28,27 @@ const AstronautCharacter = () => {
       : {}
   );
 
-  // تعديل rawX لتبدأ من 5vw (ثابتة على اليسار) ثم تتحرك
   const rawX = useTransform(
     scrollYProgress,
-    [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1], // الـ 0.1 الأولى ثابتة
+    [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
     ["5vw", "30vw", "40vw", "50vw", "70vw", "120vw", "70vw", "30vw", "5vw", "-10vw", "-10vw"]
   );
 
-  // تعديل rawRotateZ لتبدأ من 0 ثم تتحرك بعد فترة
   const rawRotateZ = useTransform(
     scrollYProgress,
-    [0, 0.1, 0.35, 0.6, 0.85, 1], // الـ 0.1 الأولى ثابتة
+    [0, 0.1, 0.35, 0.6, 0.85, 1],
     [0, 0, 20, -15, 25, 0]
   );
 
-  // تعديل rawFaceRight لتبدأ من 1 (يمين) ثم تتغير بعد فترة
   const rawFaceRight = useTransform(
     scrollYProgress,
     [0, 0.1, 0.15, 0.2, 0.25, 0.4, 0.45, 0.5, 0.55, 0.8, 0.85, 1],
-    [1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1] // أول 0.1 ثابتة على 1
+    [1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1]
   );
 
-  // تعديل rawScale لتبدأ من 1 ثم تتغير بعد فترة
   const rawScale = useTransform(
     scrollYProgress,
-    [0, 0.1, 0.35, 0.6, 0.85, 1], // الـ 0.1 الأولى ثابتة
+    [0, 0.1, 0.35, 0.6, 0.85, 1],
     [1, 1, 1.05, 0.95, 1.02, 1]
   );
 
@@ -123,36 +120,30 @@ const AstronautCharacter = () => {
 };
 
 export default function Home() {
-  const [showIntro, setShowIntro] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-    const hasPlayed = sessionStorage.getItem("introPlayed");
-    if (!hasPlayed) {
-      setShowIntro(true);
-    }
-  }, []);
-
-  const handleIntroComplete = () => {
-    sessionStorage.setItem("introPlayed", "true");
-    setShowIntro(false);
-  };
-
-  if (!isMounted) return null; // Prevent hydration mismatch
+  const [enterSite, setEnterSite] = useState(false);
 
   return (
     <>
-      <SpaceBackground />
-      <AstronautCharacter />
-      <main className="relative z-10">
-        <HeroSection showBackground={false} />
-        <AboutSection showBackground={false} />
-        <PortfolioSection showBackground={false} />
-        <TestimonialsSection showBackground={false} />
-        <ContactSection showBackground={false} />
-      </main>
-      <Footer />
+      {!enterSite && (
+        <CinematicIntro
+          onEnter={() => setEnterSite(true)}
+        />
+      )}
+
+      {enterSite && (
+        <>
+          <SpaceBackground />
+          <AstronautCharacter />
+          <main className="relative z-10">
+            <HeroSection showBackground={false} />
+            <AboutSection showBackground={false} />
+            <PortfolioSection showBackground={false} />
+            <TestimonialsSection showBackground={false} />
+            <ContactSection showBackground={false} />
+          </main>
+          <Footer />
+        </>
+      )}
     </>
   );
 }

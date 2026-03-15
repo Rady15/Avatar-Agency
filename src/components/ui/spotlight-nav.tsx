@@ -6,12 +6,13 @@ import { useRouter } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
 
 interface NavItemProps {
-  icon: React.ElementType;
+  icon: React.ElementType<{ className?: string; strokeWidth?: number }>;
   isActive?: boolean;
   indicatorPosition: number;
   position: number;
   label: string;
   href: string;
+  onClick: () => void;
 }
 
 const NavItem: React.FC<NavItemProps> = ({ 
@@ -39,9 +40,7 @@ const NavItem: React.FC<NavItemProps> = ({
         }}
       />
       <Icon
-        className={`w-5 h-5 mb-1 transition-colors duration-200 ${
-          isActive ? 'text-white' : 'text-white/50 hover:text-white/80'
-        }`}
+        className="w-5 h-5 mb-1 transition-colors duration-200"
         strokeWidth={isActive ? 2.5 : 2}
       />
       <span className={`text-[10px] transition-colors duration-200 ${
@@ -53,53 +52,39 @@ const NavItem: React.FC<NavItemProps> = ({
   );
 };
 
-interface SpotlightNavProps {
-  onNavigate?: (index: number) => void;
-  className?: string;
-}
-
-export const SpotlightNav: React.FC<SpotlightNavProps> = ({ 
-  onNavigate,
-  className = "" 
-}) => {
+export function SpotlightNav() {
+  const router = useRouter();
+  const { language, t } = useLanguage();
   const [activeIndex, setActiveIndex] = useState(0);
-  const { language } = useLanguage();
 
-  const navItems = [
-    { icon: Home, label: language === 'ar' ? 'الرئيسية' : 'Home', href: '/' },
-    { icon: Palette, label: language === 'ar' ? 'خدماتنا' : 'Services', href: '/services' },
-    { icon: Info, label: language === 'ar' ? 'من نحن' : 'About', href: '/about' },
-    { icon: MessageCircle, label: language === 'ar' ? 'تواصل' : 'Contact', href: '/contact' },
+  const items = [
+    { icon: Home, label: t("الرئيسية", "Home"), href: "/" },
+    { icon: Palette, label: t("خدماتنا", "Services"), href: "/services" },
+    { icon: Info, label: t("من نحن", "About"), href: "/about" },
+    { icon: MessageCircle, label: t("تواصل", "Contact"), href: "/contact" },
   ];
 
-  const handleItemClick = (index: number) => {
+  const handleNavClick = (index: number, href: string) => {
     setActiveIndex(index);
-    onNavigate?.(index);
+    router.push(href as any);
   };
 
   return (
-    <nav className={`relative flex items-center px-2 py-2 ${className}`}>
-      <div 
-        className="absolute top-0 h-[2px] bg-[#D4AF37] transition-all duration-400 ease-in-out"
-        style={{
-          left: `${activeIndex * 68 + 16}px`,
-          width: '40px',
-          transform: 'translateY(-1px)',
-        }}
-      />
-      {navItems.map((item, index) => (
-        <NavItem
-          key={item.label}
-          icon={item.icon}
-          isActive={activeIndex === index}
-          indicatorPosition={activeIndex}
-          position={index}
-          label={item.label}
-          href={item.href}
-        />
-      ))}
+    <nav className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50">
+      <div className="flex items-center bg-white/5 backdrop-blur-xl rounded-full px-4 py-2 border border-white/10 shadow-lg">
+        {items.map((item, index) => (
+          <NavItem
+            key={item.label}
+            icon={item.icon}
+            isActive={activeIndex === index}
+            indicatorPosition={activeIndex}
+            position={index}
+            label={item.label}
+            href={item.href}
+            onClick={() => handleNavClick(index, item.href)}
+          />
+        ))}
+      </div>
     </nav>
   );
-};
-
-export default SpotlightNav;
+}

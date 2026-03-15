@@ -2,7 +2,6 @@
 
 import { motion, useScroll } from "framer-motion";
 import { useState, useEffect } from "react";
-import { useIsPresent } from "framer-motion";
 import { Menu, X, Diamond, Globe } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
@@ -19,8 +18,6 @@ export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const { language, toggleLanguage, t } = useLanguage();
   const { scrollY } = useScroll();
-
-  const isPresent = useIsPresent();
 
   useEffect(() => {
     const unsubscribe = scrollY.on("change", (latest) => {
@@ -58,26 +55,65 @@ export function Navigation() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-10">
-            {navLinks.map((link, index) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="relative text-white/80 hover:text-primary transition-colors group"
-              >
-                <motion.span
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 + 0.3 }}
-                  whileHover={{ y: -2 }}
-                >
-                  <span className="text-sm font-medium">
+          <nav className="hidden lg:flex items-center">
+            <style>{`
+              .nav-menu {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                list-style: none;
+                background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.05) 100%);
+                border-radius: 9999px;
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border: 1px solid rgba(255,255,255,0.15);
+                box-shadow: 
+                  0 8px 32px rgba(0,0,0,0.3),
+                  inset 0 1px 0 rgba(255,255,255,0.1),
+                  inset 0 -1px 0 rgba(255,255,255,0.05);
+                padding: 0.5rem 1rem;
+                gap: 1.5rem;
+              }
+              .nav-menu li {
+                position: relative;
+                width: auto;
+                height: auto;
+                transition: background-position-x 0.9s linear;
+                text-align: center;
+                padding: 0.5rem 1.5rem;
+                cursor: pointer;
+              }
+              .nav-menu li a {
+                font-size: 14px;
+                font-weight: 500;
+                color: rgba(255,255,255,0.7);
+                text-decoration: none;
+                transition: all 0.45s;
+                position: relative;
+                z-index: 2;
+              }
+              .nav-menu li:hover {
+                background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEi%0D%0AIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhs%0D%0AaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB3aWR0%0D%0AaD0iMzkwcHgiIGhlaWdodD0iNTBweCIgdmlld0JveD0iMCAwIDM5MCA1MCIgZW5hYmxlLWJhY2tn%0D%0Acm91bmQ9Im5ldyAwIDAgMzkwIDUwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHBhdGggZmlsbD0i%0D%0Abm9uZSIgc3Ryb2tlPSIjZDk0ZjVjIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLW1pdGVybGlt%0D%0FaXQ9IjEwIiBkPSJNMCw0Ny41ODVjMCwwLDk3LjUsMCwxMzAsMAoJYzEzLjc1LDAsMjguNzQtMzgu%0D%0ANzc4LDQ2LjE2OC0xOS40MTZDMTkyLjY2OSw0Ni41LDI0My42MDMsNDcuNTg1LDI2MCw0Ny41ODVj%0D%0AMzEuODIxLDAsMTMwLDAsMTMwLDAiLz4KPC9zdmc+Cg==");
+                animation: nav-line 1s;
+              }
+              .nav-menu li:hover a {
+                color: #ffffff;
+              }
+              @keyframes nav-line {
+                0% {
+                  background-position-x: 390px;
+                }
+              }
+            `}</style>
+            <ul className="nav-menu">
+              {navLinks.map((link) => (
+                <li key={link.label}>
+                  <Link href={link.href}>
                     {language === "ar" ? link.label : link.labelEn}
-                  </span>
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
-                </motion.span>
-              </Link>
-            ))}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </nav>
 
           {/* Language Switcher & CTA */}

@@ -1,134 +1,133 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
 
-interface IntroAnimationProps {
-  onComplete: () => void;
-}
-
-export function IntroAnimation({ onComplete }: IntroAnimationProps) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [phase, setPhase] = useState<"intro" | "button" | "flow4">("intro");
-  const [canPlay, setCanPlay] = useState(false);
+export const IntroAnimation = ({ onComplete }: { onComplete: () => void }) => {
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
+    const timer = setTimeout(() => {
+      onComplete();
+    }, 5200);
 
-    const handleCanPlay = () => {
-      setCanPlay(true);
-      if (phase === "intro") {
-        video.play().catch(() => {
-          // Autoplay blocked
-        });
-      }
-    };
-
-    const handleEnded = () => {
-      if (phase === "intro") {
-        setPhase("button");
-      } else if (phase === "flow4") {
-        onComplete();
-      }
-    };
-
-    video.addEventListener("canplaythrough", handleCanPlay);
-    video.addEventListener("ended", handleEnded);
-
-    if (video.readyState >= 3) {
-      handleCanPlay();
+    if (audioRef.current) {
+      audioRef.current.volume = 0.6;
+      audioRef.current.play().catch(() => {});
     }
 
-    return () => {
-      video.removeEventListener("canplaythrough", handleCanPlay);
-      video.removeEventListener("ended", handleEnded);
-    };
-  }, [phase, onComplete]);
-
-  // Update video source when phase changes to flow4
-  useEffect(() => {
-    const video = videoRef.current;
-    if (video && phase === "flow4") {
-      video.src = "/Flow4.mp4";
-      video.load();
-      video.play().catch(() => {
-        // If autoplay fails, still proceed
-        onComplete();
-      });
-    }
-  }, [phase, onComplete]);
-
-  const handleButtonClick = () => {
-    setPhase("flow4");
-  };
-
-  const getVideoSrc = () => {
-    if (phase === "flow4") {
-      return "/Flow4.mp4";
-    }
-    return "/Flow.mp4";
-  };
+    return () => clearTimeout(timer);
+  }, [onComplete]);
 
   return (
-    <AnimatePresence>
-      <motion.div
-        className="fixed inset-0 z-[10000] flex items-center justify-center bg-black"
-        initial={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.8, ease: "easeInOut" }}
-      >
-        {/* Video Background */}
-        <video
-          ref={videoRef}
-          muted
-          playsInline
-          preload="auto"
-          className="absolute inset-0 w-full h-full object-cover"
-          key={phase} // Force re-render when phase changes
-        >
-          <source src={getVideoSrc()} type="video/mp4" />
-        </video>
+    <motion.div
+      className="fixed inset-0 bg-black flex items-center justify-center overflow-hidden z-[9999]"
+      initial={{ opacity: 1 }}
+      animate={{ opacity: 0 }}
+      transition={{ delay: 4.7, duration: 0.8 }}
+    >
+      {/* SOUND */}
+      <audio ref={audioRef} src="/space-intro.mp3" />
 
-        {/* Enter Button Overlay - shown after Flow.mp4 ends */}
-        <AnimatePresence>
-          {phase === "button" && (
-            <motion.div
-              className="absolute inset-0 flex items-center justify-center bg-black/40"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <motion.div
-                onClick={handleButtonClick}
-                className="cursor-pointer"
-                initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                animate={{ 
-                  opacity: 1, 
-                  scale: 1, 
-                  y: 0,
-                  rotate: 360 
-                }}
-                transition={{ 
-                  opacity: { duration: 0.5, delay: 0.2 },
-                  scale: { duration: 0.5, delay: 0.2 },
-                  y: { duration: 0.5, delay: 0.2 },
-                  rotate: { duration: 20, repeat: Infinity, ease: "linear" }
-                }}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <img 
-                  src="/click.png" 
-                  alt="اضغط للدخول" 
-                  className="w-32 h-32 object-contain"
-                />
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
-    </AnimatePresence>
+      {/* PARALLAX STARS */}
+      <div className="absolute inset-0">
+        {[...Array(80)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-[2px] h-[2px] bg-white rounded-full"
+            style={{
+              top: Math.random() * 100 + "%",
+              left: Math.random() * 100 + "%",
+            }}
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: [0, 1, 0.3],
+              scale: [0.5, 1.5, 1],
+              y: [-20, 20],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 2,
+              repeat: Infinity,
+              delay: Math.random() * 2,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* CAMERA ZOOM GLOW */}
+      <motion.div
+        className="absolute w-[700px] h-[700px] bg-blue-500/20 blur-[180px] rounded-full"
+        initial={{ scale: 0.4, opacity: 0 }}
+        animate={{ scale: 1.4, opacity: 1 }}
+        transition={{ duration: 3 }}
+      />
+
+      {/* ASTRONAUT FLYING */}
+      <motion.img
+        src="/1_png.png"
+        alt="astronaut"
+        className="absolute w-[240px] drop-shadow-[0_0_60px_rgba(255,255,255,0.3)]"
+        initial={{
+          x: -900,
+          y: 180,
+          rotate: -40,
+          scale: 0.4,
+          opacity: 0,
+        }}
+        animate={{
+          x: 0,
+          y: 0,
+          rotate: 0,
+          scale: 1,
+          opacity: 1,
+        }}
+        transition={{
+          duration: 2.4,
+          ease: "easeOut",
+        }}
+      />
+
+      {/* THRUSTER FLAME */}
+      <motion.div
+        className="absolute w-[120px] h-[120px] bg-blue-400/50 blur-3xl rounded-full"
+        initial={{
+          x: -920,
+          y: 200,
+          scale: 0.5,
+        }}
+        animate={{
+          x: -120,
+          y: 40,
+          scale: [0.8, 1.4, 1],
+        }}
+        transition={{
+          duration: 2.4,
+        }}
+      />
+
+      {/* LOGO TEXT */}
+      <motion.h1
+        className="text-white text-5xl md:text-7xl font-bold tracking-widest"
+        initial={{ opacity: 0, y: 80 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          delay: 2.2,
+          duration: 1,
+        }}
+      >
+        EXPLORE SPACE
+      </motion.h1>
+
+      {/* LIGHT SWEEP */}
+      <motion.div
+        className="absolute w-[120vw] h-[2px] bg-gradient-to-r from-transparent via-white to-transparent"
+        initial={{ x: "-120vw" }}
+        animate={{ x: "120vw" }}
+        transition={{
+          delay: 2,
+          duration: 1.5,
+        }}
+      />
+    </motion.div>
   );
-}
+};

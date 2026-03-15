@@ -129,7 +129,7 @@ export default function Home() {
           onEnter={() => setEnterSite(true)}
         />
       )}
-
+//rady
       {enterSite && (
         <>
           <SpaceBackground />

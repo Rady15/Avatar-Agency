@@ -47,7 +47,7 @@
 :root {
   --radius: 0.75rem;
   /* AVATAR Theme - Deep Blue #222e64 + Gold */
-  --background: #222e64;
+  --background: transparent;
   --foreground: #FFFFFF;
   --card: #1a2550;
   --card-foreground: #FFFFFF;
@@ -94,7 +94,7 @@
 }
 
 .dark {
-  --background: #222e64;
+  --background: transparent;
   --foreground: #FFFFFF;
   --card: #1a2550;
   --card-foreground: #FFFFFF;
@@ -120,7 +120,7 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply  text-foreground;
     font-family: var(--font-tajawal), var(--font-geist-sans), sans-serif;
   }
 }

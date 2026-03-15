@@ -7,10 +7,6 @@ import {
   Rocket, ArrowLeft, ArrowRight, CheckCircle,
   Lightbulb, Target, Users, Award, Heart, Shield, Star
 } from "lucide-react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, EffectCoverflow } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/effect-coverflow";
 import { GlowCard } from "@/components/ui/glow-card";
 
 const values = [
@@ -79,9 +75,80 @@ export function AboutSection({ showBackground = true, fullContent = false }: Abo
           </div>
         )}
         <div className="relative z-10 w-full max-w-6xl mx-auto px-6 lg:px-10 space-y-16">
-          {/* TWO-COLUMN: Logo + Description */}
+          {/* Chairman's Message */}
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+          >
+            {/* Text Side */}
+            <div className="flex flex-col justify-center gap-2 order-2 lg:order-1 p-4 md:p-6 rounded-2xl bg-black/40 backdrop-blur-md border border-white/10">
+              <div className="flex items-center gap-3 mb-1">
+                <div className="w-8 h-1 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full" />
+                <span className="text-yellow-400 font-bold text-xs tracking-wider">{t("كلمة الرئيس التنفيذي", "CEO's Message")}</span>
+              </div>
+              <h2 className={`text-xl md:text-2xl font-black text-white leading-tight ${language === 'ar' ? '' : 'text-left'}`}>
+                {t("بسم الله الرحمن الرحيم", "In the name of Allah")}
+              </h2>
+              <div className="text-white/70 leading-relaxed space-y-2 text-justify">
+                <p className="text-xs">{t("الحمد لله الذي جعل الطموح بداية لكل إنجاز، وجعل العمل المتقن طريقاً للتميز.", "Praise be to Allah who made ambition the beginning of every achievement, and meticulous work the path to excellence.")}</p>
+                <p className="text-xs">{t("في ظل التحولات الكبرى التي تشهدها المملكة العربية السعودية بقيادة خادم الحرمين الشريفين وسمو ولي عهده الأمين – حفظهما الله – تأتي رؤية المملكة 2030 لتؤكد أن المستقبل يُصنع بالإبداع، والابتكار، والتمكين، والاستثمار في الإنسان والتقنية.", "In light of the major transformations witnessed by the Kingdom of Saudi Arabia under the leadership of the Custodian of the Two Holy Mosques and his Crown Prince - may Allah protect them - comes the Kingdom's Vision 2030 to confirm that the future is shaped by creativity, innovation, empowerment, and investment in people and technology.")}</p>
+                <p className="text-xs">{t("ومن هذا المنطلق، تأسست أفتار للدعاية والإعلان برؤية واضحة تتناغم مع مستهدفات رؤية 2030، إيمانًا منا بأهمية دور قطاع الإعلام والتسويق في دعم الاقتصاد الوطني، وتعزيز هوية العلامات التجارية السعودية، وتمكينها من المنافسة محليًا وإقليميًا وعالميًا.", "From this standpoint, Avatar Advertising and Publicity was established with a clear vision that aligns with the objectives of Vision 2030, believing in the importance of the media and marketing sector's role in supporting the national economy, enhancing the identity of Saudi brands, and enabling them to compete locally, regionally, and globally.")}</p>
+                <p className="text-xs">{t("نحن في أفتار لا نرى الإعلان مجرد وسيلة ترويج، بل نراه أداة استراتيجية لبناء القيمة، وتحفيز النمو، وتعزيز حضور العلامات التجارية في سوق يتسم بالتنافسية والتطور المتسارع. لذلك نحرص على تبني أحدث التقنيات، وتطوير الكفاءات الوطنية، والعمل وفق معايير احترافية تواكب تطلعات وطننا الطموح.", "At Avatar, we don't see advertising merely as a promotional tool, but as a strategic tool for building value, stimulating growth, and enhancing the presence of brands in a market characterized by competitiveness and rapid development. Therefore, we are keen to adopt the latest technologies, develop national competencies, and work according to professional standards that keep pace with the ambitious aspirations of our country.")}</p>
+                <p className="text-xs">{t("إن التزامنا بالجودة، والابتكار، والتحليل القائم على البيانات، يعكس إيماننا بأن المرحلة القادمة تتطلب حلولًا ذكية ومستدامة تسهم في تحقيق مستهدفات التنوع الاقتصادي، ورفع كفاءة الإنفاق، وتعزيز المحتوى المحلي.", "Our commitment to quality, innovation, and data-driven analysis reflects our belief that the coming phase requires smart and sustainable solutions that contribute to achieving the objectives of economic diversity, improving spending efficiency, and enhancing local content.")}</p>
+                <p className="text-xs">{t("نفخر بثقة شركائنا وعملائنا، ونعتبر كل مشروع ننفذه مساهمة حقيقية في مسيرة التنمية الوطنية.", "We take pride in the trust of our partners and clients, and consider every project we implement a real contribution to the path of national development.")}</p>
+                <p className="text-xs">{t("نسأل الله أن يوفقنا لنكون دائمًا عند حسن الظن، وأن نواصل رحلتنا كشريك إبداعي يدعم تطلعات عملائنا، ويساهم في بناء مستقبل أكثر إشراقًا لوطننا الغالي.", "We ask Allah to grant us success to always be worthy of the good impression, and to continue our journey as a creative partner that supports our clients' aspirations and contributes to building a brighter future for our dear nation.")}</p>
+                <p className="font-bold text-yellow-400 text-xs">{t("والله ولي التوفيق", "And Allah is the Grantor of Success")}</p>
+              </div>
+            </div>
+
+            {/* Image Side */}
+            <div className="flex flex-col justify-center lg:justify-end order-1 lg:order-2 items-center gap-2">
+              <img src="/manager.png" alt="Chairman" className="w-full h-auto max-h-[600px] object-cover rounded-2xl" />
+              <p className="text-white font-bold text-lg">{t("عبد العزيز الظفيري", "Abdulaziz Al-Dhafiri")}</p>
+              <p className="text-yellow-400 text-sm">{t("الرئيس التنفيذي", "CEO")}</p>
+            </div>
+          </motion.div>
+
+          {/* Creative Director Section */}
+          <motion.div
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            {/* Text Side */}
+            <div className="flex flex-col justify-center gap-2 order-1 lg:order-2 p-4 md:p-6 rounded-2xl bg-black/40 backdrop-blur-md border border-white/10">
+              <div className="flex items-center gap-3 mb-1">
+                <div className="w-8 h-1 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full" />
+                <span className="text-yellow-400 font-bold text-xs tracking-wider">{t("كلمة المدير الإبداعي", "Creative Director's Message")}</span>
+              </div>
+              <h2 className={`text-xl md:text-2xl font-black text-white leading-tight ${language === 'ar' ? '' : 'text-left'}`}>
+                {t("في عالم يتسارع فيه الإبداع ويتجدد كل يوم", "In a world where creativity accelerates and renews every day")}
+              </h2>
+              <div className="text-white/70 leading-relaxed space-y-2 text-justify">
+                <p className="text-xs">{t("وقفنا نحن في افتار أمام سؤال واحد: ما الذي يجعل مؤسسة دعاية وإعلان تختلف عن غيرها؟ والجواب كان دائماً واضحاً في أذهاننا — الإنسان.", "At Avatar, we asked ourselves one question: What makes an advertising agency different from others? The answer has always been clear to us — the people.")}</p>
+                <p className="text-xs">{t("منذ انطلاقتنا الأولى، آمنّا بأن الإبداع ليس مجرد أداة أو تقنية، بل هو روح تسري في كل ما نصنعه. الإبداع هو أساس افتار، وهو اللغة التي نتحدث بها مع العالم، والجسر الذي يصل به عملك إلى قلوب جمهورك.", "Since our inception, we believed that creativity is not just a tool or technique, but a spirit that runs through everything we create. Creativity is the foundation of Avatar, the language we speak to the world, and the bridge that connects your work to your audience's hearts.")}</p>
+                <p className="text-xs">{t("لم نبنِ مؤسستنا على الأجهزة والبرامج وحدها، بل بنيناها على عقول تفكّر، وأيدٍ تصنع، وقلوب تهتم. موظفونا هم العمود الفقري لهذه المؤسسة والسر الحقيقي خلف كل نجاح حققناه.", "We didn't build our institution on devices and software alone, but on minds that think, hands that create, and hearts that care. Our employees are the backbone of this institution and the true secret behind every success we've achieved.")}</p>
+                <p className="text-xs">{t("يحمّل كل واحد منهم رؤيةً فريدة وشغفاً لا ينضب، ويأتي كل يوم إلى عمله وهو يعلم أن ما يصنعه يُحدث فرقاً حقيقياً. هم من يحوّلون الأفكار العابرة إلى حملات راسخة، والرؤى المجردة إلى واقع ملموس.", "Each one carries a unique vision and unending passion, coming to work every day knowing that what they create makes a real difference. They transform fleeting ideas into enduring campaigns, and abstract visions into tangible reality.")}</p>
+                <p className="text-xs">{t("في افتار، لا نبيع لك خدمة فحسب، نحن نشاركك رحلة بناء صورتك، ونضع فيها من الجهد والإبداع ما نضعه لو كان العمل عملنا نحن.", "At Avatar, we don't just sell you a service — we share with you the journey of building your image, putting in the effort and creativity as if the work were our own.")}</p>
+                <p className="font-bold text-yellow-400 text-xs">{t("افتار للدعاية والإعلان — حيث يلتقي الإبداع بالإنسان، ويبدأ النجاح.", "Avatar Advertising — where creativity meets people, and success begins.")}</p>
+              </div>
+            </div>
+
+            {/* Image Side */}
+            <div className="flex flex-col justify-center lg:justify-end order-2 lg:order-1 items-center gap-2">
+              <img src="/manager2.png" alt="Creative Director" className="w-full h-auto max-h-[600px] object-cover rounded-2xl" />
+              <p className="text-white font-bold text-lg">{t("سامر عيسى", "Samer Issa")}</p>
+              <p className="text-yellow-400 text-sm">{t("المدير الإبداعي", "Creative Director")}</p>
+            </div>
+          </motion.div>
+
+          {/* TWO-COLUMN: Logo + Description + Mission + Values */}
+          <motion.div
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
@@ -99,8 +166,8 @@ export function AboutSection({ showBackground = true, fullContent = false }: Abo
               </div>
             </div>
 
-            {/* RIGHT — Description */}
-            <div className="flex flex-col gap-5 text-right">
+            {/* RIGHT — Description + Mission + Values */}
+            <div className="flex flex-col gap-4">
               <div>
                 <p className="text-white/50 text-sm font-semibold tracking-widest uppercase mb-2">{t("تعرف علينا", "Get to know us")}</p>
                 <h2 className="text-4xl md:text-5xl font-black text-white leading-tight">
@@ -111,38 +178,32 @@ export function AboutSection({ showBackground = true, fullContent = false }: Abo
                 {t("نجاحنا بدأ بخطوات صغيرة على مسار طويل مرافق بحب للعمل وشغف لتقديم ما هو أفضل لك وسعي دائم للوصول إلى الأفضل من خلال خدماتنا المتميزة وأسعارنا المناسبة ومواكبة كل ما هو جديد. نقدم لك أفضل الخدمات تحت إشراف نخبة من الخبراء المختصين في العديد من المجالات بإدارة كادر محترف. مقرنا الرئيسي المملكة العربية السعودية.",
                   "Our success began with small steps on a long journey accompanied by love for work and passion to deliver what is best for you, with constant striving to reach the best through our distinguished services, reasonable prices, and keeping up with everything new. We offer you the best services under the supervision of elite experts in many fields, managed by a professional team. Our headquarters is in the Kingdom of Saudi Arabia.")}
               </p>
-              <div className="p-4 rounded-2xl bg-gradient-to-r from-yellow-400/10 to-orange-500/10 border border-yellow-400/20">
-                <div className="flex items-center gap-3 mb-2 justify-end">
-                  <span className="text-white font-bold">{t("رسالتنا", "Our Mission")}</span>
-                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center flex-shrink-0">
-                    <Rocket className="w-5 h-5 text-white" />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="p-4 rounded-2xl bg-gradient-to-r from-yellow-400/10 to-orange-500/10 border border-yellow-400/20">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="text-white font-bold">{t("رسالتنا", "Our Mission")}</span>
+                    <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center flex-shrink-0">
+                      <Rocket className="w-5 h-5 text-white" />
+                    </div>
                   </div>
+                  <p className="text-white/70 text-sm leading-relaxed">
+                    {t("تمكين العلامات التجارية من تحقيق نمو مستدام عبر حلول دعائية وتسويقية متكاملة، تعتمد على التخطيط الاستراتيجي، والإبداع، والتنفيذ الاحترافي القائم على تحليل البيانات وقياس الأداء.",
+                      "Enabling brands to achieve sustainable growth through integrated advertising and marketing solutions, based on strategic planning, creativity, and professional execution.")}
+                  </p>
                 </div>
-                <p className="text-white/70 text-sm leading-relaxed">
-                  {t("تمكين العلامات التجارية من تحقيق نمو مستدام عبر حلول دعائية وتسويقية متكاملة، تعتمد على التخطيط الاستراتيجي، والإبداع، والتنفيذ الاحترافي القائم على تحليل البيانات وقياس الأداء. نلتزم بتقديم قيمة حقيقية تتجاوز التوقعات، وتدعم مكانة عملائنا في سوق تنافسي متسارع.",
-                    "Enabling brands to achieve sustainable growth through integrated advertising and marketing solutions, based on strategic planning, creativity, and professional execution based on data analysis and performance measurement. We are committed to delivering real value that exceeds expectations and supports our clients' position in a rapidly competitive market.")}
-                </p>
-              </div>
-              <div className="p-4 rounded-2xl bg-gradient-to-r from-purple-400/10 to-pink-500/10 border border-purple-400/20">
-                <div className="flex items-center gap-3 mb-2 justify-end">
-                  <span className="text-white font-bold">{t("قيمنا", "Our Values")}</span>
-                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center flex-shrink-0">
-                    <Star className="w-5 h-5 text-white" />
+                <div className="p-4 rounded-2xl bg-gradient-to-r from-purple-400/10 to-pink-500/10 border border-purple-400/20">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="text-white font-bold">{t("قيمنا", "Our Values")}</span>
+                    <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center flex-shrink-0">
+                      <Star className="w-5 h-5 text-white" />
+                    </div>
                   </div>
+                  <p className="text-white/70 text-sm leading-relaxed">
+                    {t("الموثوقية، الإبداع، الفعالية، الشغف، الشراكة، والتميز.",
+                      "Reliability, Creativity, Effectiveness, Passion, Partnership, and Excellence.")}
+                  </p>
                 </div>
-                <p className="text-white/70 text-sm leading-relaxed">
-                  {t("نسعى لتحقيق أحلامك ورسم مستقبلك من خلال تقديم أفضل الخدمات بموثوقية وجودة وأفكار إبداعية تنافسية وأساليب واستراتيجيات فعالة.",
-                    "We strive to achieve your dreams and shape your future by providing the best services with reliability, quality, competitive creative ideas, and effective methods and strategies.")}
-                </p>
               </div>
-              <ul className="flex flex-col gap-2">
-                {highlights.map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 justify-end">
-                    <span className="text-white/80 text-sm">{item}</span>
-                    <CheckCircle className="w-5 h-5 text-yellow-400 flex-shrink-0" />
-                  </li>
-                ))}
-              </ul>
             </div>
           </motion.div>
 
@@ -163,63 +224,104 @@ export function AboutSection({ showBackground = true, fullContent = false }: Abo
             </div>
           </motion.div>
 
-          {/* Values — Coverflow Carousel */}
+          {/* Values — 3D Skewed Cards */}
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
             <h3 className="text-3xl font-bold text-white text-center mb-8">
               {t("قيمنا التي", "Our Values that")} <span className="gold-text">{t("تميزنا", "Distinguish Us")}</span>
             </h3>
 
             <style>{`
-              .values-swiper {
+              .values-grid {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 20px;
+                padding: 20px;
+              }
+              .value-card {
+                position: relative;
+                width: 180px;
+                height: 120px;
+                background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%);
+                text-align: center;
+                padding: 15px;
+                transform: rotate(-10deg) skew(15deg) translate(0,0);
+                transition: .5s;
+                box-shadow: -10px 10px 20px rgba(0,0,0,0.3);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255,255,255,0.1);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 8px;
+              }
+              .value-card:before {
+                content: '';
+                position: absolute;
+                top: 8px;
+                left: -15px;
+                height: 100%;
+                width: 15px;
+                background: rgba(255,255,255,0.1);
+                transform: rotate(0deg) skewY(-25deg);
+              }
+              .value-card:after {
+                content: '';
+                position: absolute;
+                bottom: -12px;
+                left: -5px;
+                height: 15px;
                 width: 100%;
-                padding-bottom: 40px !important;
-                padding-top: 16px !important;
+                background: rgba(255,255,255,0.08);
+                transform: rotate(0deg) skewX(-25deg);
               }
-              .values-swiper .swiper-slide {
-                width: 220px;
-                height: 280px;
-                border-radius: 20px;
+              .value-card:hover {
+                transform: rotate(-10deg) skew(15deg) translate(15px,-10px);
+                box-shadow: -25px 25px 30px rgba(0,0,0,0.4);
               }
-              .values-swiper .swiper-3d .swiper-slide-shadow-left {
-                background-image: linear-gradient(to left, rgba(0,0,0,0.4), rgba(0,0,0,0));
+              .value-card .icon-wrapper {
+                font-size: 28px;
+                color: rgba(255,255,255,0.8);
+                transition: .5s;
+                z-index: 2;
               }
-              .values-swiper .swiper-3d .swiper-slide-shadow-right {
-                background-image: linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0));
+              .value-card h4 {
+                font-size: 14px;
+                font-weight: bold;
+                color: white;
+                margin: 0;
+                transition: .5s;
+                z-index: 2;
+              }
+              .value-card p {
+                font-size: 9px;
+                color: rgba(255,255,255,0.6);
+                margin: 0;
+                transition: .5s;
+                z-index: 2;
+              }
+              .value-card:hover .icon-wrapper,
+              .value-card:hover h4,
+              .value-card:hover p {
+                color: white;
               }
             `}</style>
 
-            <Swiper
-              className="values-swiper"
-              spaceBetween={20}
-              autoplay={{ delay: 2200, disableOnInteraction: false }}
-              effect="coverflow"
-              grabCursor={true}
-              centeredSlides={true}
-              loop={true}
-              slidesPerView="auto"
-              coverflowEffect={{ rotate: 0, stretch: 0, depth: 120, modifier: 2.5, slideShadows: true }}
-              modules={[EffectCoverflow, Autoplay]}
-            >
-              {values.map((value) => {
+            <div className="values-grid">
+              {values.map((value, index) => {
                 const Icon = value.icon;
                 return (
-                  <SwiperSlide key={value.title}>
-                    <GlowCard customSize glowColor="purple" className="w-full h-full flex flex-col items-center justify-center gap-4 p-6">
-                      <div className={`w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center ${value.iconColor}`} style={{ boxShadow: "0 4px 20px rgba(0,0,0,0.3)" }}>
-                        <Icon className="w-8 h-8" />
-                      </div>
-                      <div className="text-center">
-                        <h4 className="text-xl font-black text-white mb-2">{language === "ar" ? value.title : value.titleEn}</h4>
-                        <p className="text-xs font-semibold tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.35)" }}>{language === "ar" ? value.titleEn : value.title}</p>
-                      </div>
-                      <p className="text-white/65 text-xs text-center leading-relaxed">
-                        {language === "ar" ? value.desc : value.descEn}
-                      </p>
-                    </GlowCard>
-                  </SwiperSlide>
+                  <div key={value.title} className="value-card">
+                    <div className="icon-wrapper" style={{ color: value.iconColor.replace('text-', '') === 'yellow-400' ? '#facc15' : value.iconColor.replace('text-', '') === 'cyan-400' ? '#22d3d1' : value.iconColor.replace('text-', '') === 'blue-400' ? '#60a5fa' : value.iconColor.replace('text-', '') === 'rose-400' ? '#fb7185' : value.iconColor.replace('text-', '') === 'green-400' ? '#4ade80' : '#c084fc' }}>
+                      <Icon className="w-7 h-7" />
+                    </div>
+                    <h4>{language === "ar" ? value.title : value.titleEn}</h4>
+                    <p>{language === "ar" ? value.titleEn : value.title}</p>
+                  </div>
                 );
               })}
-            </Swiper>
+            </div>
           </motion.div>
 
           {/* Headquarters */}

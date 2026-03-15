@@ -1,19 +1,14 @@
 "use client";
 
 import { Navigation } from "@/components/navigation";
-import { TubesBackground } from "@/components/ui/tubes-background";
 import { AboutSection } from "@/components/sections/about-section";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
 
 export default function AboutPage() {
   return (
     <>
-
-      <TubesBackground className="fixed inset-0 z-0">
-        <div className="w-full h-full" />
-      </TubesBackground>
       <main className="relative z-10">
-        <AboutSection fullContent={true} />
+        <AboutSection fullContent={true} showBackground={false} />
         <TestimonialsSection />
       </main>
     </>

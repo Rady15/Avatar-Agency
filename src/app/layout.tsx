@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Cairo } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
-import { AssetPreloader } from "@/components/ui/asset-preloader";
 import { Navigation } from "@/components/navigation";
 
 const geistSans = Geist({
@@ -50,10 +49,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${cairo.variable} antialiased bg-background text-foreground`}
       >
+        <div className="fixed inset-0 z-[-1] w-full h-full overflow-hidden pointer-events-none">
+          <img src="/1.webp" alt="Background" className="w-full h-full object-cover" />
+        </div>
         <LanguageProvider>
           <Navigation />
           {children}
-          <AssetPreloader />
         </LanguageProvider>
       </body>
     </html>

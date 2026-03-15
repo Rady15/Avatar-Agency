@@ -8,8 +8,8 @@ export default function AboutPage() {
   return (
     <>
       <main className="relative z-10">
-        <AboutSection fullContent={true} showBackground={false} />
-        <TestimonialsSection />
+        <AboutSection fullContent={true} showBackground={true} />
+        <TestimonialsSection showBackground={true} />
       </main>
     </>
   );

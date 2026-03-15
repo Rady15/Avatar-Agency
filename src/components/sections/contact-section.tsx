@@ -56,9 +56,11 @@ export function ContactSection({ showBackground = true }: { showBackground?: boo
 
   return (
     <section id="contact" className="relative min-h-screen" style={{ direction: language === 'ar' ? 'rtl' : 'ltr' }}>
-      {/* Background - transparent to show hero image behind */}
+      {/* Background */}
       {showBackground && (
-        <div className="fixed inset-0 z-0 bg-transparent" />
+        <div className="fixed inset-0 z-0 w-full h-full overflow-hidden pointer-events-none">
+          <img src="/1.webp" alt="Background" className="w-full h-full object-cover" />
+        </div>
       )}
 
       <div className="sticky top-0 min-h-screen w-full flex items-center justify-center overflow-visible">

@@ -71,25 +71,22 @@ export function TestimonialsSection({ showBackground = true }: { showBackground?
     setMounted(true);
   }, []);
 
-  const { scrollYProgress } = useScroll(
-    mounted
-      ? {
-          target: containerRef,
-          offset: ["start end", "end start"],
-        }
-      : {}
-  );
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
 
-  const contentOpacity = useTransform(scrollYProgress, [0.1, 0.3, 0.7, 0.9], [0, 1, 1, 0]);
-  const contentY = useTransform(scrollYProgress, [0.1, 0.3, 0.7, 0.9], [50, 0, 0, -50]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [1, 1, 1, 1]);
+  const contentY = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 0, 0, 0]);
 
   return (
-    <section ref={containerRef} className="relative min-h-screen" style={{ direction: language === 'ar' ? 'rtl' : 'ltr' }}>
+    <section id="testimonials" ref={containerRef} className="relative min-h-screen z-10" style={{ direction: language === 'ar' ? 'rtl' : 'ltr' }}>
       {showBackground && (
         <div className="fixed inset-0 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent pointer-events-none z-0" />
       )}
 
-      <div className="sticky top-0 min-h-screen w-full flex items-center justify-center overflow-visible">
+      {/* Desktop: sticky scroll effect */}
+      <div className="hidden md:sticky md:top-0 md:min-h-screen md:w-full md:flex md:items-center md:justify-center md:overflow-visible">
         <motion.div
           className="w-full max-w-5xl px-4 flex flex-col gap-4"
           style={{ opacity: contentOpacity, y: contentY }}
@@ -115,6 +112,29 @@ export function TestimonialsSection({ showBackground = true }: { showBackground?
             ))}
           </div>
         </motion.div>
+      </div>
+
+      {/* Mobile: regular flow */}
+      <div className="md:hidden w-full px-4 py-8 min-h-screen flex items-center justify-center">
+        <div className="w-full max-w-5xl mx-auto flex flex-col gap-4">
+          <div className="text-center">
+            <h2 className="text-3xl md:text-5xl font-black text-white mb-1">
+              <span className="text-yellow-400">{language === 'ar' ? 'آراء' : 'Our'}</span> {language === 'ar' ? 'عملائنا' : 'Clients'}
+            </h2>
+            <p className="text-white/50 text-sm">{language === 'ar' ? 'شركاء النجاح يشاركونك تجربتهم' : 'Success partners share their experience with you'}</p>
+          </div>
+
+          <AnimatedTestimonials testimonials={testimonials} autoplay={true} />
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-2">
+            {stats.map((stat, i) => (
+              <GlowCard key={i} customSize glowColor="red" className="w-full p-3 text-center">
+                <div className="text-xl md:text-3xl font-black text-yellow-400 mb-0.5">{stat.number}</div>
+                <div className="text-white/50 text-xs">{language === 'ar' ? stat.label : (stat.labelEn || stat.label)}</div>
+              </GlowCard>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

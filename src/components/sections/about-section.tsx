@@ -69,9 +69,7 @@ export function AboutSection({ showBackground = true, fullContent = false }: Abo
       <section className="relative py-20" style={{ direction: language === 'ar' ? 'rtl' : 'ltr' }}>
         {showBackground && (
           <div className="fixed inset-0 z-0 w-full h-full overflow-hidden pointer-events-none">
-            <video autoPlay muted playsInline preload="auto" className="w-full h-full object-cover">
-              <source src="/Flow2.mp4" type="video/mp4" />
-            </video>
+            <img src="/1.webp" alt="Background" className="w-full h-full object-cover" />
           </div>
         )}
         <div className="relative z-10 w-full max-w-6xl mx-auto px-6 lg:px-10 space-y-16">

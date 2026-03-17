@@ -144,7 +144,7 @@ export function ServiceVerticalStack({ items, accentColor = "#D4AF37" }: Service
               }}
             >
               <div
-                className="relative h-[420px] w-[280px] overflow-hidden rounded-3xl bg-card ring-1 ring-border/20"
+                className="relative h-[420px] w-[280px] overflow-hidden rounded-3xl bg-card ring-1 ring-border/20 bg-black/20"
                 style={{
                   boxShadow: isCurrent
                     ? `0 25px 50px -12px hsl(var(--foreground) / 0.15), 0 0 0 1px hsl(var(--foreground) / 0.05), 0 0 40px ${accentColor}20`
@@ -162,7 +162,7 @@ export function ServiceVerticalStack({ items, accentColor = "#D4AF37" }: Service
                   src={item.src || "/placeholder.svg"}
                   alt={item.alt}
                   fill
-                  className="object-cover w-full h-full"
+                  className="object-cover"
                   draggable={false}
                   priority={isCurrent}
                 />

@@ -14,20 +14,10 @@ const criticalAssets = [
   "/1.webp",
   "/1_png.png",
   "/2_png.png",
-];
-
-const portfolioAssets = [
-  "/assets/استشارات/1.png",
-  "/assets/اعلانت ممولة/1.png",
-  "/assets/السوشيال ميديا/1.png",
-  "/assets/اللافتات/1.png",
-  "/assets/المعارض/1.png",
-  "/assets/الهوية البصرية/1.png",
-  "/assets/انتاج الفديو/1.png",
-  "/assets/تصميم المواقع/1.png",
-  "/assets/تطبيقات/1.png",
-  "/assets/مطبوعات/1.png",
-  "/assets/هدايا/1.png",
+  // Partners
+  "/assets/p1.png",
+  "/assets/p2.png",
+  "/assets/p3.png",
 ];
 
 export function AssetPreloader() {
@@ -35,12 +25,11 @@ export function AssetPreloader() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const allAssets = [...criticalAssets, ...portfolioAssets];
-    let loadedCount = 0;
-    const totalCritical = allAssets.length;
-
     const preloadAll = () => {
-      allAssets.forEach((src) => {
+      let loadedCount = 0;
+      const totalCritical = criticalAssets.length;
+
+      criticalAssets.forEach((src) => {
         const isVideo = src.endsWith('.mp4');
         
         if (isVideo) {
@@ -63,7 +52,7 @@ export function AssetPreloader() {
           };
         } else {
           const img = new Image();
-          img.src = encodeURI(src);
+          img.src = src;
           
           img.onload = () => {
             loadedCount++;

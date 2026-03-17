@@ -44,18 +44,17 @@ const services = [
     bg: "#D4AF37",
     bgExpanded: "linear-gradient(180deg, #D4AF37 0%, #9a7d1e 100%)",
     accent: "#0A1D37",
-    portfolio: [
-      { id: 1, title: "شعار وهوية", titleEn: "Logo & ID", year: "2024", description: "تصميم هوية كاملة", descriptionEn: "Full Identity Design", image: encodeURI("/assets/الهوية البصرية/protfolio/1.png"), tags: ["Branding"], tagsEn: ["Branding"] },
-      { id: 2, title: "بروفايل شركة", titleEn: "Company Profile", year: "2024", description: "تصميم بروفايل احترافي", descriptionEn: "Professional Profile", image: encodeURI("/assets/الهوية البصرية/protfolio/2.png"), tags: ["Profile"], tagsEn: ["Profile"] },
-      { id: 3, title: "تغليف منتجات", titleEn: "Packaging", year: "2024", description: "تصميم تغليف مبتكر", descriptionEn: "Innovative Packaging", image: encodeURI("/assets/الهوية البصرية/protfolio/3.png"), tags: ["Packaging"], tagsEn: ["Packaging"] },
-      { id: 4, title: "أوراق رسمية", titleEn: "Stationery", year: "2023", description: "تصميم مطبوعات مكتبية", descriptionEn: "Stationery Design", image: encodeURI("/assets/الهوية البصرية/protfolio/4.png"), tags: ["Stationery"], tagsEn: ["Stationery"] },
-      { id: 5, title: "دليل الهوية", titleEn: "Brand Guidelines", year: "2023", description: "إعداد ميثاق الهوية", descriptionEn: "Brand Manual", image: encodeURI("/assets/الهوية البصرية/protfolio/5.png"), tags: ["Manual"], tagsEn: ["Manual"] },
-      { id: 6, title: "هوية بصرية", titleEn: "Visual Identity", year: "2024", description: "تطوير هوية بصرية", descriptionEn: "Visual ID Development", image: encodeURI("/assets/الهوية البصرية/protfolio/6.png"), tags: ["Visual"], tagsEn: ["Visual"] },
-      { id: 7, title: "تطبيقات الهوية", titleEn: "ID Applications", year: "2024", description: "تطبيقات الهوية التجارية", descriptionEn: "Commercial Applications", image: encodeURI("/assets/الهوية البصرية/protfolio/7.png"), tags: ["Apps"], tagsEn: ["Apps"] },
-      { id: 8, title: "تصميم شعار", titleEn: "Logo Design", year: "2024", description: "تصميم شعار مميز", descriptionEn: "Unique Logo", image: encodeURI("/assets/الهوية البصرية/protfolio/8.png"), tags: ["Logo"], tagsEn: ["Logo"] },
-      { id: 9, title: "هوية مؤسسية", titleEn: "Corporate Identity", year: "2023", description: "هوية مؤسسية متكاملة", descriptionEn: "Full Corporate Identity", image: encodeURI("/assets/الهوية البصرية/protfolio/9.png"), tags: ["Corporate"], tagsEn: ["Corporate"] },
-      { id: 10, title: "إعادة بناء الهوية", titleEn: "Rebranding", year: "2023", description: "تحديث الهوية البصرية", descriptionEn: "Brand Refresh", image: encodeURI("/assets/الهوية البصرية/protfolio/10.png"), tags: ["Refresh"], tagsEn: ["Refresh"] },
-    ]
+    portfolio: Array.from({ length: 26 }, (_, i) => ({
+      id: i + 1,
+      title: `تصميم ${i + 1}`,
+      titleEn: `Design ${i + 1}`,
+      year: "2024",
+      description: `تصميم احترافي ${i + 1}`,
+      descriptionEn: `Professional Design ${i + 1}`,
+      image: encodeURI(`/assets/الجرافيك ديزاين/portfolio/${i + 1}.${i < 5 ? 'jpg' : 'png'}`),
+      tags: ["Design"],
+      tagsEn: ["Design"]
+    })),
   },
   {
     id: 3,
@@ -69,11 +68,17 @@ const services = [
     bg: "#1565C0",
     bgExpanded: "linear-gradient(180deg, #1565C0 0%, #0d3f7a 100%)",
     accent: "#B3E5FC",
-    portfolio: [
-      { id: 1, title: "تصاميم سوشيال", titleEn: "Social Posts", year: "2024", description: "تصميم منشورات جذابة", descriptionEn: "Engaging Social Posts", image: encodeURI("/assets/السوشيال ميديا/portfolio/1.jpg"), tags: ["Social"], tagsEn: ["Social"] },
-      { id: 2, title: "إدارة محتوى", titleEn: "Content Mgmt", year: "2024", description: "إدارة المحتوى الرقمي", descriptionEn: "Digital Content Management", image: encodeURI("/assets/السوشيال ميديا/portfolio/2.jpg"), tags: ["Content"], tagsEn: ["Content"] },
-      { id: 3, title: "حملة إبداعية", titleEn: "Creative Campaign", year: "2024", description: "حملة إبداعية متكاملة", descriptionEn: "Integrated Creative Campaign", image: encodeURI("/assets/السوشيال ميديا/portfolio/3.jpg"), tags: ["Campaign"], tagsEn: ["Campaign"] },
-    ]
+    portfolio: Array.from({ length: 26 }, (_, i) => ({
+      id: i + 1,
+      title: `تصميم ${i + 1}`,
+      titleEn: `Design ${i + 1}`,
+      year: "2024",
+      description: `تصميم احترافي ${i + 1}`,
+      descriptionEn: `Professional Design ${i + 1}`,
+      image: encodeURI(`/assets/الجرافيك ديزاين/portfolio/${i + 1}.${i < 5 ? 'jpg' : 'png'}`),
+      tags: ["Social"],
+      tagsEn: ["Social"]
+    }))
   },
   {
     id: 4,
@@ -214,13 +219,24 @@ const services = [
     bgExpanded: "linear-gradient(180deg, #00695C 0%, #003d34 100%)",
     accent: "#B2DFDB",
     portfolio: [
-      { id: 1, title: "بوث معرض", titleEn: "Expo Booth", year: "2024", description: "تصميم بوث متكامل", descriptionEn: "Full Expo Booth Design", image: encodeURI("/assets/المعارض/portfolio/1.png"), tags: ["Booth"], tagsEn: ["Booth"] },
-      { id: 2, title: "ستاند عرض", titleEn: "Display Stand", year: "2024", description: "ستاند عرض منتجات", descriptionEn: "Product Display Stand", image: encodeURI("/assets/المعارض/portfolio/2.png"), tags: ["Stand"], tagsEn: ["Stand"] },
-      { id: 3, title: "منصة عرض", titleEn: "Promo Counter", year: "2024", description: "منصة ترويجية", descriptionEn: "Promotional Counter", image: encodeURI("/assets/المعارض/portfolio/3.png"), tags: ["Counter"], tagsEn: ["Counter"] },
-      { id: 4, title: "رول أب", titleEn: "Roll-up Banner", year: "2023", description: "تصميم رول أب", descriptionEn: "Roll-up Design", image: encodeURI("/assets/المعارض/portfolio/4.png"), tags: ["Banner"], tagsEn: ["Banner"] },
-      { id: 5, title: "خلفية معرض", titleEn: "Backdrop", year: "2023", description: "خلفية تصوير معارض", descriptionEn: "Expo Backdrop", image: encodeURI("/assets/المعارض/portfolio/5.png"), tags: ["Backdrop"], tagsEn: ["Backdrop"] },
-      { id: 6, title: "ستاند تفاعلي", titleEn: "Interactive Stand", year: "2024", description: "ستاند عرض تفاعلي", descriptionEn: "Interactive Expo Stand", image: encodeURI("/assets/المعارض/portfolio/6.png"), tags: ["Interactive"], tagsEn: ["Interactive"] },
-      { id: 7, title: "تجهيز أجنحة", titleEn: "Booth Setup", year: "2024", description: "تجهيز أجنحة المعارض", descriptionEn: "Exhibition Booth Setup", image: encodeURI("/assets/المعارض/portfolio/7.png"), tags: ["Setup"], tagsEn: ["Setup"] },
+      ...Array.from({ length: 30 }, (_, i) => {
+        const images = [
+          "1 (1).jpg", "2 (1).jpg", "2 (2).jpg", "2 (3).jpg", "2 (4).jpg", "2 (5).jpg", "2 (6).jpg", "2 (7).jpg",
+          "7 (1).jpg", "7 (2).jpg", "7 (3).jpg", "7 (4).jpg", "7 (5).jpg", "7 (6).jpg", "7 (7).jpg",
+          "9 (1).jpg", "9 (2).jpg", "9 (3).jpg", "9 (4).jpg", "9 (5).jpg", "9 (6).jpg", "9 (7).jpg", "9 (8).jpg", "9 (9).jpg", "9 (10).jpg", "9 (11).jpg", "9 (12).jpg", "9 (13).jpg", "9 (14).jpg", "9 (15).jpg", "9 (16).jpg"
+        ];
+        return {
+          id: i + 1,
+          title: `معرض ${i + 1}`,
+          titleEn: `Exhibition ${i + 1}`,
+          year: "2024",
+          description: "معرض معارف",
+          descriptionEn: "Exhibition",
+          image: `/assets/المعارض/portfolio/${images[i]}`,
+          tags: ["Exhibition"],
+          tagsEn: ["Exhibition"]
+        };
+      })
     ]
   },
   {
@@ -262,7 +278,7 @@ const services = [
   {
     id: 13,
     title: "تصميم الستاندات",
-    imgDir: "المعارض",
+    imgDir: "الاستاندات",
     titleEn: "Stand Design",
     description: "في أفتار، نقدم خدمة تصميم ستاندات مبتكرة ومخصصة تعكس هوية علامتك التجارية وتُبرزها في المعارض والفعاليات. نركز على التفاصيل، ونمزج بين الإبداع والوظيفية لنضمن لك تصميماً جذاباً، عملياً، ويحقق أهدافك التسويقية. يشمل: تصميم ثلاثي الأبعاد واقعي، استغلال ذكي للمساحة، موافقة على شروط المعارض السعودية، وقابل للتنفيذ بدقة تامة.",
     descriptionEn: "At Avatar, we provide innovative and customized stand design services that reflect your brand identity and highlight it at exhibitions and events. We focus on details and combine creativity and functionality to ensure an attractive, practical design that achieves your marketing goals.",
@@ -272,9 +288,40 @@ const services = [
     bgExpanded: "linear-gradient(180deg, #7B1FA2 0%, #4a0072 100%)",
     accent: "#E1BEE7",
     portfolio: [
-      { id: 1, title: "تصميم ستاند ثلاثي الأبعاد", titleEn: "3D Stand Design", year: "2024", description: "تصميم ستاند ثلاثي الأبعاد", descriptionEn: "3D Stand Design", image: encodeURI("/assets/المعارض/portfolio/1.png"), tags: ["3D"], tagsEn: ["3D"] },
-      { id: 2, title: "ستاند معرض", titleEn: "Expo Stand", year: "2024", description: "تصميم ستاند معرض", descriptionEn: "Expo Stand Design", image: encodeURI("/assets/المعارض/portfolio/2.png"), tags: ["Expo"], tagsEn: ["Expo"] },
-      { id: 3, title: "تصميم ستاند مخصص", titleEn: "Custom Stand", year: "2024", description: "تصميم ستاند مخصص", descriptionEn: "Custom Stand Design", image: encodeURI("/assets/المعارض/portfolio/3.png"), tags: ["Custom"], tagsEn: ["Custom"] },
+      { id: 1, title: "ستاند 1", titleEn: "Stand 1", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/1.jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 2, title: "ستاند 2", titleEn: "Stand 2", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/1 (2).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 3, title: "ستاند 3", titleEn: "Stand 3", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/1 (3).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 4, title: "ستاند 4", titleEn: "Stand 4", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/1 (4).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 5, title: "ستاند 5", titleEn: "Stand 5", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/1 (5).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 6, title: "ستاند 6", titleEn: "Stand 6", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/1 (6).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 7, title: "ستاند 7", titleEn: "Stand 7", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/1 (7).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 8, title: "ستاند 8", titleEn: "Stand 8", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/3 (1).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 9, title: "ستاند 9", titleEn: "Stand 9", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/3 (2).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 10, title: "ستاند 10", titleEn: "Stand 10", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/3 (3).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 11, title: "ستاند 11", titleEn: "Stand 11", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/3 (4).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 12, title: "ستاند 12", titleEn: "Stand 12", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/3 (5).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 13, title: "ستاند 13", titleEn: "Stand 13", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/3 (6).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 14, title: "ستاند 14", titleEn: "Stand 14", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/3 (7).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 15, title: "ستاند 15", titleEn: "Stand 15", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/3 (8).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 16, title: "ستاند 16", titleEn: "Stand 16", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/4 (1).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 17, title: "ستاند 17", titleEn: "Stand 17", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/4 (2).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 18, title: "ستاند 18", titleEn: "Stand 18", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/4 (3).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 19, title: "ستاند 19", titleEn: "Stand 19", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/4 (4).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 20, title: "ستاند 20", titleEn: "Stand 20", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/4 (5).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 21, title: "ستاند 21", titleEn: "Stand 21", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/5 (1).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 22, title: "ستاند 22", titleEn: "Stand 22", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/5 (2).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 23, title: "ستاند 23", titleEn: "Stand 23", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/5 (3).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 24, title: "ستاند 24", titleEn: "Stand 24", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/5 (4).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 25, title: "ستاند 25", titleEn: "Stand 25", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/5 (5).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 26, title: "ستاند 26", titleEn: "Stand 26", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/6 (1).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 27, title: "ستاند 27", titleEn: "Stand 27", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/6 (2).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 28, title: "ستاند 28", titleEn: "Stand 28", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/6 (3).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 29, title: "ستاند 29", titleEn: "Stand 29", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/6 (4).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 30, title: "ستاند 30", titleEn: "Stand 30", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/6 (5).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 31, title: "ستاند 31", titleEn: "Stand 31", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/6 (6).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 32, title: "ستاند 32", titleEn: "Stand 32", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/6 (7).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 33, title: "ستاند 33", titleEn: "Stand 33", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/6 (8).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 34, title: "ستاند 34", titleEn: "Stand 34", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/الاستاندات/6 (9).jpg`, tags: ["Stand"], tagsEn: ["Stand"] },
     ]
   },
 ];

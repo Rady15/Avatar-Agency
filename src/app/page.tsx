@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 import CinematicIntro from "@/components/cinematic-intro";
 import { SpaceBackground } from "@/components/ui/space-background";
 import { HeroSection } from "@/components/sections/hero-section";
@@ -121,6 +122,7 @@ const AstronautCharacter = () => {
 
 export default function Home() {
   const [enterSite, setEnterSite] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <>
@@ -138,6 +140,23 @@ export default function Home() {
             <HeroSection showBackground={false} />
             <AboutSection showBackground={false} />
             <PortfolioSection showBackground={false} />
+            
+            {/* Our Partners Section */}
+            <section className="relative py-20">
+              <div className="container mx-auto px-4">
+                <h2 className="text-4xl md:text-5xl font-black text-white text-center mb-4">
+                  <span className="text-yellow-400">{t("شركاؤنا", "Our")}</span> {t("المميزون", "Partners")}
+                </h2>
+                <p className="text-white/50 text-center mb-12">{t("شركاء النجاح الذين يثقون بنا", "The success partners who trust us")}</p>
+                
+                <div className="flex flex-col items-center gap-8 max-w-3xl mx-auto">
+                  <img src="/assets/p1.png" alt="Partner 1" className="w-full max-w-2xl h-auto rounded-lg" />
+                  <img src="/assets/p2.png" alt="Partner 2" className="w-full max-w-2xl h-auto rounded-lg" />
+                  <img src="/assets/p3.png" alt="Partner 3" className="w-full max-w-2xl h-auto rounded-lg" />
+                </div>
+              </div>
+            </section>
+            
             <TestimonialsSection showBackground={false} />
             <ContactSection showBackground={false} />
           </main>

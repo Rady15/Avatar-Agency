@@ -44,12 +44,14 @@ export const CardCarousel: React.FC<CardCarouselProps> = ({
       height: 360px;
       border-radius: 16px;
       overflow: hidden;
+      background-color: #1a1a1a;
     }
     .portfolio-swiper .swiper-slide img {
       display: block;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: cover !important;
+      object-position: center;
       border-radius: 16px;
     }
     .portfolio-swiper .swiper-3d .swiper-slide-shadow-left {

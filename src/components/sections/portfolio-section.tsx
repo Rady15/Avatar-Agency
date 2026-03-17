@@ -2,154 +2,29 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { Layers, Target, Zap, Eye, ExternalLink, X, Film, Globe, Gift, Printer } from "lucide-react";
-import { CardCarousel } from "@/components/ui/card-carousel";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Layers, Target, Zap, Eye, Film, Globe, Gift, Printer, Palette, Megaphone, Users, Building2, Smartphone, PenTool, Sparkles, Monitor } from "lucide-react";
 
-/* ─── Portfolio Categories with Real Images ─── */
-const portfolioCategories = [
-  {
-    id: "branding",
-    label: "الهوية البصرية",
-    labelEn: "Branding",
-    icon: Target,
-    color: "#D4AF37",
-    description: "نصمم هويات بصرية متكاملة تعكس شخصية علامتك التجارية",
-    descriptionEn: "We design integrated visual identities that reflect your brand's personality",
-    images: Array.from({ length: 20 }, (_, i) => ({
-      src: `/assets/${encodeURIComponent("الهوية البصرية")}/protfolio/${i + 1}.png`,
-      alt: `هوية بصرية ${i + 1}`,
-    })),
-  },
-  {
-    id: "social",
-    label: "السوشيال ميديا",
-    labelEn: "Social Media",
-    icon: Zap,
-    color: "#6366f1",
-    description: "محتوى إبداعي يشعل تفاعل جمهورك على منصات التواصل",
-    descriptionEn: "Creative content that ignites audience engagement on social platforms",
-    images: Array.from({ length: 3 }, (_, i) => ({
-      src: `/assets/${encodeURIComponent("السوشيال ميديا")}/portfolio/${i + 1}.jpg`,
-      alt: `سوشيال ميديا ${i + 1}`,
-    })),
-  },
-  {
-    id: "signage",
-    label: "اللافتات",
-    labelEn: "Signage",
-    icon: Layers,
-    color: "#22c55e",
-    description: "لافتات تجذب الأنظار وتُثبّت علامتك في ذهن العميل",
-    descriptionEn: "Eye-catching signs that solidify your brand in customers' minds",
-    images: Array.from({ length: 6 }, (_, i) => ({
-      src: `/assets/${encodeURIComponent("اللافتات")}/portfolio/${i + 1}.png`,
-      alt: `لافتة ${i + 1}`,
-    })),
-  },
-  {
-    id: "exhibitions",
-    label: "المعارض",
-    labelEn: "Exhibitions",
-    icon: Eye,
-    color: "#ec4899",
-    description: "ستاندات ومعارض فاخرة تمثل علامتك بأبهى صورة",
-    descriptionEn: "Luxurious stands and exhibitions representing your brand beautifully",
-    images: Array.from({ length: 7 }, (_, i) => ({
-      src: `/assets/${encodeURIComponent("المعارض")}/portfolio/${i + 1}.png`,
-      alt: `معرض ${i + 1}`,
-    })),
-  },
-  {
-    id: "video",
-    label: "إنتاج الفيديو",
-    labelEn: "Video Production",
-    icon: Film,
-    color: "#f97316",
-    description: "محتوى مرئي سينمائي يحكي قصة علامتك بإبداع",
-    descriptionEn: "Cinematic visual content that tells your brand story creatively",
-    images: [
-      { src: `/assets/${encodeURIComponent("انتاج الفديو")}/protfolio/1.jpg`, alt: "إنتاج فيديو 1" },
-      { src: `/assets/${encodeURIComponent("انتاج الفديو")}/protfolio/2.jpg`, alt: "إنتاج فيديو 2" },
-      { src: `/assets/${encodeURIComponent("انتاج الفديو")}/protfolio/3.png`, alt: "إنتاج فيديو 3" },
-    ],
-  },
-  {
-    id: "webdesign",
-    label: "تصميم المواقع",
-    labelEn: "Web Design",
-    icon: Globe,
-    color: "#8b5cf6",
-    description: "مواقع أنيقة وسريعة تحوّل الزوار إلى عملاء دائمين",
-    descriptionEn: "Elegant, fast websites that convert visitors into loyal customers",
-    images: [
-      { src: `/assets/${encodeURIComponent("تصميم المواقع")}/protfolio/1.jpg`, alt: "موقع 1" },
-      { src: `/assets/${encodeURIComponent("تصميم المواقع")}/protfolio/2.jpg`, alt: "موقع 2" },
-      { src: `/assets/${encodeURIComponent("تصميم المواقع")}/protfolio/3.jpg`, alt: "موقع 3" },
-      { src: `/assets/${encodeURIComponent("تصميم المواقع")}/protfolio/4.png`, alt: "موقع 4" },
-      { src: `/assets/${encodeURIComponent("تصميم المواقع")}/protfolio/5.png`, alt: "موقع 5" },
-    ],
-  },
-  {
-    id: "apps",
-    label: "تطبيقات الجوال",
-    labelEn: "Mobile Apps",
-    icon: ExternalLink,
-    color: "#0ea5e9",
-    description: "تطبيقات ذكية توفر تجربة مستخدم استثنائية",
-    descriptionEn: "Smart apps that provide exceptional user experiences",
-    images: Array.from({ length: 6 }, (_, i) => ({
-      src: `/assets/${encodeURIComponent("تطبيقات")}/protfolio/${i + 1}.jpg`,
-      alt: `تطبيق ${i + 1}`,
-    })),
-  },
-  {
-    id: "print",
-    label: "المطبوعات",
-    labelEn: "Printed Materials",
-    icon: Printer,
-    color: "#14b8a6",
-    description: "مطبوعات دقيقة وراقية تعكس احترافية علامتك التجارية",
-    descriptionEn: "Precise, elegant printed materials reflecting your brand's professionalism",
-    images: Array.from({ length: 12 }, (_, i) => ({
-      src: `/assets/${encodeURIComponent("مطبوعات")}/protfolio/${i + 1}.png`,
-      alt: `مطبوعات ${i + 1}`,
-    })),
-  },
-  {
-    id: "gifts",
-    label: "الهدايا الدعائية",
-    labelEn: "Promo Gifts",
-    icon: Gift,
-    color: "#f43f5e",
-    description: "هدايا مخصصة تُذكّر عملاءك بعلامتك التجارية",
-    descriptionEn: "Custom gifts that remind customers of your brand",
-    images: Array.from({ length: 4 }, (_, i) => ({
-      src: `/assets/${encodeURIComponent("هدايا")}/protfolio/${i + 1}.png`,
-      alt: `هدية ${i + 1}`,
-    })),
-  },
-  {
-    id: "ads",
-    label: "إعلانات ممولة",
-    labelEn: "Paid Ads",
-    icon: Zap,
-    color: "#a855f7",
-    description: "حملات إعلانية مستهدفة تحقق أعلى عائد على الاستثمار",
-    descriptionEn: "Targeted ad campaigns that achieve the highest ROI",
-    images: [
-      { src: `/assets/${encodeURIComponent("اعلانت ممولة")}/portfolio/1.jpg`, alt: "إعلان 1" },
-      { src: `/assets/${encodeURIComponent("اعلانت ممولة")}/portfolio/2.jpg`, alt: "إعلان 2" },
-      { src: `/assets/${encodeURIComponent("اعلانت ممولة")}/portfolio/3.jpg`, alt: "إعلان 3" },
-      { src: `/assets/${encodeURIComponent("اعلانت ممولة")}/portfolio/4.jpg`, alt: "إعلان 4" },
-      { src: `/assets/${encodeURIComponent("اعلانت ممولة")}/portfolio/4.png`, alt: "إعلان 5" },
-    ],
-  },
+/* ─── 14 Main Services ─── */
+const servicesList = [
+  { id: "social", label: "إدارة السوشيال ميديا", labelEn: "Social Media Management", icon: Zap, color: "#6366f1", description: "تصميم وإدارة المحتوى على منصات التواصل الاجتماعي", descriptionEn: "Design and management of social media content" },
+  { id: "webdev", label: "تطوير المواقع", labelEn: "Website Development", icon: Globe, color: "#0ea5e9", description: "تصميم وبرمجة المواقع الإلكترونية المتقدمة", descriptionEn: "Advanced website design and programming" },
+  { id: "graphic", label: "الجرافيك ديزاين", labelEn: "Graphic Design", icon: Palette, color: "#D4AF37", description: "تصميم الشعارات والهوية البصرية والشعارات", descriptionEn: "Logos, visual identity and branding design" },
+  { id: "digital", label: "التسويق الاكتروني", labelEn: "Digital Marketing", icon: Megaphone, color: "#ef4444", description: "الحملات التسويقية على سناب وتيك توك وجوجل", descriptionEn: "Marketing campaigns on Snapchat, TikTok and Google" },
+  { id: "ads", label: "الاعلان والترويج", labelEn: "Advertising and Promotion", icon: PenTool, color: "#a855f7", description: "الحملات الاعلانية والاستراتيجية التسويقية", descriptionEn: "Advertising campaigns and marketing strategy" },
+  { id: "apps", label: "تطوير التطبيقات", labelEn: "App Development", icon: Smartphone, color: "#14b8a6", description: "تطبيقات اندرويد وايفون والويب", descriptionEn: "Android, iOS and web applications" },
+  { id: "print", label: "المطبوعات", labelEn: "Printed Materials", icon: Printer, color: "#8b5cf6", description: "البزنس كارت والبروشورات والبنرات", descriptionEn: "Business cards, brochures and banners" },
+  { id: "signage-in", label: "اللافتات الداخلية", labelEn: "Indoor Signage", icon: Layers, color: "#22c55e", description: "لوحات التوجيه والبيوت الابيض والاوفيس", descriptionEn: "Wayfinding, light boxes and office signs" },
+  { id: "signage-out", label: "اللافتات الخارجية", labelEn: "Outdoor Signage", icon: Building2, color: "#f97316", description: "اللافتات والحروف البارزة والجداريات", descriptionEn: "Signage, 3D letters and wall murals" },
+  { id: "gifts", label: "الهدايا الدعائية", labelEn: "Promotional Gifts", icon: Gift, color: "#ec4899", description: "هدايا دعائية وهدايا تقنية مخصصة", descriptionEn: "Promotional and custom tech gifts" },
+  { id: "exhibition", label: "خدمات المعارض", labelEn: "Exhibition Services", icon: Eye, color: "#06b6d4", description: "تصميم وتنفيذ المعارض والمؤتمرات", descriptionEn: "Exhibition and conference design and execution" },
+  { id: "video", label: "انتاج الفيديو", labelEn: "Animated Videos & Video Editing", icon: Film, color: "#f43f5e", description: "فيديو ترويجي وموشن جرافيك ومونتاج", descriptionEn: "Promo videos, motion graphics and editing" },
+  { id: "consulting", label: "الاستشارات التسويقية", labelEn: "Marketing Consulting Services", icon: Users, color: "#84cc16", description: "الخطة التسويقية ودراسة الجدوى والتحليل", descriptionEn: "Marketing plan, feasibility study and analysis" },
+  { id: "stand", label: "تصميم الستاند", labelEn: "Stand Design", icon: Sparkles, color: "#f59e0b", description: "تصميم ستاندات ثلاثية الابعاد ومخصصة", descriptionEn: "3D and custom stand design" },
 ];
 
 export function PortfolioSection({ showBackground = true }: { showBackground?: boolean }) {
   const { language, t, isMounted } = useLanguage();
-  const [activeCategory, setActiveCategory] = useState("branding");
   const [mounted, setMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -169,8 +44,6 @@ export function PortfolioSection({ showBackground = true }: { showBackground?: b
   const contentOpacity = useTransform(scrollYProgress, [0.05, 0.2, 0.8, 0.95], [0, 1, 1, 0]);
   const contentY = useTransform(scrollYProgress, [0.05, 0.2, 0.8, 0.95], [60, 0, 0, -60]);
 
-  const currentCategory = portfolioCategories.find((c) => c.id === activeCategory)!;
-
   return (
     <section ref={containerRef} id="portfolio" className="relative min-h-screen">
       {showBackground && (
@@ -183,81 +56,101 @@ export function PortfolioSection({ showBackground = true }: { showBackground?: b
           style={{ opacity: contentOpacity, y: contentY }}
         >
           {/* Header */}
-          <div className="text-center pt-4 pb-2 px-4">
+          <div className="text-center pt-4 pb-6 px-4">
             <h2 className="text-4xl md:text-5xl font-black text-white mb-2">
-              <span className="text-yellow-400">{t("أعمالنا", "Our")}</span> {t("المميزة", "Featured Works")}
+              <span className="text-yellow-400">{t("خدماتنا", "Our")}</span> {t("المتنوعة", "Services")}
             </h2>
-            <p className="text-white/50 text-sm">{t("اختر القسم لاستعراض أعمالنا", "Choose a category to browse our work")}</p>
+            <p className="text-white/50 text-sm">{t("نقدم لك كل ما تحتاجه لنجاح عملك", "Everything you need for your business success")}</p>
           </div>
 
-          {/* Category Tabs - Scrollable row */}
-          <div className="w-full overflow-x-auto no-scrollbar px-4 py-4">
-            <div className="flex gap-3 w-max mx-auto">
-              {portfolioCategories.map((cat) => {
-                const Icon = cat.icon;
-                const isActive = activeCategory === cat.id;
-                return (
-                  <button
-                    key={cat.id}
-                    onClick={() => setActiveCategory(cat.id)}
-                    className="flex items-center gap-2.5 px-5 py-3 rounded-2xl text-sm font-bold whitespace-nowrap transition-all duration-300 border shadow-lg hover:shadow-xl"
-                    style={{
-                      background: isActive 
-                        ? `linear-gradient(135deg, ${cat.color}40, ${cat.color}20)` 
-                        : "rgba(255,255,255,0.08)",
-                      borderColor: isActive ? cat.color : "rgba(255,255,255,0.15)",
-                      color: isActive ? cat.color : "rgba(255,255,255,0.7)",
-                      transform: isActive ? "scale(1.08) translateY(-2px)" : "scale(1)",
-                      boxShadow: isActive ? `0 8px 25px ${cat.color}30` : "0 4px 15px rgba(0,0,0,0.3)",
-                    }}
-                  >
-                    <div 
-                      className="w-8 h-8 rounded-lg flex items-center justify-center"
-                      style={{ background: isActive ? cat.color + "30" : "rgba(255,255,255,0.1)" }}
-                    >
-                      <Icon className="w-4 h-4" />
-                    </div>
-                    {language === 'ar' ? cat.label : cat.labelEn}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+          {/* Services Grid - Same Style as Values */}
+          <style>{`
+            .services-grid {
+              display: flex;
+              justify-content: center;
+              flex-wrap: wrap;
+              gap: 16px;
+              padding: 20px;
+              max-width: 1200px;
+              margin: 0 auto;
+            }
+            .service-card {
+              position: relative;
+              width: 160px;
+              background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 100%);
+              text-align: center;
+              padding: 16px 12px;
+              transform: rotate(-8deg) skew(10deg);
+              transition: .4s;
+              box-shadow: -6px 6px 16px rgba(0,0,0,0.3);
+              backdrop-filter: blur(8px);
+              border: 1px solid rgba(255,255,255,0.08);
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              gap: 8px;
+              cursor: pointer;
+            }
+            .service-card:hover {
+              transform: rotate(-8deg) skew(10deg) translate(8px,-6px);
+              box-shadow: -16px 16px 28px rgba(0,0,0,0.4);
+              border-color: rgba(255,255,255,0.2);
+            }
+            .service-card .icon-wrap {
+              font-size: 26px;
+              transition: .4s;
+              z-index: 2;
+            }
+            .service-card h4 {
+              font-size: 13px;
+              font-weight: bold;
+              color: white;
+              margin: 0;
+              transition: .4s;
+              z-index: 2;
+              line-height: 1.3;
+            }
+            .service-card p {
+              font-size: 9px;
+              color: rgba(255,255,255,0.5);
+              margin: 0;
+              transition: .4s;
+              z-index: 2;
+              line-height: 1.3;
+            }
+            .service-card:hover h4,
+            .service-card:hover .icon-wrap {
+              color: white;
+            }
+            .service-card:hover p {
+              color: rgba(255,255,255,0.8);
+            }
+          `}</style>
 
-          {/* Carousel Area */}
-          <div className="flex-1 w-full overflow-hidden px-2">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeCategory}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -30 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
-                className="h-full flex flex-col items-center justify-center"
-              >
-                {/* Description */}
-                <p
-                  className="text-center text-sm mb-4 font-medium"
-                  style={{ color: currentCategory.color }}
+          <div className="services-grid">
+            {servicesList.map((service, idx) => {
+              const Icon = service.icon;
+              return (
+                <motion.div
+                  key={service.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.05 }}
+                  className="service-card"
                 >
-                  {language === 'ar' ? currentCategory.description : currentCategory.descriptionEn}
-                </p>
-
-                {/* Carousel */}
-                <div className="w-full max-w-5xl mx-auto">
-                  <CardCarousel
-                    images={currentCategory.images}
-                    autoplayDelay={2000}
-                    showPagination={true}
-                    showNavigation={false}
-                  />
-                </div>
-              </motion.div>
-            </AnimatePresence>
+                  <div className="icon-wrap" style={{ color: service.color }}>
+                    <Icon className="w-6 h-6" />
+                  </div>
+                  <h4>{language === 'ar' ? service.label : service.labelEn}</h4>
+                  <p>{language === 'ar' ? service.description : service.descriptionEn}</p>
+                </motion.div>
+              );
+            })}
           </div>
 
           {/* CTA Button */}
-          <div className="text-center pb-6">
+          <div className="text-center pb-6 mt-4">
             <a
               href="/services"
               className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl"

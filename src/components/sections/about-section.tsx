@@ -357,7 +357,7 @@ export function AboutSection({ showBackground = true, fullContent = false }: Abo
               <span className="font-bold">{t("مقرنا الرئيسي", "Our Headquarters")}</span>
             </div>
             <p className="text-xl text-white font-bold">{t("المملكة العربية السعودية", "Kingdom of Saudi Arabia")}</p>
-            <p className="text-white/50 text-sm">{t("الرياض", "Riyadh")}</p>
+            <p className="text-white/50 text-sm">{t("الدمام", "Dammam")}</p>
           </GlowCard>
         </div>
       </section>
@@ -555,7 +555,7 @@ export function AboutSection({ showBackground = true, fullContent = false }: Abo
                   <span className="font-bold">{t("مقرنا الرئيسي", "Our Headquarters")}</span>
                 </div>
                 <p className="text-xl text-white font-bold">{t("المملكة العربية السعودية", "Kingdom of Saudi Arabia")}</p>
-                <p className="text-white/50 text-sm">{t("الرياض", "Riyadh")}</p>
+                <p className="text-white/50 text-sm">{t("الدمام", "Dammam")}</p>
               </div>
             </div>
           )}

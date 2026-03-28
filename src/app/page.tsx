@@ -1,0 +1,227 @@
+"use client";
+
+import { useState, useEffect, useRef } from "react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
+import CinematicIntro from "@/components/cinematic-intro";
+import { SpaceBackground } from "@/components/ui/space-background";
+import { HeroSection } from "@/components/sections/hero-section";
+import { AboutSection } from "@/components/sections/about-section";
+import { PortfolioSection } from "@/components/sections/portfolio-section";
+import { ContactSection } from "@/components/sections/contact-section";
+import { Footer } from "@/components/footer";
+import { TestimonialsSection } from "@/components/sections/testimonials-section";
+import Image from "next/image";
+
+const AstronautCharacter = () => {
+  const [mounted, setMounted] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const { scrollYProgress } = useScroll(
+    mounted
+      ? {
+        target: containerRef,
+        offset: ["start start", "end start"] // تغيير نقطة البداية والنهاية
+      }
+      : {}
+  );
+
+  const rawX = useTransform(
+    scrollYProgress,
+    [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+    ["5vw", "30vw", "40vw", "50vw", "70vw", "120vw", "70vw", "30vw", "5vw", "-10vw", "-10vw"]
+  );
+
+  const rawRotateZ = useTransform(
+    scrollYProgress,
+    [0, 0.1, 0.35, 0.6, 0.85, 1],
+    [0, 0, 20, -15, 25, 0]
+  );
+
+  const rawFaceRight = useTransform(
+    scrollYProgress,
+    [0, 0.1, 0.15, 0.2, 0.25, 0.4, 0.45, 0.5, 0.55, 0.8, 0.85, 1],
+    [1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1]
+  );
+
+  const rawScale = useTransform(
+    scrollYProgress,
+    [0, 0.1, 0.35, 0.6, 0.85, 1],
+    [1, 1, 1.05, 0.95, 1.02, 1]
+  );
+
+  const x = useSpring(rawX, { stiffness: 30, damping: 20, restDelta: 0.001 });
+  const rotateZ = useSpring(rawRotateZ, { stiffness: 35, damping: 20, restDelta: 0.001 });
+  const faceRight = useSpring(rawFaceRight, { stiffness: 30, damping: 20, restDelta: 0.001 });
+  const scale = useSpring(rawScale, { stiffness: 30, damping: 20, restDelta: 0.001 });
+
+  const [floatOffset, setFloatOffset] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    let frameId: number;
+    const animate = (time: number) => {
+      setFloatOffset({
+        x: Math.cos(time / 1800) * 8,
+        y: Math.sin(time / 1200) * 15
+      });
+      frameId = requestAnimationFrame(animate);
+    };
+    frameId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frameId);
+  }, []);
+
+  const combinedX = useTransform(() => x.get() + floatOffset.x);
+  const combinedY = useTransform(() => floatOffset.y);
+
+  const animatedX = useSpring(combinedX, { stiffness: 30, damping: 20, restDelta: 0.001 });
+  const animatedY = useSpring(combinedY, { stiffness: 30, damping: 20, restDelta: 0.001 });
+
+  return (
+    <div ref={containerRef} className="fixed inset-0 pointer-events-none" style={{ zIndex: 5 }}>
+      <motion.div
+        style={{
+          position: "absolute",
+          top: "15%",
+          left: 0,
+          x: animatedX,
+          y: animatedY,
+          rotateZ,
+          scale,
+          width: "45%",
+          maxWidth: "380px",
+          minWidth: "130px",
+        }}
+      >
+        <div className="relative">
+          <div className="absolute inset-0 bg-blue-500/15 blur-[60px] rounded-full scale-150" />
+          <motion.div
+            animate={{ opacity: faceRight.get() > 0.5 ? 1 : 0 }}
+            transition={{ duration: 0.15 }}
+          >
+            <Image
+              src="/2_png.png"
+              alt="Astronaut"
+              width={380}
+              height={500}
+              priority
+              className="w-full h-auto drop-shadow-[0_0_40px_rgba(255,255,255,0.2)]"
+              sizes="(max-width: 768px) 45vw, 380px"
+            />
+          </motion.div>
+          <motion.div
+            style={{ transform: "rotateY(180deg)" }}
+            className="absolute inset-0 top-0 left-0"
+            animate={{ opacity: faceRight.get() > 0.5 ? 0 : 1 }}
+            transition={{ duration: 0.15 }}
+          >
+            <Image
+              src="/2_png.png"
+              alt="Astronaut"
+              width={380}
+              height={500}
+              priority
+              className="w-full h-auto drop-shadow-[0_0_40px_rgba(255,255,255,0.2)]"
+            />
+          </motion.div>
+        </div>
+
+      </motion.div>
+    </div>
+  );
+};
+
+export default function Home() {
+  const [enterSite, setEnterSite] = useState(false);
+  const { t } = useLanguage();
+
+  return (
+    <>
+      {!enterSite && (
+        <CinematicIntro
+          onEnter={() => setEnterSite(true)}
+        />
+      )}
+//rady
+      {enterSite && (
+        <>
+          <SpaceBackground />
+          <AstronautCharacter />
+          <main className="relative z-10">
+            <HeroSection showBackground={false} />
+            <AboutSection showBackground={false} />
+            <PortfolioSection showBackground={false} />
+
+            {/* Our Partners Section */}
+            <section className="relative py-20">
+              <div className="container mx-auto px-4">
+                <h2 className="text-4xl md:text-5xl font-black text-white text-center mb-4">
+                  <span className="text-yellow-400">{t("شركاؤنا", "Our")}</span> {t("المميزون", "Partners")}
+                </h2>
+                <p className="text-white/50 text-center mb-12">{t("شركاء النجاح الذين يثقون بنا", "The success partners who trust us")}</p>
+
+                <div className="flex flex-col items-center gap-8 max-w-3xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="w-full max-w-2xl"
+          >
+            <Image
+              src="/assets/p1.png"
+              alt="Partner 1"
+              width={800}
+              height={400}
+              className="w-full h-auto rounded-lg"
+              sizes="(max-width: 768px) 100vw, 800px"
+            />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="w-full max-w-2xl"
+          >
+            <Image
+              src="/assets/p2.png"
+              alt="Partner 2"
+              width={800}
+              height={400}
+              className="w-full h-auto rounded-lg"
+              sizes="(max-width: 768px) 100vw, 800px"
+            />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="w-full max-w-2xl"
+          >
+            <Image
+              src="/assets/p3.png"
+              alt="Partner 3"
+              width={800}
+              height={400}
+              className="w-full h-auto rounded-lg"
+              sizes="(max-width: 768px) 100vw, 800px"
+            />
+          </motion.div>
+                </div>
+              </div>
+            </section>
+
+            <TestimonialsSection showBackground={false} />
+            <ContactSection showBackground={false} />
+          </main>
+          <Footer />
+        </>
+      )}
+    </>
+  );
+}

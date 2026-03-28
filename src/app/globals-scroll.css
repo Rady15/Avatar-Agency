@@ -1,0 +1,58 @@
+/* globals.css - Updated for full-screen no-scroll */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: fixed;
+}
+
+#__next {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Full screen sections */
+.fullscreen-section {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Scroll container for frame animation */
+.scroll-container {
+  width: 100vw;
+  height: 500vh; /* Extended height for scroll-based animation */
+  position: relative;
+}
+
+/* Fixed content overlay */
+.fixed-content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.fixed-content > * {
+  pointer-events: auto;
+}
+
+/* Hide scrollbar but allow scrolling */
+body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}

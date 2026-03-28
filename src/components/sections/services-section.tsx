@@ -1,0 +1,986 @@
+"use client";
+
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useState, useRef, useCallback, useEffect, useMemo } from "react";
+import {
+  Globe, Palette, MessageCircle, Video, Megaphone, Monitor, Building2, Gift, Users, ArrowUpLeft,
+  ExternalLink, Calendar, CheckCircle, Smartphone, Printer, ChevronLeft, ChevronRight
+} from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
+import { CardCarousel } from "@/components/ui/card-carousel";
+import { ServiceVerticalStack } from "@/components/ui/service-vertical-stack";
+import Image from "next/image";
+
+// Icon filename mapping for each service folder (all converted to webp)
+const serviceIcons: Record<string, { idle: string; hover: string }> = {
+  "web-design": { idle: "1~21.webp", hover: "2~20.webp" },
+  "graphic-design": { idle: "1~7.webp", hover: "2~7.webp" },
+  "social": { idle: "1~19.webp", hover: "2~18.webp" },
+  "sponsored-ads": { idle: "1~14.webp", hover: "2~14.webp" },
+  "apps": { idle: "1~1.webp", hover: "2~1.webp" },
+  "printing": { idle: "1~10.webp", hover: "2~10.webp" },
+  "signage": { idle: "1~12.webp", hover: "2~12.webp" },
+  "gifts": { idle: "1~5.webp", hover: "2~5.webp" },
+  "exhibitions": { idle: "1~4.webp", hover: "2~4.webp" },
+  "video-production": { idle: "1~17.webp", hover: "2~16.webp" },
+  "consulting": { idle: "1~2.webp", hover: "2~2.webp" },
+  "stands": { idle: "1~16.webp", hover: "1%20(2).webp" },
+};
+
+// Enhanced services with real portfolio data
+const services = [
+  {
+    id: 1,
+    title: "إنشاء المواقع الإلكترونية",
+    imgDir: "web-design",
+    titleEn: "Web Development",
+    description: "تقدم أفتار أقوى خدمة للاتصال والتواصل وهي خدمة إنشاء المواقع الإلكترونية بحيث تكون قادر على مشاركة اهتمامك والتسويق والترويج عن منتجاتك وزيادة أرباحك وجذب عملائك. موقعك الإلكتروني دليل على مصداقيتك.",
+    descriptionEn: "Avatar offers the strongest communication service - website creation. You can share your interests, market and promote your products, increase your profits, and attract customers. Your website is proof of your credibility.",
+    cta: "اطلب الخدمة",
+    ctaEn: "Request Service",
+    bg: "#C62828",
+    bgExpanded: "linear-gradient(180deg, #C62828 0%, #7f1818 100%)",
+    accent: "#FFD4D4",
+    portfolio: [
+      { id: 1, title: "تصميم واجهة مستخدم", titleEn: "UI Design", year: "2024", description: "تصميم واجهة مستخدم حديثة", descriptionEn: "Modern UI Design", image: "/assets/web-design/protfolio/1~22.webp", tags: ["UI/UX"], tagsEn: ["UI/UX"] },
+      { id: 2, title: "تجربة مستخدم", titleEn: "UX Design", year: "2024", description: "تحسين تجربة المستخدم", descriptionEn: "UX Optimization", image: "/assets/web-design/protfolio/2~21.webp", tags: ["UX"], tagsEn: ["UX"] },
+      { id: 3, title: "متجر إلكتروني", titleEn: "E-Commerce", year: "2024", description: "تصميم متجر إلكتروني متكامل", descriptionEn: "Total E-commerce Design", image: "/assets/web-design/protfolio/3~13.webp", tags: ["E-Commerce"], tagsEn: ["E-Commerce"] },
+      { id: 4, title: "موقع تعريفي", titleEn: "Corporate Site", year: "2023", description: "موقع تعريفي للشركات", descriptionEn: "Corporate Branding Site", image: "/assets/web-design/protfolio/4~10.webp", tags: ["Corporate"], tagsEn: ["Corporate"] },
+      { id: 5, title: "بوابة إلكترونية", titleEn: "Web Portal", year: "2023", description: "تطوير بوابة إلكترونية", descriptionEn: "Web Portal Development", image: "/assets/web-design/protfolio/5~8.webp", tags: ["Portal"], tagsEn: ["Portal"] },
+    ]
+  },
+  {
+    id: 2,
+    title: "الغرافيك ديزاين",
+    imgDir: "graphic-design",
+    titleEn: "Graphic Design",
+    description: "تخلق لك أفتار فرصة تحويل أفكارك إلى تصاميم مثالية واقعية تجذب انتباه الجمهور وتساعدك بشكل أكبر على توصيل منتجاتك وخدماتك بشكل فريد يعكس هويتك ويساعد العملاء على اكتشاف منتجاتك بالشكل الأمثل وبالتالي انتشار هويتك التجارية بشكل أوسع.",
+    descriptionEn: "Avatar creates an opportunity for you to transform your ideas into realistic, perfect designs that attract attention. We help you deliver your products and services in a unique way that reflects your identity and helps customers discover your products optimally.",
+    cta: "اطلب الخدمة",
+    ctaEn: "Request Service",
+    bg: "#D4AF37",
+    bgExpanded: "linear-gradient(180deg, #D4AF37 0%, #9a7d1e 100%)",
+    accent: "#0A1D37",
+    portfolio: (() => {
+      const files = ["1~8.webp", "1~9.webp", "2~8.webp", "2~9.webp", "3~4.webp", "3~5.webp", "4~3.webp", "4~4.webp", "5~2.webp", "5~3.webp", "6~1.webp", "7.webp", "8.webp", "9.webp", "10.webp", "11.webp", "12.webp", "13.webp", "14.webp", "15.webp", "16.webp", "17.webp", "18.webp", "19.webp", "20.webp", "21.webp", "22.webp", "23.webp", "24.webp", "25.webp", "26.webp"];
+      return files.map((f, i) => ({
+        id: i + 1,
+        title: `تصميم ${i + 1}`,
+        titleEn: `Design ${i + 1}`,
+        year: "2024",
+        description: `تصميم احترافي ${i + 1}`,
+        descriptionEn: `Professional Design ${i + 1}`,
+        image: `/assets/graphic-design/portfolio/${f}`,
+        tags: ["Design"],
+        tagsEn: ["Design"]
+      }));
+    })(),
+  },
+  {
+    id: 3,
+    title: "إدارة مواقع التواصل الاجتماعي",
+    imgDir: "social",
+    titleEn: "Social Media Management",
+    description: "يمكنك بناء قاعدة كبيرة من العملاء من خلال إدارة مواقع التواصل الاجتماعي التي يستخدمها أكثر من 8 مليار مستخدم حيث يصبح بإمكانك معرفة ما يريده الجمهور من خلال استطلاع الرأي ردود أفعالهم وجمع معلومات عنهم وبناء علاقة قوية معهم وهذا ما توفره لكم أفتار بطريقة جذابة واحترافية وموثوقة.",
+    descriptionEn: "You can build a large customer base through social media management used by more than 8 billion users. You can discover what the audience wants through polls, reactions, and gathering information to build strong relationships. Avatar provides this in an attractive, professional, and reliable way.",
+    cta: "اطلب الخدمة",
+    ctaEn: "Request Service",
+    bg: "#1565C0",
+    bgExpanded: "linear-gradient(180deg, #1565C0 0%, #0d3f7a 100%)",
+    accent: "#B3E5FC",
+    portfolio: (() => {
+      const files = ["1~20.webp", "2~19.webp", "3~12.webp", "4~9.webp", "5~7.webp", "6~5.webp", "7~3.webp"];
+      return files.map((f, i) => ({
+        id: i + 1,
+        title: `تصميم ${i + 1}`,
+        titleEn: `Design ${i + 1}`,
+        year: "2024",
+        description: `تصميم احترافي ${i + 1}`,
+        descriptionEn: `Professional Design ${i + 1}`,
+        image: `/assets/social/protfolio/${f}`,
+        tags: ["Social"],
+        tagsEn: ["Social"]
+      }));
+    })()
+  },
+  {
+    id: 4,
+    title: "التسويق الإلكتروني",
+    imgDir: "sponsored-ads",
+    titleEn: "Digital Marketing",
+    description: "تساعدك أفتار في خلق التواصل بينك وبين جمهورك المستهدف من خلال التسويق الإلكتروني حيث أصبح بإمكانك ترويج منتجاتك في جميع الأوقات وفي مناطق جغرافية مختلفة بتكلفة أقل من التسويق التقليدي مما يوفر الوقت والجهد والتكلفة.",
+    descriptionEn: "Avatar helps create communication between you and your target audience through digital marketing. You can promote your products at all times and in different geographical areas at a lower cost than traditional marketing, saving time, effort, and cost.",
+    cta: "اطلب الخدمة",
+    ctaEn: "Request Service",
+    bg: "#E65100",
+    bgExpanded: "linear-gradient(180deg, #E65100 0%, #8c3200 100%)",
+    accent: "#FFE0B2",
+    portfolio: [
+      { id: 1, title: "حملة سناب", titleEn: "Snapchat Ads", year: "2024", description: "إعلانات سناب شات", descriptionEn: "Snapchat Ads Campaign", image: "/assets/sponsored-ads/portfolio/1~15.webp", tags: ["Snap"], tagsEn: ["Snap"] },
+      { id: 2, title: "حملة تيك توك", titleEn: "TikTok Ads", year: "2024", description: "إعلانات تيك توك", descriptionEn: "TikTok Ads Campaign", image: "/assets/sponsored-ads/portfolio/2~15.webp", tags: ["TikTok"], tagsEn: ["TikTok"] },
+      { id: 3, title: "حملة ميتا", titleEn: "Meta Ads", year: "2024", description: "إعلانات فيسبوك وانستجرام", descriptionEn: "Facebook & Instagram Ads", image: "/assets/sponsored-ads/portfolio/3~9.webp", tags: ["Meta"], tagsEn: ["Meta"] },
+      { id: 4, title: "جوجل أدز", titleEn: "Google Ads", year: "2023", description: "حملة جوجل أدز", descriptionEn: "Google Search Ads", image: "/assets/sponsored-ads/portfolio/4~7.webp", tags: ["Google"], tagsEn: ["Google"] },
+      { id: 5, title: "إعلان ممول", titleEn: "Sponsored Ad", year: "2023", description: "إعلانات ممولة احترافية", descriptionEn: "Professional Sponsored Ads", image: "/assets/sponsored-ads/portfolio/4~8.webp", tags: ["Ads"], tagsEn: ["Ads"] },
+    ]
+  },
+  {
+    id: 5,
+    title: "الدعاية والإعلان",
+    imgDir: "sponsored-ads",
+    titleEn: "Advertising",
+    description: "تقدم أفتار من خلال الدعاية والإعلان تسويق خدماتك وأفكارك من خلال تحديد المميزات والخصائص وشرحها بأقل تكلفة باستخدام الوسيلة الإعلانية المناسبة مما يخلق التنافس بين الشركات ومحاولة جذب العملاء بجميع فئاتهم مما يجلب الأرباح المالية الكثيرة.",
+    descriptionEn: "Avatar provides advertising services to market your services and ideas by identifying features and explaining them at the lowest cost using the appropriate advertising medium, creating competition between companies and attempting to attract customers of all categories.",
+    cta: "اطلب الخدمة",
+    ctaEn: "Request Service",
+    bg: "#FF5722",
+    bgExpanded: "linear-gradient(180deg, #FF5722 0%, #c41c00 100%)",
+    accent: "#FFCCBC",
+    portfolio: [
+      { id: 1, title: "حملة إعلانية", titleEn: "Ad Campaign", year: "2024", description: "حملة إعلانية شاملة", descriptionEn: "Comprehensive Ad Campaign", image: "/assets/sponsored-ads/portfolio/1~15.webp", tags: ["Campaign"], tagsEn: ["Campaign"] },
+      { id: 2, title: "هوية إعلانية", titleEn: "Ad Identity", year: "2024", description: "تطوير هوية إعلانية", descriptionEn: "Advertising Identity Development", image: "/assets/sponsored-ads/portfolio/2~15.webp", tags: ["Identity"], tagsEn: ["Identity"] },
+      { id: 3, title: "إعلان ممول", titleEn: "Sponsored Ad", year: "2024", description: "إعلانات احترافية", descriptionEn: "Professional Ads", image: "/assets/sponsored-ads/portfolio/3~9.webp", tags: ["Sponsored"], tagsEn: ["Sponsored"] },
+    ]
+  },
+  {
+    id: 6,
+    title: "إنشاء التطبيقات",
+    imgDir: "apps",
+    titleEn: "App Development",
+    description: "تطبيقات الهواتف الذكية والأجهزة اللوحية أصبحت جزءاً لا يتجزأ من حياتنا اليومية وتساعدنا في تسهيل العديد من الأمور في حياتنا الشخصية والمهنية. تقدم خدمة تطوير التطبيقات للشركات فرصة لتحسين وتوسيع خدماتها ومنتجاتها من خلال تطوير تطبيقات تلبي احتياجات عملائها. تتضمن خدمات تطوير التطبيقات تصميم وتطوير التطبيقات واختبارها ونشرها في المتاجر الرقمية، كما تشمل الصيانة والتحديثات اللازمة لتطبيقات الشركة. يمكن أن تساعد خدمة تطوير التطبيقات الشركات في زيادة الإيرادات وتحسين تجربة العملاء وتعزيز العلامة التجارية.",
+    descriptionEn: "Smartphone and tablet apps have become an integral part of our daily life, helping us simplify many things in our personal and professional lives. App development services provide companies with the opportunity to improve and expand their services and products through developing apps that meet customer needs.",
+    cta: "اطلب الخدمة",
+    ctaEn: "Request Service",
+    bg: "#0277BD",
+    bgExpanded: "linear-gradient(180deg, #0277BD 0%, #014a85 100%)",
+    accent: "#B3E5FC",
+    portfolio: [
+      { id: 1, title: "واجهة تطبيق", titleEn: "App UI", year: "2024", description: "تصميم واجهة تطبيق جوال", descriptionEn: "Mobile App UI Design", image: "/assets/apps/protfolio/1.webp", tags: ["App"], tagsEn: ["App"] },
+      { id: 2, title: "تطبيق تجاري", titleEn: "Retail App", year: "2024", description: "تطبيقات التجارة الإلكترونية", descriptionEn: "Retail App Development", image: "/assets/apps/protfolio/2.webp", tags: ["Retail"], tagsEn: ["Retail"] },
+      { id: 3, title: "تجربة مستخدم", titleEn: "App UX", year: "2024", description: "تحسين تجربة مستخدم التطبيقات", descriptionEn: "Mobile UX Optimization", image: "/assets/apps/protfolio/3.webp", tags: ["UX"], tagsEn: ["UX"] },
+      { id: 4, title: "تطبيق خدمي", titleEn: "Service App", year: "2023", description: "تطبيقات الخدمات اللوجستية", descriptionEn: "Service Booking App", image: "/assets/apps/protfolio/4.webp", tags: ["Services"], tagsEn: ["Services"] },
+      { id: 5, title: "برمجة تطبيقات", titleEn: "App Coding", year: "2023", description: "برمجة تطبيقات الكروس بلاتفورم", descriptionEn: "Cross-platform Development", image: "/assets/apps/protfolio/5.webp", tags: ["Coding"], tagsEn: ["Coding"] },
+      { id: 6, title: "تطبيق ذكي", titleEn: "Smart App", year: "2024", description: "تطبيقات المدن الذكية", descriptionEn: "Smart City Solutions App", image: "/assets/apps/protfolio/6.webp", tags: ["Smart"], tagsEn: ["Smart"] },
+    ]
+  },
+  {
+    id: 7,
+    title: "المطبوعات",
+    imgDir: "printing",
+    titleEn: "Printing Services",
+    description: "تعد من أهم وسائل الدعاية لذلك تعمل الشركة على تميز المطبوعات الدعائية من حيث الجودة العالية والشكل المميز. تشمل المطبوعات: الكروت الشخصية، بروشور، فولدر، فلايرز، منيو، خطاب شركة، أظرف، بوستر، نتيجة مكتب، نتيجة حائط، أجندات، كوستر فل، بلوك نوت، كتالوجات، مجلات، استيكر، علبة مناديل، دفاتر فواتير وإيصالات، كتب جامعات، علب، طباعة ونسخ CD. كما تشمل مطبوعات المطاعم مثل: مناديل، شاليموه، كوسترز، مفارش ورقية، دفاتر كابتن أوردر، طباعة يونيفورم، طباعة كابات، صناديق دليفري.",
+    descriptionEn: "Printing is one of the most important advertising media. The company works to distinguish promotional prints in terms of high quality and distinctive shape. This includes business cards, brochures, folders, flyers, menus, company letters, envelopes, posters, and more.",
+    cta: "اطلب الخدمة",
+    ctaEn: "Request Service",
+    bg: "#5D4037",
+    bgExpanded: "linear-gradient(180deg, #5D4037 0%, #3e2723 100%)",
+    accent: "#D7CCC8",
+    portfolio: [
+      { id: 1, title: "منيو مطعم", titleEn: "Restaurant Menu", year: "2024", description: "تصميم طباعة المنيو", descriptionEn: "Restaurant Menu Printing", image: "/assets/printing/protfolio/1~11.webp", tags: ["Menu"], tagsEn: ["Menu"] },
+      { id: 2, title: "بروشور تعريفي", titleEn: "Brochure", year: "2024", description: "تصميم بروشورات إعلانية", descriptionEn: "Promotional Brochures", image: "/assets/printing/protfolio/2~11.webp", tags: ["Brochure"], tagsEn: ["Brochure"] },
+      { id: 3, title: "بطاقة عمل", titleEn: "Business Card", year: "2024", description: "تصميم كروت شخصية", descriptionEn: "Professional Business Cards", image: "/assets/printing/protfolio/3~6.webp", tags: ["Card"], tagsEn: ["Card"] },
+      { id: 4, title: "ظرف مراسلات", titleEn: "Envelope", year: "2023", description: "تصميم أظرف رسمية", descriptionEn: "Corporate Envelopes", image: "/assets/printing/protfolio/4~5.webp", tags: ["Envelope"], tagsEn: ["Envelope"] },
+      { id: 5, title: "فلاير إعلاني", titleEn: "Flyer", year: "2023", description: "طباعة فلايرات عروض", descriptionEn: "Marketing Flyers", image: "/assets/printing/protfolio/5~5.webp", tags: ["Flyer"], tagsEn: ["Flyer"] },
+      { id: 6, title: "مجلد شركات", titleEn: "Folder", year: "2024", description: "تصميم مجلدات الأوراق", descriptionEn: "Corporate Folders", image: "/assets/printing/protfolio/6~3.webp", tags: ["Folder"], tagsEn: ["Folder"] },
+      { id: 7, title: "بوستر إعلاني", titleEn: "Poster", year: "2024", description: "طباعة بوسترات دعائية", descriptionEn: "Advertising Posters", image: "/assets/printing/protfolio/7~2.webp", tags: ["Poster"], tagsEn: ["Poster"] },
+      { id: 8, title: "مجلة دورية", titleEn: "Magazine", year: "2024", description: "تصميم وإخراج المجلات", descriptionEn: "Magazine Page Layout", image: "/assets/printing/protfolio/8~2.webp", tags: ["Magazine"], tagsEn: ["Magazine"] },
+      { id: 9, title: "ملصقات منتجات", titleEn: "Stickers", year: "2023", description: "طباعة استيكرات لاصقة", descriptionEn: "Product Stickers Labels", image: "/assets/printing/protfolio/9~2.webp", tags: ["Label"], tagsEn: ["Label"] },
+      { id: 10, title: "أجندة مخصصة", titleEn: "Diary", year: "2023", description: "تصميم أجندات سنوية", descriptionEn: "Customized Diary Design", image: "/assets/printing/protfolio/10~2.webp", tags: ["Diary"], tagsEn: ["Diary"] },
+      { id: 11, title: "شنطة ورقية", titleEn: "Paper Bag", year: "2024", description: "تصميم أكياس ورقية", descriptionEn: "Custom Paper Bag Design", image: "/assets/printing/protfolio/11~1.webp", tags: ["Bag"], tagsEn: ["Bag"] },
+      { id: 12, title: "طباعة قماشية", titleEn: "Canvas Print", year: "2024", description: "تجربة الطباعة الفنية", descriptionEn: "Artistic Canvas Printing", image: "/assets/printing/protfolio/12~1.webp", tags: ["Canvas"], tagsEn: ["Canvas"] },
+    ]
+  },
+  {
+    id: 8,
+    title: "اللافتات",
+    imgDir: "signage",
+    titleEn: "Signage",
+    description: "جميع أنواع اللافتات الإرشادية المعدنية والبلاستيكية داخل المباني وخارجها والتي تستخدمها الشركات والمستشفيات والمدارس والمصانع والمؤسسات بالإضافة إلى طباعة استاندات العرض للشركات التي تستخدم داخل الشركات أو في المعارض الخارجية وذلك لسهولة فكها ونقلها مثل: ROLLUP - POPUP - X BANNERS. كما تقدم أفتار خدمة طباعة وتركيب اللافتات الإعلانية الخاصة بالشركات والمحلات التجارية مثل: طباعة فليكس - بانر - فينيل - سى ثرو - استانلس – نحاس - صاج – كلادن بلاستيك - إكليرك – لدات لصق الفينيل بأنواعه المختلفة على واجهات الشركات وعلى السيارات.",
+    descriptionEn: "All types of metal and plastic signage inside and outside buildings used by companies, hospitals, schools, factories, and institutions, plus display stands for companies used inside or at external exhibitions.",
+    cta: "اطلب الخدمة",
+    ctaEn: "Request Service",
+    bg: "#1B5E20",
+    bgExpanded: "linear-gradient(180deg, #1B5E20 0%, #103812 100%)",
+    accent: "#C8E6C9",
+    portfolio: [
+      { id: 1, title: "لافتة خارجية", titleEn: "Outdoor Sign", year: "2024", description: "تصميم لافتة محلات", descriptionEn: "Retail Signboard Design", image: "/assets/signage/portfolio/1~13.webp", tags: ["Outdoor"], tagsEn: ["Outdoor"] },
+      { id: 2, title: "لافتة ثلاثية الأبعاد", titleEn: "3D Signage", year: "2024", description: "حروف بارزة مضيئة", descriptionEn: "Illuminated 3D Letters", image: "/assets/signage/portfolio/2~13.webp", tags: ["3D"], tagsEn: ["3D"] },
+      { id: 3, title: "لوحة توجيهية", titleEn: "Directional Sign", year: "2024", description: "لوحات توجيهية داخلية", descriptionEn: "Indoor Wayfinding", image: "/assets/signage/portfolio/3~8.webp", tags: ["Wayfinding"], tagsEn: ["Wayfinding"] },
+      { id: 4, title: "لوحة بوب أب", titleEn: "Pop-up Sign", year: "2023", description: "لوحات عرض مؤقتة", descriptionEn: "Temporary Display Sign", image: "/assets/signage/portfolio/4~6.webp", tags: ["Display"], tagsEn: ["Display"] },
+      { id: 5, title: "لافتة مكتبية", titleEn: "Office Sign", year: "2023", description: "لافتات مكاتب واستقبال", descriptionEn: "Office & Reception Sign", image: "/assets/signage/portfolio/5~6.webp", tags: ["Office"], tagsEn: ["Office"] },
+      { id: 6, title: "لافتة جدارية", titleEn: "Wall Mural", year: "2024", description: "تصميم جداريات تجارية", descriptionEn: "Commercial Wall Murals", image: "/assets/signage/portfolio/6~4.webp", tags: ["Mural"], tagsEn: ["Mural"] },
+    ]
+  },
+  {
+    id: 9,
+    title: "الهدايا الدعائية",
+    imgDir: "gifts",
+    titleEn: "Promotional Gifts",
+    description: "نظراً لأهمية المواد الدعائية حيث أنها هدية يحتفظ بها العميل، تهتم الشركة باختيار أفضل الهدايا مثل: أقلام، ميداليات، بلوك نوت، كوستر، مجناتيك، مجات، تيشيرتات، كابات، ساعات حائط، نتائج مكتب، نتائج حائط.",
+    descriptionEn: "Due to the importance of promotional materials as gifts that customers keep, the company focuses on selecting the best gifts such as pens, medals, notebooks, coasters, magnets, t-shirts, caps, wall clocks, and more.",
+    cta: "اطلب الخدمة",
+    ctaEn: "Request Service",
+    bg: "#37474F",
+    bgExpanded: "linear-gradient(180deg, #37474F 0%, #1a2328 100%)",
+    accent: "#CFD8DC",
+    portfolio: [
+      { id: 1, title: "هدية مؤسسية", titleEn: "Corporate Gift", year: "2024", description: "هدايا شركات فاخرة", descriptionEn: "Luxury Corporate Gifts", image: "/assets/gifts/protfolio/1~6.webp", tags: ["Gifts"], tagsEn: ["Gifts"] },
+      { id: 2, title: "منتجات دعائية", titleEn: "Promo Products", year: "2024", description: "مطبوعات دعائية للهدايا", descriptionEn: "Custom Promo Products", image: "/assets/gifts/protfolio/2~6.webp", tags: ["Promo"], tagsEn: ["Promo"] },
+      { id: 3, title: "طقم هدايا", titleEn: "Gift Set", year: "2024", description: "طقم هدايا متكامل", descriptionEn: "Full Gift Set", image: "/assets/gifts/protfolio/3~3.webp", tags: ["Set"], tagsEn: ["Set"] },
+      { id: 4, title: "هدايا ترويجية", titleEn: "Giveaways", year: "2023", description: "توزيعات وهدايا بسيطة", descriptionEn: "Promotional Giveaways", image: "/assets/gifts/protfolio/4~2.webp", tags: ["Giveaway"], tagsEn: ["Giveaway"] },
+    ]
+  },
+  {
+    id: 10,
+    title: "خدمات المعارض والمؤتمرات",
+    imgDir: "exhibitions",
+    titleEn: "Exhibition Services",
+    description: "نقدم دورة حياة كاملة في تنظيم وإدارة المعارض وتشمل: إدارة أدوات المعارض بأفضل صورة، وبأفكار جديدة تناسب الحدث. الاختيار بين الكثير من المواقع المختلفة التي تناسب الحدث. وضع خطط تسويقية مدروسة للمعارض. توفير كافة المستلزمات والاحتياجات اللازمة.",
+    descriptionEn: "We provide a complete lifecycle for organizing and managing exhibitions, including: managing exhibition tools in the best way with new ideas suitable for the event, choosing from many different sites suitable for the event, and creating well-planned marketing strategies for exhibitions.",
+    cta: "اطلب الخدمة",
+    ctaEn: "Request Service",
+    bg: "#00695C",
+    bgExpanded: "linear-gradient(180deg, #00695C 0%, #003d34 100%)",
+    accent: "#B2DFDB",
+    portfolio: (() => {
+      const images = [
+        "1 (1).webp",
+        "2 (1).webp", "2 (2).webp", "2 (3).webp", "2 (4).webp", "2 (5).webp", "2 (6).webp", "2 (7).webp",
+        "7 (1).webp", "7 (2).webp", "7 (3).webp", "7 (4).webp", "7 (5).webp", "7 (6).webp", "7 (7).webp",
+        "9 (1).webp", "9 (2).webp", "9 (3).webp", "9 (4).webp", "9 (5).webp", "9 (6).webp", "9 (7).webp", "9 (8).webp", "9 (9).webp", "9 (10).webp", "9 (11).webp", "9 (12).webp", "9 (13).webp", "9 (14).webp", "9 (15).webp", "9 (16).webp"
+      ];
+      return images.map((img, i) => ({
+        id: i + 1,
+        title: `معرض ${i + 1}`,
+        titleEn: `Exhibition ${i + 1}`,
+        year: "2024",
+        description: "معرض معارف",
+        descriptionEn: "Exhibition",
+        image: `/assets/exhibitions/portfolio/${img}`,
+        tags: ["Exhibition"],
+        tagsEn: ["Exhibition"]
+      }));
+    })()
+  },
+  {
+    id: 11,
+    title: "الفيديوهات المتحركة",
+    imgDir: "video-production",
+    titleEn: "Motion Graphics",
+    description: "أصبح بالإمكان شرح الأفكار وترويج المنتجات عن طريق المزج بين النص والرسم والحركة والصوت باستخدام الموشن غرافيك. تقدم أفتار هذه الخدمة بطريقة فعالة ومميزة بإشراف مصممين محترفين.",
+    descriptionEn: "It is now possible to explain ideas and promote products by mixing text, drawing, motion, and sound using motion graphics. Avatar provides this service effectively and distinctively under the supervision of professional designers.",
+    cta: "اطلب الخدمة",
+    ctaEn: "Request Service",
+    bg: "#6A1B9A",
+    bgExpanded: "linear-gradient(180deg, #6A1B9A 0%, #40105c 100%)",
+    accent: "#E1BEE7",
+    portfolio: [
+      { id: 1, title: "إعلان تجاري", titleEn: "Commercial TVC", year: "2024", description: "إنتاج إعلان تلفزيوني", descriptionEn: "TVC Production", image: "/assets/video-production/protfolio/1~18.webp", tags: ["TVC"], tagsEn: ["TVC"] },
+      { id: 2, title: "فيديو تعريفي", titleEn: "Intro Video", year: "2024", description: "فيديو تعريفي للشركات", descriptionEn: "Corporate Intro Video", image: "/assets/video-production/protfolio/2~17.webp", tags: ["Intro"], tagsEn: ["Intro"] },
+      { id: 3, title: "موشن جرافيك", titleEn: "Motion Graphics", year: "2024", description: "تصميم موشن جرافيك", descriptionEn: "Motion Graphics Design", image: "/assets/video-production/protfolio/3~10.webp", tags: ["Motion"], tagsEn: ["Motion"] },
+    ]
+  },
+  {
+    id: 12,
+    title: "استشارات التسويق",
+    imgDir: "consulting",
+    titleEn: "Marketing Consulting",
+    description: "خدمات استشارات التسويق هي خدمات تعمل على مساعدة الشركات والأفراد على تحقيق أهدافهم التسويقية وتطوير استراتيجياتهم التسويقية بشكل أكثر فاعلية. يمكن لخدمات استشارات التسويق أن تشمل تحليل السوق والمنافسة، تحديد الجمهور المستهدف، تطوير خطط التسويق الشاملة، تحسين العلاقة مع العملاء، تنفيذ حملات إعلانية ناجحة، وقياس النتائج وتحسينها. يمكن أن تساعد خدمات استشارات التسويق الشركات على زيادة المبيعات، تعزيز العلامة التجارية، تحسين تجربة العملاء، توسيع نطاق العمل، وتحسين الإنتاجية.",
+    descriptionEn: "Marketing consulting services help companies and individuals achieve their marketing goals and develop more effective marketing strategies. This can include market and competitor analysis, target audience identification, developing comprehensive marketing plans, improving customer relationships, implementing successful advertising campaigns, and measuring and improving results.",
+    cta: "اطلب الخدمة",
+    ctaEn: "Request Service",
+    bg: "#0A1D37",
+    bgExpanded: "linear-gradient(180deg, #0A1D37 0%, #050e1b 100%)",
+    accent: "#D4AF37",
+    portfolio: [
+      { id: 1, title: "خطة تسويقية", titleEn: "Marketing Plan", year: "2024", description: "إعداد استراتيجيات التسويق", descriptionEn: "Marketing Strategy Prep", image: "/assets/consulting/portfolio/1~3.webp", tags: ["Strategy"], tagsEn: ["Strategy"] },
+      { id: 2, title: "دراسة جدوى", titleEn: "Feasibility Study", year: "2024", description: "دراسات الجدوى الاقتصادية", descriptionEn: "Economic Feasibility Study", image: "/assets/consulting/portfolio/2~3.webp", tags: ["Study"], tagsEn: ["Study"] },
+      { id: 3, title: "تحليل منافسين", titleEn: "Competitor Analysis", year: "2024", description: "تحليل السوق والمنافسين", descriptionEn: "Market Competitor Analysis", image: "/assets/consulting/portfolio/3~2.webp", tags: ["Analysis"], tagsEn: ["Analysis"] },
+    ]
+  },
+  {
+    id: 13,
+    title: "تصميم الستاندات",
+    imgDir: "stands",
+    titleEn: "Stand Design",
+    description: "في أفتار، نقدم خدمة تصميم ستاندات مبتكرة ومخصصة تعكس هوية علامتك التجارية وتُبرزها في المعارض والفعاليات. نركز على التفاصيل، ونمزج بين الإبداع والوظيفية لنضمن لك تصميماً جذاباً، عملياً، ويحقق أهدافك التسويقية. يشمل: تصميم ثلاثي الأبعاد واقعي، استغلال ذكي للمساحة، موافقة على شروط المعارض السعودية، وقابل للتنفيذ بدقة تامة.",
+    descriptionEn: "At Avatar, we provide innovative and customized stand design services that reflect your brand identity and highlight it at exhibitions and events. We focus on details and combine creativity and functionality to ensure an attractive, practical design that achieves your marketing goals.",
+    cta: "اطلب الخدمة",
+    ctaEn: "Request Service",
+    bg: "#7B1FA2",
+    bgExpanded: "linear-gradient(180deg, #7B1FA2 0%, #4a0072 100%)",
+    accent: "#E1BEE7",
+    portfolio: [
+      { id: 1, title: "ستاند 1", titleEn: "Stand 1", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/1~16.webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 2, title: "ستاند 2", titleEn: "Stand 2", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/1%20(2).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 3, title: "ستاند 3", titleEn: "Stand 3", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/1%20(3).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 4, title: "ستاند 4", titleEn: "Stand 4", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/1%20(4).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 5, title: "ستاند 5", titleEn: "Stand 5", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/1%20(5).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 6, title: "ستاند 6", titleEn: "Stand 6", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/1%20(6).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 7, title: "ستاند 7", titleEn: "Stand 7", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/1%20(7).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 8, title: "ستاند 8", titleEn: "Stand 8", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/3%20(1).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 9, title: "ستاند 9", titleEn: "Stand 9", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/3%20(2).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 10, title: "ستاند 10", titleEn: "Stand 10", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/3%20(3).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 11, title: "ستاند 11", titleEn: "Stand 11", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/3%20(4).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 12, title: "ستاند 12", titleEn: "Stand 12", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/3%20(5).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 13, title: "ستاند 13", titleEn: "Stand 13", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/3%20(6).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 14, title: "ستاند 14", titleEn: "Stand 14", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/3%20(7).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 15, title: "ستاند 15", titleEn: "Stand 15", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/3%20(8).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 16, title: "ستاند 16", titleEn: "Stand 16", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/4%20(1).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 17, title: "ستاند 17", titleEn: "Stand 17", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/4%20(2).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 18, title: "ستاند 18", titleEn: "Stand 18", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/4%20(3).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 19, title: "ستاند 19", titleEn: "Stand 19", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/4%20(4).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 20, title: "ستاند 20", titleEn: "Stand 20", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/4%20(5).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 21, title: "ستاند 21", titleEn: "Stand 21", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/5%20(1).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 22, title: "ستاند 22", titleEn: "Stand 22", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/5%20(2).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 23, title: "ستاند 23", titleEn: "Stand 23", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/5%20(3).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 24, title: "ستاند 24", titleEn: "Stand 24", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/5%20(4).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 25, title: "ستاند 25", titleEn: "Stand 25", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/5%20(5).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 26, title: "ستاند 26", titleEn: "Stand 26", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/6%20(1).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 27, title: "ستاند 27", titleEn: "Stand 27", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/6%20(2).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 28, title: "ستاند 28", titleEn: "Stand 28", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/6%20(3).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 29, title: "ستاند 29", titleEn: "Stand 29", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/6%20(4).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 30, title: "ستاند 30", titleEn: "Stand 30", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/6%20(5).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 31, title: "ستاند 31", titleEn: "Stand 31", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/6%20(6).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 32, title: "ستاند 32", titleEn: "Stand 32", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/6%20(7).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 33, title: "ستاند 33", titleEn: "Stand 33", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/6%20(8).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+      { id: 34, title: "ستاند 34", titleEn: "Stand 34", year: "2024", description: "تصميم ستاند", descriptionEn: "Stand Design", image: `/assets/stands/6%20(9).webp`, tags: ["Stand"], tagsEn: ["Stand"] },
+    ]
+  },
+];
+
+interface StretchRipple {
+  id: number;
+  panelIndex: number;
+  side: "left" | "right";
+  yPercent: number;
+  color: string;
+}
+
+let rippleCounter = 0;
+
+export function ServicesSection() {
+  const { language, t } = useLanguage();
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [expandedService, setExpandedService] = useState<number | null>(null);
+  const [ripples, setRipples] = useState<StretchRipple[]>([]);
+  const [startIndex, setStartIndex] = useState(0);
+  const itemsPerPage = 4;
+  const maxIndex = Math.max(0, services.length - itemsPerPage);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  const nextSlide = useCallback(() => {
+    setStartIndex((prev) => Math.min(prev + 1, maxIndex));
+  }, [maxIndex]);
+
+  const prevSlide = useCallback(() => {
+    setStartIndex((prev) => Math.max(prev - 1, 0));
+  }, []);
+
+  const handleMouseEnter = useCallback((index: number) => {
+    if (expandedService === null) {
+      setActiveIndex(index);
+    }
+  }, [expandedService]);
+
+  const handleMouseLeave = useCallback(
+    (index: number, e: React.MouseEvent<HTMLDivElement>) => {
+      if (expandedService !== null) return;
+
+      const rect = e.currentTarget.getBoundingClientRect();
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+
+      const distLeft = Math.abs(mouseX - rect.left);
+      const distRight = Math.abs(mouseX - rect.right);
+      const exitedLeft = distLeft < distRight;
+      const side: "left" | "right" = exitedLeft ? "left" : "right";
+      const yPercent = ((mouseY - rect.top) / rect.height) * 100;
+      const neighborIndex = exitedLeft ? index - 1 : index + 1;
+
+      if (neighborIndex >= 0 && neighborIndex < services.length) {
+        const newRipple: StretchRipple = {
+          id: rippleCounter++,
+          panelIndex: neighborIndex,
+          side: exitedLeft ? "right" : "left",
+          yPercent: Math.max(5, Math.min(95, yPercent)),
+          color: services[index].bg,
+        };
+
+        setRipples((prev) => [...prev, newRipple]);
+        setTimeout(() => {
+          setRipples((prev) => prev.filter((r) => r.id !== newRipple.id));
+        }, 800);
+      }
+    },
+    [expandedService]
+  );
+
+  const handleSectionLeave = useCallback(() => {
+    if (expandedService === null) {
+      setActiveIndex(null);
+    }
+  }, [expandedService]);
+
+  const handleServiceClick = useCallback((index: number) => {
+    if (expandedService === null) {
+      setExpandedService(index);
+      setActiveIndex(index);
+    } else if (expandedService !== index) {
+      setExpandedService(index);
+      setActiveIndex(index);
+    }
+  }, [expandedService]);
+
+  const handleCloseExpanded = useCallback(() => {
+    setExpandedService(null);
+    setActiveIndex(null);
+  }, []);
+
+  const handleNextService = useCallback(() => {
+    if (expandedService !== null) {
+      const nextIndex = (expandedService + 1) % services.length;
+      setExpandedService(nextIndex);
+      setActiveIndex(nextIndex);
+    }
+  }, [expandedService]);
+
+  const handlePrevService = useCallback(() => {
+    if (expandedService !== null) {
+      const prevIndex = (expandedService - 1 + services.length) % services.length;
+      setExpandedService(prevIndex);
+      setActiveIndex(prevIndex);
+    }
+  }, [expandedService]);
+
+  return (
+    <section
+      id="services"
+      className="relative w-full h-screen overflow-hidden bg-[#050505]"
+      style={{ direction: "ltr" }}
+    >
+      {/* Navigation Arrows - Work for both normal and expanded modes */}
+      <AnimatePresence>
+        {expandedService !== null ? (
+          <>
+            <motion.button
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              className="absolute left-6 top-1/2 -translate-y-1/2 z-[50] w-14 h-14 rounded-full flex items-center justify-center border border-white/10 bg-black/20 backdrop-blur-md text-white hover:bg-white/10 transition-colors"
+              onClick={handlePrevService}
+            >
+              <ChevronLeft className="w-8 h-8" />
+            </motion.button>
+            <motion.button
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+              className="absolute right-6 top-1/2 -translate-y-1/2 z-[50] w-14 h-14 rounded-full flex items-center justify-center border border-white/10 bg-black/20 backdrop-blur-md text-white hover:bg-white/10 transition-colors"
+              onClick={handleNextService}
+            >
+              <ChevronRight className="w-8 h-8" />
+            </motion.button>
+          </>
+        ) : (
+          <>
+            {startIndex > 0 && (
+              <motion.button
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                className="absolute left-6 top-1/2 -translate-y-1/2 z-[40] w-14 h-14 rounded-full flex items-center justify-center border border-white/10 bg-black/20 backdrop-blur-md text-white hover:bg-white/10 transition-colors"
+                onClick={prevSlide}
+              >
+                <ChevronLeft className="w-8 h-8" />
+              </motion.button>
+            )}
+            {startIndex < maxIndex && (
+              <motion.button
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                className="absolute right-6 top-1/2 -translate-y-1/2 z-[40] w-14 h-14 rounded-full flex items-center justify-center border border-white/10 bg-black/20 backdrop-blur-md text-white hover:bg-white/10 transition-colors"
+                onClick={nextSlide}
+              >
+                <ChevronRight className="w-8 h-8" />
+              </motion.button>
+            )}
+          </>
+        )}
+      </AnimatePresence>
+
+      <motion.div
+        ref={sectionRef}
+        className="flex h-full"
+        animate={{ x: expandedService !== null ? "0vw" : `-${startIndex * 25}vw` }}
+        transition={{ type: "spring", stiffness: 120, damping: 20 }}
+        style={{ width: expandedService !== null ? "100vw" : `${services.length * 25}vw` }}
+        onMouseLeave={handleSectionLeave}
+      >
+        {services.map((service, index) => {
+          const isActive = activeIndex === index;
+          const hasActive = activeIndex !== null;
+          const isGold = service.bg === "#D4AF37";
+          const textColor = isGold && isActive ? "#0A1D37" : "#FFFFFF";
+          const panelRipples = ripples.filter((r) => r.panelIndex === index);
+
+          return (
+            <PanelWithGlow
+              key={service.id}
+              service={service}
+              index={index}
+              isActive={isActive}
+              isExpanded={expandedService === index}
+              hasActive={hasActive}
+              panelRipples={panelRipples}
+              textColor={textColor}
+              totalServices={services.length}
+              onMouseEnter={() => handleMouseEnter(index)}
+              onMouseLeave={(e) => handleMouseLeave(index, e)}
+              onClick={() => handleServiceClick(index)}
+              onCloseExpanded={handleCloseExpanded}
+              onNextService={handleNextService}
+              onPrevService={handlePrevService}
+              startIndex={startIndex}
+              expandedService={expandedService}
+              language={language}
+            />
+          );
+        })}
+      </motion.div>
+    </section>
+  );
+}
+
+interface PanelWithGlowProps {
+  service: (typeof services)[number];
+  index: number;
+  isActive: boolean;
+  isExpanded: boolean;
+  hasActive: boolean;
+  panelRipples: StretchRipple[];
+  textColor: string;
+  totalServices: number;
+  onMouseEnter: () => void;
+  onMouseLeave: (e: React.MouseEvent<HTMLDivElement>) => void;
+  onClick: () => void;
+  onCloseExpanded: () => void;
+  onNextService: () => void;
+  onPrevService: () => void;
+  startIndex: number;
+  expandedService: number | null;
+  language: string;
+}
+
+function PanelWithGlow({
+  service, index, isActive, isExpanded, hasActive, panelRipples, textColor, totalServices,
+  onMouseEnter, onMouseLeave, onClick, onCloseExpanded, onNextService, onPrevService, startIndex, expandedService, language,
+}: PanelWithGlowProps) {
+  const panelRef = useRef<HTMLDivElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const glowX = useSpring(mouseX, { stiffness: 200, damping: 30, mass: 0.5 });
+  const glowY = useSpring(mouseY, { stiffness: 200, damping: 30, mass: 0.5 });
+  const [isHovering, setIsHovering] = useState(false);
+
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      const rect = panelRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      mouseX.set(e.clientX - rect.left);
+      mouseY.set(e.clientY - rect.top);
+    },
+    [mouseX, mouseY]
+  );
+
+  const handleEnter = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      const rect = panelRef.current?.getBoundingClientRect();
+      if (rect) {
+        mouseX.set(e.clientX - rect.left);
+        mouseY.set(e.clientY - rect.top);
+      }
+      setIsHovering(true);
+      onMouseEnter();
+    },
+    [mouseX, mouseY, onMouseEnter]
+  );
+
+  const handleLeave = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      setIsHovering(false);
+      onMouseLeave(e);
+    },
+    [onMouseLeave]
+  );
+
+  const glowBackground = useTransform(
+    [glowX, glowY],
+    ([x, y]: number[]) => `radial-gradient(circle 150px at ${x}px ${y}px, ${service.accent}20 0%, transparent 60%)`
+  );
+
+  return (
+    <motion.div
+      ref={panelRef}
+      className="relative h-full cursor-pointer overflow-hidden shrink-0"
+      style={{
+        background: isActive ? service.bgExpanded : service.bg,
+      }}
+      animate={{
+        width: isExpanded
+          ? "100vw"
+          : expandedService !== null
+            ? "0vw"
+            : hasActive && index >= startIndex && index < startIndex + 4
+              ? (isActive ? "40vw" : "20vw")
+              : "25vw",
+        minWidth: isExpanded
+          ? "100vw"
+          : expandedService !== null
+            ? "0vw"
+            : hasActive && index >= startIndex && index < startIndex + 4
+              ? (isActive ? "40vw" : "20vw")
+              : "25vw"
+      }}
+      transition={{
+        duration: 1.2,
+        ease: [0.22, 1, 0.36, 1], // Liquid-like ease-out
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
+      onClick={onClick}
+    >
+      {/* Liquid Cursor Blob */}
+      <motion.div
+        className="absolute pointer-events-none z-[2] blur-[15px]"
+        style={{
+          left: 0,
+          top: 0,
+          x: glowX,
+          y: glowY,
+          translateX: "-50%",
+          translateY: "-50%",
+          width: "80px",
+          height: "80px",
+          background: `radial-gradient(circle, ${service.accent}60 0%, transparent 70%)`,
+          opacity: isHovering ? 0.6 : 0,
+        }}
+        animate={{
+          scale: isHovering ? [1, 1.15, 1] : 0,
+        }}
+        transition={{
+          scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+        }}
+      />
+      {/* Zoom Lines Effect */}
+      <motion.div
+        className="absolute w-[600px] h-[600px] pointer-events-none z-[1]"
+        style={{
+          left: 0, top: 0, x: glowX, y: glowY, translateX: "-50%", translateY: "-50%",
+          opacity: isHovering ? 1 : 0,
+        }}
+        transition={{ duration: 0.3 }}
+      >
+        <ZoomLines color={service.accent} />
+      </motion.div>
+
+      {/* Background Glow */}
+      <motion.div className="absolute inset-0 pointer-events-none z-[1]" style={{ background: glowBackground }} />
+
+      {/* Divider Line */}
+      <div className="absolute top-0 left-0 w-px h-full z-[2]" style={{ background: "rgba(255,255,255,0.08)" }} />
+
+      {/* Ripple Effects */}
+      {panelRipples.map((ripple) => (
+        <FabricStretch key={ripple.id} side={ripple.side} yPercent={ripple.yPercent} color={ripple.color} />
+      ))}
+
+      {/* Collapsed State - Always visible when not expanded */}
+      <AnimatePresence>
+        {!isExpanded && (
+          <motion.div
+            className="absolute inset-0 flex flex-col items-center justify-center gap-6 z-[3]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, delay: isActive ? 0 : 0.3 }}
+          >
+            <motion.div
+              className="flex items-center justify-center relative w-[85%] aspect-square mx-auto"
+              animate={{
+                scale: hasActive ? 0.6 : 1.1,
+                rotate: isHovering ? 0 : 0
+              }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <AnimatePresence initial={false} mode="wait">
+                <div className="absolute inset-0 w-full h-full">
+                  <Image
+                    key={isHovering ? 'hover' : 'idle'}
+                    src={`/assets/${service.imgDir}/${isHovering ? (serviceIcons[service.imgDir]?.hover || '2~1.webp') : (serviceIcons[service.imgDir]?.idle || '1~1.webp')}`}
+                    alt={language === 'ar' ? service.title : service.titleEn}
+                    fill
+                    className="object-contain drop-shadow-2xl"
+                    sizes="20vw"
+                  />
+                </div>
+              </AnimatePresence>
+            </motion.div>
+
+            <div
+              className="absolute top-14 left-1/2 -translate-x-1/2"
+            >
+              <span className="text-sm md:text-base font-bold tracking-wider whitespace-nowrap" style={{ color: "rgba(255,255,255,0.9)" }}>
+                {language === 'ar' ? service.title : service.titleEn}
+              </span>
+            </div>
+
+            <div className="absolute top-6 left-1/2 -translate-x-1/2">
+              <span
+                className="text-xs font-mono tracking-widest"
+                style={{ color: "rgba(255,255,255,0.35)", fontFamily: "var(--font-geist-mono)" }}
+              >
+                {String(service.id).padStart(2, "0")}
+              </span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Expanded State - Portfolio Showcase */}
+      <AnimatePresence>
+        {
+          isExpanded && (
+            <motion.div
+              className="absolute inset-0 overflow-y-auto z-[3]"
+              style={{ direction: language === 'ar' ? 'rtl' : 'ltr' }}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 50 }}
+              transition={{ duration: 0.5 }}
+            >
+              {/* Header - Centered Title */}
+              <motion.div
+                className="sticky top-0 z-10 px-4 md:px-8 py-6 flex items-center justify-center w-full"
+                style={{ background: `linear-gradient(to bottom, ${service.bgExpanded} 0%, transparent 100%)` }}
+              >
+                <div className="flex items-center gap-4">
+                  <motion.div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center relative overflow-hidden"
+                    style={{ background: `${service.accent}20`, border: `1px solid ${service.accent}40` }}
+                    initial={{ scale: 0, rotate: 0 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                  >
+                    <Image src={`/assets/${service.imgDir}/${serviceIcons[service.imgDir]?.idle || '1~1.webp'}`} width={32} height={32} className="object-contain" alt="" />
+                  </motion.div>
+                  <motion.h3
+                    className="text-2xl md:text-3xl lg:text-4xl font-black"
+                    style={{ color: textColor }}
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                  >
+                    {language === 'ar' ? service.title : service.titleEn}
+                  </motion.h3>
+                </div>
+              </motion.div>
+
+              {/* Main Content - Two Columns */}
+              <div className="px-4 md:px-8 lg:px-12 py-8" style={{ direction: language === 'ar' ? 'rtl' : 'ltr' }}>
+                <div className={`flex flex-col lg:flex-row gap-8 lg:gap-16 items-start ${language === 'ar' ? '' : ''}`}>
+
+                  {/* Portfolio - Right in both languages */}
+                  <motion.div
+                    className={`w-full lg:w-1/2 ${language === 'ar' ? 'lg:order-2' : 'lg:order-2'}`}
+                    initial={{ x: -50, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.2, duration: 0.5 }}
+                  >
+                    <ServiceVerticalStack
+                      items={service.portfolio.map(p => ({
+                        id: p.id,
+                        src: p.image,
+                        alt: language === 'ar' ? p.title : p.titleEn,
+                        title: p.title,
+                        titleEn: p.titleEn,
+                      }))}
+                      accentColor={service.accent}
+                    />
+                  </motion.div>
+
+                  {/* Description - Left in both languages */}
+                  <motion.div
+                    className={`w-full lg:w-1/2 flex flex-col ${language === 'ar' ? 'lg:order-1' : 'lg:order-1'}`}
+                    initial={{ x: 50, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.3, duration: 0.5 }}
+                  >
+                    <div className="sticky top-28">
+                      <motion.span
+                        className="inline-block text-sm font-mono tracking-[0.3em] mb-4"
+                        style={{ color: `${textColor}60`, fontFamily: "var(--font-geist-mono)" }}
+                      >
+                        {String(service.id).padStart(2, "0")} — {String(totalServices).padStart(2, "0")}
+                      </motion.span>
+
+                      <motion.h2
+                        className="text-3xl md:text-4xl lg:text-5xl font-black leading-tight mb-4"
+                        style={{ color: textColor }}
+                      >
+                        {language === 'ar' ? service.title : service.titleEn}
+                      </motion.h2>
+
+                      <motion.p
+                        className="text-lg md:text-xl font-medium mb-6 opacity-40 uppercase tracking-widest"
+                        style={{ color: textColor }}
+                      >
+                        {language === 'ar' ? service.titleEn : service.title}
+                      </motion.p>
+
+                      <motion.div
+                        className="h-1 w-24 mb-8"
+                        style={{ background: service.accent }}
+                      />
+
+                      <motion.div
+                        className={`space-y-4 ${language === 'ar' ? 'text-right' : 'text-left'}`}
+                        style={{ color: textColor }}
+                      >
+                        {language === 'ar'
+                          ? service.description.split('. ').filter(s => s.trim()).map((sentence, idx) => (
+                            <motion.p
+                              key={idx}
+                              className="text-base md:text-lg leading-relaxed opacity-80"
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.4 + idx * 0.1 }}
+                            >
+                              {sentence.trim()}{sentence.trim().endsWith('.') ? '' : '.'}
+                            </motion.p>
+                          ))
+                          : service.descriptionEn.split('. ').filter(s => s.trim()).map((sentence, idx) => (
+                            <motion.p
+                              key={idx}
+                              className="text-base md:text-lg leading-relaxed opacity-80"
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.4 + idx * 0.1 }}
+                            >
+                              {sentence.trim()}{sentence.trim().endsWith('.') ? '' : '.'}
+                            </motion.p>
+                          ))
+                        }
+                      </motion.div>
+
+                      {/* CTA Buttons */}
+                      <motion.div
+                        className={`flex flex-wrap gap-4 mt-10 ${language === 'ar' ? 'justify-end' : 'justify-start'}`}
+                        initial={{ y: 20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.6 }}
+                      >
+                        <motion.a
+                          href="#contact"
+                          className="flex items-center gap-3 px-8 py-3 rounded-xl font-bold text-base transition-all"
+                          style={{ background: service.accent, color: service.bg }}
+                          whileHover={{ scale: 1.05, y: -2, boxShadow: `0 10px 40px ${service.accent}40` }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          {language === 'ar' ? service.cta : service.ctaEn}
+                          <ExternalLink className="w-5 h-5" />
+                        </motion.a>
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                </div>
+              </div>
+            </motion.div>
+          )
+        }
+      </AnimatePresence >
+
+      {/* Bottom Gradient */}
+      {
+        !isActive && !isExpanded && (
+          <div
+            className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+            style={{ background: `linear-gradient(to top, ${service.bg} 0%, transparent 100%)` }}
+          />
+        )
+      }
+    </motion.div >
+  );
+}
+
+function FabricStretch({ side, yPercent, color }: { side: "left" | "right"; yPercent: number; color: string }) {
+  const bulge = useMotionValue(1);
+  const springBulge = useSpring(bulge, { stiffness: 300, damping: 15, mass: 0.8 });
+  const displacement = useTransform(springBulge, [0, 1], [0, 50]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => { bulge.set(0); }, 50);
+    return () => clearTimeout(timeout);
+  }, [bulge]);
+
+  const cy = yPercent;
+
+  return (
+    <motion.div
+      className="absolute top-0 h-full pointer-events-none z-[1]"
+      style={{ [side]: 0, width: "60px" }}
+      initial={{ opacity: 0.9 }}
+      animate={{ opacity: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
+      <svg viewBox="0 0 60 100" preserveAspectRatio="none" className="w-full h-full" style={{ overflow: "visible" }}>
+        <motion.path
+          fill={color}
+          style={{
+            d: useTransform(displacement, (d) => {
+              const top = Math.max(0, cy - 25);
+              const bot = Math.min(100, cy + 25);
+              if (side === "left") {
+                return `M0,0 L0,${top} Q${d},${cy} 0,${bot} L0,100 L0,0 Z`;
+              } else {
+                return `M60,0 L60,${top} Q${60 - d},${cy} 60,${bot} L60,100 L60,0 Z`;
+              }
+            }),
+          }}
+        />
+      </svg>
+    </motion.div>
+  );
+}
+
+function ZoomLines({ color }: { color: string }) {
+  const rays = useMemo(() => {
+    const pseudoRandom = (s: number) => {
+      const x = Math.sin(s) * 10000;
+      return x - Math.floor(x);
+    };
+
+    return Array.from({ length: 24 }).map((_, i) => ({
+      id: i, angle: (360 / 24) * i, width: 2 + pseudoRandom(i * 100) * 6,
+      length: 40 + pseudoRandom(i * 100 + 1) * 60, delay: pseudoRandom(i * 100 + 2) * 2,
+    }));
+  }, []);
+
+  return (
+    <div className="relative w-full h-full flex items-center justify-center">
+      <div className="absolute w-20 h-20 rounded-full blur-xl" style={{ background: color, opacity: 0.15 }} />
+      {rays.map((ray) => (
+        <motion.div
+          key={ray.id}
+          className="absolute top-1/2 left-1/2 origin-left"
+          style={{
+            height: `${ray.width}px`, width: "50%",
+            background: `linear-gradient(90deg, ${color}00 0%, ${color}40 20%, ${color}00 100%)`,
+            rotate: `${ray.angle}deg`, y: "-50%",
+          }}
+          animate={{ scaleX: [0.8, 1.2, 0.8], opacity: [0.3, 0.7, 0.3], width: ["40%", "60%", "40%"] }}
+          transition={{ duration: 2 + ray.delay, repeat: Infinity, ease: "easeInOut" }}
+        />
+      ))}
+    </div>
+  );
+}

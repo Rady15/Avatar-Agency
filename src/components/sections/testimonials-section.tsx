@@ -114,15 +114,15 @@ export function TestimonialsSection({ showBackground = true }: { showBackground?
   if (!isMounted) return null;
 
   return (
-    <section id="testimonials" ref={containerRef} className="relative min-h-[80vh] py-20 overflow-hidden z-10" style={{ direction: 'ltr' }}>
+    <section id="testimonials" ref={containerRef} className="relative min-h-[80vh] py-20 overflow-hidden z-10 w-full" style={{ direction: 'ltr' }}>
       {showBackground && (
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/5 to-transparent pointer-events-none z-0" />
       )}
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="w-full relative z-10 px-0">
         {/* Header */}
         <motion.div 
-          className="text-center mb-16"
+          className="text-center mb-16 w-full px-4"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

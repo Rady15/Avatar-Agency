@@ -107,7 +107,6 @@ const AstronautCharacter = () => {
               alt="Astronaut"
               width={380}
               height={500}
-              priority
               className="w-full h-auto drop-shadow-[0_0_40px_rgba(255,255,255,0.2)]"
               sizes="(max-width: 768px) 45vw, 380px"
             />
@@ -123,7 +122,6 @@ const AstronautCharacter = () => {
               alt="Astronaut"
               width={380}
               height={500}
-              priority
               className="w-full h-auto drop-shadow-[0_0_40px_rgba(255,255,255,0.2)]"
             />
           </motion.div>
@@ -135,18 +133,24 @@ const AstronautCharacter = () => {
 };
 
 export default function Home() {
-  const [enterSite, setEnterSite] = useState(false);
+  const [enterSite, setEnterSite] = useState(true);
   const { t } = useLanguage();
+
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoaded(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <>
-      {!enterSite && (
-        <CinematicIntro
-          onEnter={() => setEnterSite(true)}
-        />
+      {!isLoaded && (
+        <div className="fixed inset-0 z-[9999] bg-[#0A1D37] flex items-center justify-center">
+          <div className="w-16 h-16 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
+        </div>
       )}
-//rady
-      {enterSite && (
+      {isLoaded && (
         <>
           <SpaceBackground />
           <AstronautCharacter />

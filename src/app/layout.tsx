@@ -52,9 +52,7 @@ export const metadata: Metadata = {
     description: "Premium Creative Advertising Agency",
   },
 };
-
 import Image from "next/image";
-
 export default function RootLayout({
   children,
 }: Readonly<{

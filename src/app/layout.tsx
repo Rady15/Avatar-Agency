@@ -63,7 +63,7 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/cairo/v31/SlGWmQSNjdsma65JNK4VK4Kt3A.woff2" />
+        <link rel="icon" href="/logo.svg" type="image/svg+xml" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${cairo.variable} antialiased bg-background text-foreground`}

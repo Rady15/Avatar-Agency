@@ -707,9 +707,9 @@ function PanelWithGlow({
             transition={{ duration: 0.3, delay: isActive ? 0 : 0.3 }}
           >
             <motion.div
-              className="flex items-center justify-center relative w-[85%] aspect-square mx-auto"
+              className="flex items-center justify-center relative w-[95%] aspect-square mx-auto"
               animate={{
-                scale: hasActive ? 0.6 : 1.1,
+                scale: hasActive ? 0.7 : 1.15,
                 rotate: isHovering ? 0 : 0
               }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
